@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import './index.css'
+
 import App from "./components/app/app";
+
+import './index.css'
 
 const elRoot:HTMLElement = document.querySelector("#root") as HTMLElement;
 const root = ReactDOM.createRoot(elRoot);

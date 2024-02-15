@@ -31,14 +31,14 @@ export default function AppHeader() {
       </nav>
       <Logo />
       <div>
-          <div className="pt-4 pb-4 pr-5 pl-5">
-            <a href="#" className={stylesHeader.link}>
-              <ProfileIcon type="secondary" />
-              <span className="text text_type_main-default text_color_inactive">
-                Личный кабинет
-              </span>
-            </a>
-          </div>
+        <div className="pt-4 pb-4 pr-5 pl-5">
+          <a href="#" className={stylesHeader.link}>
+            <ProfileIcon type="secondary" />
+            <span className="text text_type_main-default text_color_inactive">
+              Личный кабинет
+            </span>
+          </a>
+        </div>
       </div>
     </header>
   );
