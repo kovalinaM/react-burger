@@ -1,0 +1,15 @@
+.constructor {}
+
+.list{}
+
+.total{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.value{
+    display: flex;
+    gap: 8px;
+}
