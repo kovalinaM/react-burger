@@ -7,18 +7,18 @@ import {
 import styles from "./burger-ingredient.module.css";
 
 export default function BurgerIngredient(props) {
+  const ingredient = props.ingredient;
   return (
     <article className={styles.card}>
-      {(props._v > 0) ? <Counter count={props._v} size="default" extraClass="m-1" /> : null}
-    
+      {(ingredient._v > 0) ? <Counter count={ingredient._v} size="default" extraClass="m-1" /> : null}    
       <div className="mb-1">
-        <img src={props.image} alt={props.name} />
+        <img src={ingredient.image} alt={ingredient.name} />
       </div>
       <div className={styles.price} >
-        <span className="text text_type_main-medium">{props.price}</span>
+        <span className="text text_type_main-medium">{ingredient.price}</span>
         <CurrencyIcon type="primary" />
       </div>
-      <div className="text text_type_main-default mt-1 pb-3">{props.name}</div>
+      <div className="text text_type_main-default mt-1 pb-3">{ingredient.name}</div>
     </article>
   );
 }

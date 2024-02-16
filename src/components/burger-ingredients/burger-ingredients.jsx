@@ -7,7 +7,7 @@ import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 import styles from "./burger-ingredients.module.css";
 
 export default function BurgerIngredients(props) {
-  const [current, setCurrent] = React.useState("buns");
+  const [current, setCurrent] = React.useState("");
   const ingredients = props.data;
 
   const listBun = ingredients.filter((item) => item.type === "bun");
