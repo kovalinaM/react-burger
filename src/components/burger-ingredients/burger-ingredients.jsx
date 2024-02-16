@@ -28,8 +28,9 @@ export default function BurgerIngredients(props) {
           Начинки
         </Tab>
       </div>
+      
       <div className={styles.scrollarea}>
-        <div className="mt-10">
+      {current === "buns" || current === '' ?  <div className="mt-10">
           <h2 className="text text_type_main-medium">Булки</h2>
           <ul className={styles.list}>
             {listBun.map((ingredient, index) => (
@@ -38,7 +39,8 @@ export default function BurgerIngredients(props) {
               </li>
             ))}
           </ul>
-        </div>
+        </div> : null}
+        {current === "sauces" || current === '' ? 
         <div className="mt-10">
           <h2 className="text text_type_main-medium">Соусы</h2>
           <ul className={styles.list}>
@@ -48,7 +50,8 @@ export default function BurgerIngredients(props) {
               </li>
             ))}
           </ul>
-        </div>
+        </div> : null}
+        {current === "main" || current === '' ? 
         <div className="mt-10">
           <h2 className="text text_type_main-medium">Начинки</h2>
           <ul className={styles.list}>
@@ -58,7 +61,7 @@ export default function BurgerIngredients(props) {
               </li>
             ))}
           </ul>
-        </div>
+        </div> : null}
       </div>
     </section>
   );
@@ -67,7 +70,7 @@ export default function BurgerIngredients(props) {
 BurgerIngredient.propTypes = {
   ingredient: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       type: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
       proteins: PropTypes.number,
