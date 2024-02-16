@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   Counter,
   CurrencyIcon,
@@ -21,4 +22,13 @@ export default function BurgerIngredient(props) {
       <div className="text text_type_main-default mt-1 pb-3">{ingredient.name}</div>
     </article>
   );
+}
+
+BurgerIngredient.propTypes = {
+  ingredient: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    _v: PropTypes.number.isRequired,
+  })
 }
