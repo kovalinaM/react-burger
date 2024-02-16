@@ -74,12 +74,6 @@ body {
   margin: 0 auto
 }
 
-@media(min-width: 720px) {
-  body{
-    overflow-y: hidden;
-  }
-}
-
 main {
   display: flex;
   justify-content: space-between;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
@@ -17,7 +17,6 @@ export default function BurgerIngredients(props)  {
     const tabElement = document.getElementById(tab);
     tabElement.scrollIntoView({ behavior: "smooth" });
   };
-
 
   const handleScroll = (e) => {
     const container = e.target;
@@ -43,13 +42,16 @@ export default function BurgerIngredients(props)  {
     <section className="pt-10">
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <div style={{ display: "flex" }} className="mt-5">
-        <Tab value="buns" active={current === "buns"} onClick={() => handleTabClick("buns")}>
+        <Tab 
+        value="buns" 
+        active={current === "buns"} 
+        onClick={handleTabClick}>
           Булки
         </Tab>
-        <Tab value="sauces" active={current === "sauces"} onClick={() => handleTabClick("sauces")}>
+        <Tab value="sauces" active={current === "sauces"} onClick={handleTabClick}>
           Соусы
         </Tab>
-        <Tab value="main" active={current === "main"} onClick={() => handleTabClick("main")}>
+        <Tab value="main" active={current === "main"} onClick={handleTabClick}>
           Начинки
         </Tab>
       </div>
