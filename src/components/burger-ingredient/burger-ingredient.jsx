@@ -6,7 +6,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./burger-ingredient.module.css";
-
 export default function BurgerIngredient(props) {
   const ingredient = props.ingredient;
   return (
@@ -19,7 +18,7 @@ export default function BurgerIngredient(props) {
         <span className="text text_type_main-medium">{ingredient.price}</span>
         <CurrencyIcon type="primary" />
       </div>
-      <div className="text text_type_main-default mt-1 pb-3">{ingredient.name}</div>
+      <div className={`${styles.name} text text_type_main-default mt-1 pb-3`}>{ingredient.name}</div>
     </article>
   );
 }
