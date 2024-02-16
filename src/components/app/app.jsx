@@ -16,7 +16,6 @@ export default function App() {
         <main>
             <BurgerIngredients data={data}/>
             <BurgerConstructor/>
-            {console.log(data)}
         </main>
       </div>
     </React.Fragment>
