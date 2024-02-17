@@ -10,7 +10,7 @@ export default function BurgerIngredient(props) {
   const ingredient = props.ingredient;
   return (
     <article className={styles.card}>
-      {(ingredient._v > 0) ? <Counter count={ingredient._v} size="default" extraClass="m-1" /> : null}    
+      {(ingredient.__v > 0) && <Counter count={ingredient.__v} size="default" extraClass="m-1" /> } 
       <div className="mb-1">
         <img src={ingredient.image} alt={ingredient.name} />
       </div>
