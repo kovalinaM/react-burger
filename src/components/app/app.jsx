@@ -8,14 +8,15 @@ import data from '../../utils/data';
 import stylesApp from "./app.module.css";
 
 export default function App() {
+  const handleIngredients = data.filter(item => item.__v > 0)
 
   return (
     <React.Fragment>
       <div className={stylesApp.container}>
         <AppHeader />
-        <main>
+        <main className={stylesApp.sections}>
             <BurgerIngredients ingredients={data}/>
-            <BurgerConstructor/>
+            <BurgerConstructor ingredients={handleIngredients}/>
         </main>
       </div>
     </React.Fragment>
