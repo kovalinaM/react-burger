@@ -39,7 +39,7 @@ export default function BurgerIngredients(props)  {
   };
 
   return (
-    <section className={`${styles.tabs_section} pt-10 pb-10`}>
+    <section className="pt-10 pb-10">
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <div style={{ display: "flex" }} className="mt-5">
         <Tab 
@@ -58,7 +58,7 @@ export default function BurgerIngredients(props)  {
       <div onScroll={handleScroll} className={`${styles.scrollarea} custom-scroll`}>
         <div id="buns" className="mt-10">
           <h2 className="text text_type_main-medium">Булки</h2>
-          <ul className={styles.list}>
+          <ul className={`${styles.list} mt-6`}>
             {listBun.map((ingredient, index) => (
               <li key={index}>
                 <BurgerIngredient ingredient={ingredient} />
@@ -94,7 +94,7 @@ export default function BurgerIngredients(props)  {
 BurgerIngredients.propTypes = {
   ingredients: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
+      _id: PropTypes.string,
       name: PropTypes.string.isRequired,
       type: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
       proteins: PropTypes.number,

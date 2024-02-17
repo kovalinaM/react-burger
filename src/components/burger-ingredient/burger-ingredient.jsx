@@ -25,9 +25,17 @@ export default function BurgerIngredient(props) {
 
 BurgerIngredient.propTypes = {
   ingredient: PropTypes.shape({
+    _id: PropTypes.string,
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    type: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
+    proteins: PropTypes.number,
+    fat: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    calories: PropTypes.number,
+    price: PropTypes.number,
     image: PropTypes.string.isRequired,
-    __v: PropTypes.number.isRequired,
+    image_mobile: PropTypes.string,
+    image_large: PropTypes.string,
+    __v: PropTypes.number,
   })
 }
