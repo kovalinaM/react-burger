@@ -28,6 +28,6 @@ BurgerIngredient.propTypes = {
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
-    _v: PropTypes.number.isRequired,
+    __v: PropTypes.number.isRequired,
   })
 }

@@ -14,7 +14,7 @@ export default function App() {
       <div className={stylesApp.container}>
         <AppHeader />
         <main>
-            <BurgerIngredients data={data}/>
+            <BurgerIngredients ingredients={data}/>
             <BurgerConstructor/>
         </main>
       </div>

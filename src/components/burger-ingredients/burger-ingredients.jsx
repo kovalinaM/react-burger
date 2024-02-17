@@ -6,7 +6,7 @@ import styles from "./burger-ingredients.module.css";
 
 export default function BurgerIngredients(props)  {
   const [current, setCurrent] = useState("buns");
-  const ingredients = props.data;
+  const ingredients = props.ingredients;
 
   const listBun = ingredients.filter((item) => item.type === "bun");
   const listFillings = ingredients.filter((item) => item.type === "main");
@@ -91,8 +91,9 @@ export default function BurgerIngredients(props)  {
   );
 };
 
-BurgerIngredient.propTypes = {
-  ingredient: PropTypes.shape({
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.arrayOf(
+    PropTypes.shape({
       id: PropTypes.string,
       name: PropTypes.string.isRequired,
       type: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
@@ -105,5 +106,6 @@ BurgerIngredient.propTypes = {
       image_mobile: PropTypes.string,
       image_large: PropTypes.string,
       __v: PropTypes.number,
-    }).isRequired,
+    }).isRequired
+  ).isRequired,
 };
