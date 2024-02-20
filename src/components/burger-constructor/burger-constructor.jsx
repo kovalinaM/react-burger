@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
   ConstructorElement,
@@ -7,13 +7,16 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import Modal from '../modal/modal'
+
 import styles from "./burger-constructor.module.css";
 
 export default function BurgerConstructor(props) {
+  const [visible, setVisible] = useState(false);
   const handleIngredients = props.ingredients;
   const bun = handleIngredients[0];
   const fillings = handleIngredients.slice(1, handleIngredients.length);
-  console.log('1',fillings)
+
   const orderSum = (bun, fillings) => {
     let sum = bun ? bun.price : 0;
     fillings &&
@@ -22,6 +25,15 @@ export default function BurgerConstructor(props) {
       });
     return sum;
   };
+
+  function handleOpenModal() {
+    setVisible(true);
+  }
+
+  function handleCloseModal() {
+    setVisible(false);
+  }
+
 
   return (
     <section className={`${styles.constructor} mt-25 mb-10`}>
@@ -37,18 +49,18 @@ export default function BurgerConstructor(props) {
         </div>
         <div>
           <ul className={`${styles.list} custom-scroll`}>
-          {fillings.flatMap((item) => {
-            return Array.from({ length: item.__v }, (_, index) => (
-              <li className={styles.item} key={`${item._id}-${index}`}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image_mobile}
-                />
-              </li>
-            ));
-          })}
+            {fillings.flatMap((item) => {
+              return Array.from({ length: item.__v }, (_, index) => (
+                <li className={styles.item} key={`${item._id}-${index}`}>
+                  <DragIcon type="primary" />
+                  <ConstructorElement
+                    text={item.name}
+                    price={item.price}
+                    thumbnail={item.image_mobile}
+                  />
+                </li>
+              ));
+            })}
           </ul>
         </div>
         <div className="ml-8">
@@ -68,9 +80,18 @@ export default function BurgerConstructor(props) {
           </span>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large">
+        <Button
+          onClick={handleOpenModal}
+          htmlType="button"
+          type="primary"
+          size="large"
+        >
           Оформить заказ
         </Button>
+        {visible && (<Modal header="Внимание!" onClose={handleCloseModal}> 
+              текст какой то
+          </Modal>
+          )}
       </div>
     </section>
   );
