@@ -1,0 +1,9 @@
+.product_card {
+    display: flex;
+    flex-direction: column;
+}
+
+.product_details {
+    display: flex;
+    gap: 20px;
+}

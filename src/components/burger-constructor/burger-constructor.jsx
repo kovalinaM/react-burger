@@ -7,12 +7,14 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import Modal from '../modal/modal'
+import Modal from '../modal/modal';
+import OrderDetails from "../order-details/order-details";
+
 
 import styles from "./burger-constructor.module.css";
 
-export default function BurgerConstructor(props) {
-  const [visible, setVisible] = useState(false);
+const BurgerConstructor = (props) => {
+  const [modalIsActive, setModalActive] = useState(false);
   const handleIngredients = props.ingredients;
   const bun = handleIngredients[0];
   const fillings = handleIngredients.slice(1, handleIngredients.length);
@@ -26,12 +28,13 @@ export default function BurgerConstructor(props) {
     return sum;
   };
 
-  function handleOpenModal() {
-    setVisible(true);
+  const handleOpenModal = () => {
+    setModalActive(true);
   }
 
-  function handleCloseModal() {
-    setVisible(false);
+  const handleCloseModal = (e) => {
+    e.stopPropagation();
+    setModalActive(false);
   }
 
 
@@ -88,14 +91,15 @@ export default function BurgerConstructor(props) {
         >
           Оформить заказ
         </Button>
-        {visible && (<Modal header="Внимание!" onClose={handleCloseModal}> 
-              текст какой то
-          </Modal>
-          )}
+        {modalIsActive && <Modal onClose={handleCloseModal}> 
+              <OrderDetails/>
+          </Modal>}
       </div>
     </section>
   );
 }
+
+export default BurgerConstructor;
 
 BurgerConstructor.propTypes = {
   ingredients: PropTypes.arrayOf(
