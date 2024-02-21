@@ -32,8 +32,7 @@ const BurgerConstructor = (props) => {
     setModalActive(true);
   }
 
-  const handleCloseModal = (e) => {
-    e.stopPropagation();
+  const handleCloseModal = () => {
     setModalActive(false);
   }
 
@@ -43,7 +42,7 @@ const BurgerConstructor = (props) => {
       <div className={styles.ingredients_container}>
         <div className="ml-8">
           <ConstructorElement
-            text={`${bun.name}` + " (Верх)"}
+            text={`${bun.name} (Верх)`}
             isLocked={true}
             price={bun.price}
             thumbnail={bun.image_mobile}
@@ -68,7 +67,7 @@ const BurgerConstructor = (props) => {
         </div>
         <div className="ml-8">
           <ConstructorElement
-            text={`${bun.name}` + " (Низ)"}
+            text={`${bun.name}  (Низ)`}
             isLocked={true}
             price={bun.price}
             thumbnail={bun.image_mobile}
