@@ -57,7 +57,7 @@ export default function BurgerIngredients(props)  {
       </div>
       <div onScroll={handleScroll} className={`${styles.scrollarea} custom-scroll`}>
         <div id="buns" className="mt-10">
-          <h2 className="text text_type_main-medium">Булки</h2>
+          <h2 className="text text_type_main-medium mb-6">Булки</h2>
           <ul className={`${styles.list} mt-6`}>
             {listBun.map((ingredient, index) => (
               <li key={index}>
@@ -67,7 +67,7 @@ export default function BurgerIngredients(props)  {
           </ul>
         </div>
         <div id="sauces" className="mt-10">
-          <h2 className="text text_type_main-medium">Соусы</h2>
+          <h2 className="text text_type_main-medium  mb-6">Соусы</h2>
           <ul className={styles.list}>
             {listSauces.map((ingredient, index) => (
               <li key={index}>
@@ -77,7 +77,7 @@ export default function BurgerIngredients(props)  {
           </ul>
         </div>
         <div id="main" className="mt-10">
-          <h2 className="text text_type_main-medium">Начинки</h2>
+          <h2 className="text text_type_main-medium  mb-6">Начинки</h2>
           <ul className={styles.list}>
             {listFillings.map((ingredient, index) => (
               <li key={index}>
