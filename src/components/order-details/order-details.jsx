@@ -1,5 +1,5 @@
 import React from "react";
-import styles from './order-details.module'
+import styles from './order-details.module.css'
 import imageDone from '../../images/done.svg'
 
 const OrderDetails = () => {
