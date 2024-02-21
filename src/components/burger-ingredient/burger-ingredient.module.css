@@ -4,7 +4,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 272px;
+    max-width: 272px;
+    cursor: pointer;
 }
 
 .price {

@@ -10,7 +10,8 @@
     top: 50%;
     left: 50%;
     min-height: 540px;
-    width: 750px;
+    width: 100%;
+    max-width: 750px;
     z-index: 1000;
     transform: translate(-50%, -50%);
 }
@@ -18,13 +19,13 @@
 .modal_header {
     display: flex;
     flex-direction:row;
+    align-items: center;
     justify-content: space-between;
     width: 100%;
 }
 
 .btn_close {
     display:flex;
-    /* padding-right: 50px; */
     cursor: pointer;
     z-index: 500;
 }
