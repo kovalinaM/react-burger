@@ -10,12 +10,12 @@ const Modal = (props) => {
   const modalRoot = document.getElementById("react-modals");
 
   useEffect(() => {
-    const keyDownEsc = (e) => (e.key === "Escape" && props.onClose());
-    document.addEventListener('keydown', keyDownEsc);
+    const keyDownEsc = (e) => e.key === "Escape" && props.onClose();
+    document.addEventListener("keydown", keyDownEsc);
     return () => {
-      document.removeEventListener('keydown', keyDownEsc);
-    }
-  },[props] )
+      document.removeEventListener("keydown", keyDownEsc);
+    };
+  }, [props]);
 
   return createPortal(
     <>
@@ -37,7 +37,7 @@ const Modal = (props) => {
 export default Modal;
 
 Modal.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.element.isRequired,
   header: PropTypes.string,
-  onClose: PropTypes.func
-}
+  onClose: PropTypes.func.isRequired,
+};
