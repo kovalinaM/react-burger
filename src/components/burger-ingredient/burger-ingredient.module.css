@@ -4,7 +4,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 272px;
+    width: 272px;
     cursor: pointer;
 }
 
