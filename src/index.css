@@ -1,3 +1,48 @@
+/* reset some default styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+body, h1, h2, h3, h4, p,
+figure, blockquote, dl, dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+input, button,
+textarea, select {
+  font: inherit;
+}
+
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +50,46 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#root {
+  min-height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  overflow: auto;
 }
+
+main {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 12px
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: #2f2f37
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  border: 3px solid #2f2f37;
+  border-radius: 6px
+}
+
+
+
+

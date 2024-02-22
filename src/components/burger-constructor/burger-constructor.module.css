@@ -1,0 +1,38 @@
+.constructor {
+    height: calc(100vh - 200px);
+}
+
+.ingredients_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: calc(100vh - 522px);
+    overflow-y: auto;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.total {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 40px;
+}
+
+.value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
