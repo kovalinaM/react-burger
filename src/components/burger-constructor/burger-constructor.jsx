@@ -7,9 +7,10 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import Modal from '../modal/modal';
+import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 
+import {ingredientType} from '../../utils/types'
 
 import styles from "./burger-constructor.module.css";
 
@@ -30,12 +31,11 @@ const BurgerConstructor = (props) => {
 
   const handleOpenModal = () => {
     setModalActive(true);
-  }
+  };
 
   const handleCloseModal = () => {
     setModalActive(false);
-  }
-
+  };
 
   return (
     <section className={`${styles.constructor} mt-25 mb-10`}>
@@ -90,31 +90,18 @@ const BurgerConstructor = (props) => {
         >
           Оформить заказ
         </Button>
-        {modalIsActive && <Modal onClose={handleCloseModal}> 
-              <OrderDetails/>
-          </Modal>}
+        {modalIsActive && (
+          <Modal onClose={handleCloseModal}>
+            <OrderDetails />
+          </Modal>
+        )}
       </div>
     </section>
   );
-}
+};
 
 export default BurgerConstructor;
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
-      proteins: PropTypes.number,
-      fat: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      calories: PropTypes.number,
-      price: PropTypes.number,
-      image: PropTypes.string,
-      image_mobile: PropTypes.string.isRequired,
-      image_large: PropTypes.string,
-      __v: PropTypes.number.isRequired,
-    }).isRequired
-  ).isRequired,
+  ingredients: PropTypes.arrayOf(ingredientType).isRequired,
 };

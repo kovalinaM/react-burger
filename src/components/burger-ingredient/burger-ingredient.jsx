@@ -8,6 +8,8 @@ import {
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
+import {ingredientType} from '../../utils/types'
+
 import styles from "./burger-ingredient.module.css";
 export default function BurgerIngredient(props) {
   const ingredient = props.ingredient;
@@ -15,11 +17,11 @@ export default function BurgerIngredient(props) {
 
   const onClose = () => {
     setModalActive(false);
-};
+  };
 
   return (
     <>
-      <article className={styles.card} onClick={()=>setModalActive(true)}>
+      <article className={styles.card} onClick={() => setModalActive(true)}>
         {ingredient.__v > 0 && (
           <Counter count={ingredient.__v} size="default" extraClass="m-1" />
         )}
@@ -36,7 +38,7 @@ export default function BurgerIngredient(props) {
       </article>
       {modalIsActive && (
         <Modal header="Детали ингредиента" onClose={onClose}>
-          <IngredientDetails {...ingredient}/>
+          <IngredientDetails ingredient={ingredient} />
         </Modal>
       )}
     </>
@@ -44,18 +46,5 @@ export default function BurgerIngredient(props) {
 }
 
 BurgerIngredient.propTypes = {
-  ingredient: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number,
-  }),
+  ingredient: ingredientType.isRequired,
 };
