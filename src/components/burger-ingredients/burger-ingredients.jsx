@@ -1,22 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 
-import {ingredientType} from '../../utils/types'
+import { ingredientType } from "../../utils/types";
 
 import styles from "./burger-ingredients.module.css";
 
 export default function BurgerIngredients(props) {
-  const [current, setCurrent] = useState("buns");
+  const [currentTab, setCurrentTab] = useState("buns");
   const ingredients = props.ingredients;
 
-  const listBun = ingredients.filter((item) => item.type === "bun");
-  const listFillings = ingredients.filter((item) => item.type === "main");
-  const listSauces = ingredients.filter((item) => item.type === "sauce");
+  const listBun = useMemo(
+    () => ingredients.filter((item) => item.type === "bun"),
+    [ingredients]
+  );
+  const listFillings = useMemo(
+    () => ingredients.filter((item) => item.type === "main"),
+    [ingredients]
+  );
+  const listSauces = useMemo(
+    () => ingredients.filter((item) => item.type === "sauce"),
+    [ingredients]
+  );
 
   const handleTabClick = (tab) => {
-    setCurrent(tab);
+    setCurrentTab(tab);
     const tabElement = document.getElementById(tab);
     tabElement.scrollIntoView({ behavior: "smooth" });
   };
@@ -33,11 +42,11 @@ export default function BurgerIngredients(props) {
     const mainPosition = mainElement.getBoundingClientRect().top;
 
     if (scrollPosition >= mainPosition) {
-      setCurrent("main");
+      setCurrentTab("main");
     } else if (scrollPosition >= saucePosition) {
-      setCurrent("sauces");
+      setCurrentTab("sauces");
     } else if (scrollPosition < bunPosition) {
-      setCurrent("buns");
+      setCurrentTab("buns");
     }
   };
 
@@ -45,23 +54,23 @@ export default function BurgerIngredients(props) {
     <section className="pt-10 pb-10">
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <div style={{ display: "flex" }} className="mt-5">
-        <Tab 
-          value="buns" 
-          active={current === "buns"} 
+        <Tab
+          value="buns"
+          active={currentTab === "buns"}
           onClick={handleTabClick}
         >
           Булки
         </Tab>
         <Tab
           value="sauces"
-          active={current === "sauces"}
+          active={currentTab === "sauces"}
           onClick={handleTabClick}
         >
           Соусы
         </Tab>
-        <Tab 
-          value="main" 
-          active={current === "main"} 
+        <Tab
+          value="main"
+          active={currentTab === "main"}
           onClick={handleTabClick}
         >
           Начинки
