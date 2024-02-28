@@ -11,7 +11,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import {ingredientType} from '../../utils/types'
 
 import styles from "./burger-ingredient.module.css";
-export default function BurgerIngredient(props) {
+const BurgerIngredient = (props) => {
   const ingredient = props.ingredient;
   const [modalIsActive, setModalActive] = useState(false);
 
@@ -48,3 +48,5 @@ export default function BurgerIngredient(props) {
 BurgerIngredient.propTypes = {
   ingredient: ingredientType.isRequired,
 };
+
+export default React.memo(BurgerIngredient);
