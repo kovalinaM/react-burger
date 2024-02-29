@@ -1,53 +1,85 @@
-import React, { useState, useMemo } from "react";
+import React, { useMemo } from "react";
+import {useSelector, useDispatch} from "react-redux";
 import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import BurgerIngredient from "../burger-ingredient/burger-ingredient";
+
+import IngredientsCategory from "../ingredients-category/ingredients-category"
 
 import { ingredientType } from "../../utils/types";
 
+import {TAB_SWITCH} from '../../services/actions/ingredients'
+import {INGREDIENTS_TYPES} from '../../utils/constants'
+
 import styles from "./burger-ingredients.module.css";
 
-export default function BurgerIngredients(props) {
-  const [currentTab, setCurrentTab] = useState("buns");
-  const ingredients = props.ingredients;
+export default function BurgerIngredients() {
+  const { ingredients, currentTab} = useSelector(store => store.ingredients);
+  const dispatch = useDispatch();
 
-  const listBun = useMemo(
+  const buns = useMemo(
     () => ingredients.filter((item) => item.type === "bun"),
     [ingredients]
   );
-  const listFillings = useMemo(
+  const main = useMemo(
     () => ingredients.filter((item) => item.type === "main"),
     [ingredients]
   );
-  const listSauces = useMemo(
+  const sauces = useMemo(
     () => ingredients.filter((item) => item.type === "sauce"),
     [ingredients]
   );
 
-  const handleTabClick = (tab) => {
-    setCurrentTab(tab);
-    const tabElement = document.getElementById(tab);
-    tabElement.scrollIntoView({ behavior: "smooth" });
+  const switchTab = (currentTab) => {
+    const SCROLL_PARAMS = {
+      behavior: "smooth", 
+      block: "start" 
+    };
+
+    const tabElement = document.getElementById(currentTab);
+
+    dispatch({ type: TAB_SWITCH, currentTab });
+    switch (currentTab) {
+      case INGREDIENTS_TYPES.BUN.type:
+        tabElement.scrollIntoView(SCROLL_PARAMS);
+        break;
+      case INGREDIENTS_TYPES.SAUCE.type:
+        tabElement.scrollIntoView(SCROLL_PARAMS);
+        break;
+      case INGREDIENTS_TYPES.MAIN.type:
+        tabElement.scrollIntoView(SCROLL_PARAMS);
+        break;
+      default:
+        break;
+    }
   };
 
+
   const handleScroll = (e) => {
-    const container = e.target;
-    const scrollPosition = container.scrollTop;
-    const bunElement = document.getElementById("buns");
-    const sauceElement = document.getElementById("sauces");
+    const scrollTop = e.target.scrollTop;
+
+    const sauceElement = document.getElementById("sauce");
     const mainElement = document.getElementById("main");
 
-    const bunPosition = bunElement.getBoundingClientRect().top;
     const saucePosition = sauceElement.getBoundingClientRect().top;
     const mainPosition = mainElement.getBoundingClientRect().top;
 
-    if (scrollPosition >= mainPosition) {
-      setCurrentTab("main");
-    } else if (scrollPosition >= saucePosition) {
-      setCurrentTab("sauces");
-    } else if (scrollPosition < bunPosition) {
-      setCurrentTab("buns");
+    if (scrollTop >= mainPosition) {
+      dispatch({
+        type: TAB_SWITCH,
+        currentTab: INGREDIENTS_TYPES.MAIN.type,
+      });
+    } else if (scrollTop < saucePosition) {
+      dispatch({
+        type: TAB_SWITCH,
+        currentTab: INGREDIENTS_TYPES.BUN.type,
+      });
+    } else {
+      dispatch({
+        type:TAB_SWITCH,
+        currentTab: INGREDIENTS_TYPES.SAUCE.type,
+      });
     }
+
   };
 
   return (
@@ -55,66 +87,39 @@ export default function BurgerIngredients(props) {
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <div style={{ display: "flex" }} className="mt-5">
         <Tab
-          value="buns"
-          active={currentTab === "buns"}
-          onClick={handleTabClick}
+          value="bun"
+          active={currentTab === "bun"}
+          onClick={switchTab}
         >
-          Булки
+          {INGREDIENTS_TYPES.BUN.title}
         </Tab>
         <Tab
-          value="sauces"
-          active={currentTab === "sauces"}
-          onClick={handleTabClick}
+          value="sauce"
+          active={currentTab === "sauce"}
+          onClick={switchTab}
         >
-          Соусы
+          {INGREDIENTS_TYPES.SAUCE.title}
         </Tab>
         <Tab
           value="main"
           active={currentTab === "main"}
-          onClick={handleTabClick}
+          onClick={switchTab}
         >
-          Начинки
+          {INGREDIENTS_TYPES.MAIN.title}
         </Tab>
       </div>
       <div
         onScroll={handleScroll}
         className={`${styles.scrollarea} custom-scroll`}
       >
-        <div id="buns" className="mt-10">
-          <h2 className="text text_type_main-medium mb-6">Булки</h2>
-          <ul className={`${styles.list} mt-6`}>
-            {listBun.map((ingredient) => (
-              <li key={ingredient._id}>
-                <BurgerIngredient ingredient={ingredient} />
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div id="sauces" className="mt-10">
-          <h2 className="text text_type_main-medium  mb-6">Соусы</h2>
-          <ul className={styles.list}>
-            {listSauces.map((ingredient) => (
-              <li key={ingredient._id}>
-                <BurgerIngredient ingredient={ingredient} />
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div id="main" className="mt-10">
-          <h2 className="text text_type_main-medium  mb-6">Начинки</h2>
-          <ul className={styles.list}>
-            {listFillings.map((ingredient) => (
-              <li key={ingredient._id}>
-                <BurgerIngredient ingredient={ingredient} />
-              </li>
-            ))}
-          </ul>
-        </div>
+        <IngredientsCategory title={INGREDIENTS_TYPES.BUN.title} type={INGREDIENTS_TYPES.BUN.type} ingredients={buns} />
+        <IngredientsCategory title={INGREDIENTS_TYPES.SAUCE.title} type={INGREDIENTS_TYPES.SAUCE.type} ingredients={main} />
+        <IngredientsCategory title={INGREDIENTS_TYPES.MAIN.title} type={INGREDIENTS_TYPES.MAIN.type} ingredients={sauces} />
       </div>
     </section>
   );
 }
 
 BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientType).isRequired,
+  ingredients: PropTypes.arrayOf(ingredientType),
 };

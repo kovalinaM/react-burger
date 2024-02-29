@@ -4,6 +4,8 @@ export const INGREDIENTS_GET_REQUEST = 'INGREDIENTS_GET_REQUEST';
 export const INGREDIENTS_GET_SUCCESS = 'INGREDIENTS_GET_SUCCESS';
 export const INGREDIENTS_GET_FAILED = 'INGREDIENTS_GET_FAILED';
 
+export const TAB_SWITCH = 'TAB_SWITCH';
+
 export function getIngredientsList() {
     return function(dispatch) {
         dispatch({

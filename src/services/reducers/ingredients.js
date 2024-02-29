@@ -2,12 +2,15 @@ import {
     INGREDIENTS_GET_REQUEST,
     INGREDIENTS_GET_SUCCESS,
     INGREDIENTS_GET_FAILED,
+    TAB_SWITCH,
 } from "../actions/ingredients";
+import {INGREDIENTS_TYPES} from "../../utils/constants"
 
 const initialState = {
     ingredients: [],
     ingredientsLoading: false,
     ingredientsFailed: false,
+    currentTab: INGREDIENTS_TYPES.BUN.type,
 };
 
 export const ingridientsReducer = (state = initialState, action) => {
@@ -29,8 +32,14 @@ export const ingridientsReducer = (state = initialState, action) => {
                 ...state,
                 ingredients: [],
                 ingredientsLoading: false,
-                ingredientsFailed: true
+                ingredientsFailed: true,
             };
+        case TAB_SWITCH: {
+            return {
+                ...state,
+                currentTab: action.currentTab,
+            };
+        }
         default: {
             return state;
         }
