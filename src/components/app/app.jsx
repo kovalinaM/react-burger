@@ -4,7 +4,7 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 import {getIngredientsList} from "../../services/actions/ingredients"
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch } from 'react-redux';
 
 import stylesApp from "./app.module.css";
 
@@ -25,8 +25,8 @@ const App = () => {
         <main className={stylesApp.sections}>
           {ingredientsLoading && "Пожалуйста, подождите. Ингредиенты загружаются..."}
           {ingredientsFailed && "Произошла ошибка"}
-          {!ingredientsLoading && !ingredientsFailed && ingredients && (
-            <BurgerIngredients ingredients={ingredients} />
+          {!ingredientsLoading && !ingredientsFailed && ingredients  && (
+            <BurgerIngredients/>
           // <BurgerConstructor />
           )}
         </main>
