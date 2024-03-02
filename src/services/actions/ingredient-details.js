@@ -8,6 +8,6 @@ export const UNSELECT_INGREDIENT = 'UNSELECT_INGREDIENT';
 export function selectIngredient(ingredient) {
     return {
         type: SELECT_INGREDIENT,
-        selectIngredient: ingredient
+        selectedIngredient: ingredient
     }
 }

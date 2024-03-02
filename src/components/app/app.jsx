@@ -27,8 +27,8 @@ const App = () => {
           {ingredientsFailed && "Произошла ошибка"}
           {!ingredientsLoading && !ingredientsFailed && ingredients  && (
             <BurgerIngredients/>
-          // <BurgerConstructor />
-          )}
+            )}
+            <BurgerConstructor />  
         </main>
       </div>
     </React.Fragment>

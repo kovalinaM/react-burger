@@ -4,7 +4,7 @@ import { ingredientType } from "../../utils/types";
 import styles from "./ingredients-category.module.css";
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 
-const IngredientsCategory = ({ title, type, ingredients }) => {
+const IngredientsCategory = ({ title, type, ingredients, onSelect}) => {
   return (
     <div id={`${type}`} className="mt-10">
       <h2 className="text text_type_main-medium mb-6">{title}</h2>
@@ -13,7 +13,7 @@ const IngredientsCategory = ({ title, type, ingredients }) => {
           <BurgerIngredient
             key={ingredient._id}
             ingredient={ingredient}
-            count={0}
+            onSelect={onSelect}
           />
         ))}
       </ul>

@@ -7,10 +7,14 @@ import IngredientsCategory from "../ingredients-category/ingredients-category"
 
 import { ingredientType } from "../../utils/types";
 
-import {TAB_SWITCH} from '../../services/actions/ingredients'
+import {CHANGE_BUNS, TAB_SWITCH} from '../../services/actions/ingredients'
 import {INGREDIENTS_TYPES} from '../../utils/constants'
 
 import styles from "./burger-ingredients.module.css";
+import { OPEN_INGREDIENT_MODAL, selectIngredient } from "../../services/actions/ingredient-details";
+import { INCREASE_INGREDIENT } from "../../services/actions/ingredients";
+import { ADD_INGREDIENT, SET_BUNS } from "../../services/actions/burger-constructor";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function BurgerIngredients() {
   const { ingredients, currentTab} = useSelector(store => store.ingredients);
@@ -79,8 +83,36 @@ export default function BurgerIngredients() {
         currentTab: INGREDIENTS_TYPES.SAUCE.type,
       });
     }
-
   };
+
+
+  function handleClickIngredient(ingredient) {
+    dispatch(selectIngredient(ingredient));
+    dispatch({
+      type: OPEN_INGREDIENT_MODAL
+    });
+
+    if(ingredient.type === 'bun') {
+      dispatch({
+        type: SET_BUNS,
+        bun: ingredient
+      })
+      dispatch({
+        type: CHANGE_BUNS,
+        _id: ingredient._id
+      })
+    } else {
+      dispatch({
+        type: ADD_INGREDIENT,
+        ingredient: { ...ingredient, uniqId: uuidv4() },
+      })
+      dispatch({
+        type: INCREASE_INGREDIENT,
+        _id: ingredient._id
+      });
+    }
+    
+  }
 
   return (
     <section className="pt-10 pb-10">
@@ -112,9 +144,9 @@ export default function BurgerIngredients() {
         onScroll={handleScroll}
         className={`${styles.scrollarea} custom-scroll`}
       >
-        <IngredientsCategory title={INGREDIENTS_TYPES.BUN.title} type={INGREDIENTS_TYPES.BUN.type} ingredients={buns} />
-        <IngredientsCategory title={INGREDIENTS_TYPES.SAUCE.title} type={INGREDIENTS_TYPES.SAUCE.type} ingredients={main} />
-        <IngredientsCategory title={INGREDIENTS_TYPES.MAIN.title} type={INGREDIENTS_TYPES.MAIN.type} ingredients={sauces} />
+        <IngredientsCategory title={INGREDIENTS_TYPES.BUN.title} type={INGREDIENTS_TYPES.BUN.type} ingredients={buns} onSelect={handleClickIngredient}/>
+        <IngredientsCategory title={INGREDIENTS_TYPES.SAUCE.title} type={INGREDIENTS_TYPES.SAUCE.type} ingredients={main} onSelect={handleClickIngredient}/>
+        <IngredientsCategory title={INGREDIENTS_TYPES.MAIN.title} type={INGREDIENTS_TYPES.MAIN.type} ingredients={sauces} onSelect={handleClickIngredient}/>
       </div>
     </section>
   );

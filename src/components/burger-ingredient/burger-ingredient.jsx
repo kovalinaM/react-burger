@@ -5,17 +5,15 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { ingredientType } from "../../utils/types";
 import styles from "./burger-ingredient.module.css";
 import {
-  OPEN_INGREDIENT_MODAL,
-  CLOSE_INGREDIENT_MODAL,
+  CLOSE_INGREDIENT_MODAL, UNSELECT_INGREDIENT,
 } from "../../services/actions/ingredient-details";
 
-const BurgerIngredient = ({ ingredient, count }) => {
+const BurgerIngredient = ({ ingredient, onSelect }) => {
   const { modalIsActive } = useSelector((store) => store.ingredientDetails);
   const dispatch = useDispatch();
 
@@ -23,20 +21,17 @@ const BurgerIngredient = ({ ingredient, count }) => {
     dispatch({
       type: CLOSE_INGREDIENT_MODAL,
     });
-  };
-
-  const onOpenModal = () => {
     dispatch({
-      type: OPEN_INGREDIENT_MODAL,
-    });
+      type: UNSELECT_INGREDIENT,
+    })
   };
 
   return (
     <>
       <li>
-        <article className={styles.card} onClick={onOpenModal}>
-          {count > 0 && (
-            <Counter count={count} size="default" extraClass="m-1" />
+        <article className={styles.card} onClick = {() => onSelect(ingredient)}>
+          {ingredient.count > 0 && (
+            <Counter count={ingredient.count} size="default" extraClass="m-1" />
           )}
           <div className="mb-1">
             <img src={ingredient.image} alt={ingredient.name} />
