@@ -7,6 +7,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
+import { useDrop } from "react-dnd";
 
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
@@ -17,11 +18,51 @@ import styles from "./burger-constructor.module.css";
 import { DELETE_INGREDIENT } from "../../services/actions/burger-constructor";
 import { DECREASE_INGREDIENT } from "../../services/actions/ingredients";
 import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL, createOrder } from "../../services/actions/order";
+import { INGREDIENTS_TYPES } from "../../utils/constants";
+import { v4 as uuidv4 } from 'uuid';
+import { SET_BUNS, ADD_INGREDIENT} from "../../services/actions/burger-constructor";
+import { INCREASE_INGREDIENT, CHANGE_BUNS } from "../../services/actions/ingredients";
+
 
 const BurgerConstructor = () => {
   const {modalIsActive} = useSelector((store) => store.order)
   const {bun, ingredients} = useSelector((store) => store.burderConstructor);
   const dispatch = useDispatch();
+
+  const [, dropRef] = useDrop({
+    accept: "ingredients",
+    drop(ingredient) {
+      onDropHandler(ingredient)
+    }
+  });
+
+  function onDropHandler(ingredient) {
+    const {_id, type} = ingredient;
+    switch(type) {
+      case INGREDIENTS_TYPES.BUN.type: {
+        dispatch({
+          type: CHANGE_BUNS,
+          _id: _id,
+        });
+        dispatch({
+          type: SET_BUNS,
+          bun: ingredient,
+        });
+        break;
+      }
+      default: {
+        dispatch({
+          type: INCREASE_INGREDIENT,
+          _id: _id,
+        });
+        dispatch({
+          type: ADD_INGREDIENT,
+          ingredient: { ...ingredient, uniqId: uuidv4() },
+        });
+        break;
+      }
+    }
+  }
 
   function handleCloseModal() {
     dispatch({
@@ -61,8 +102,8 @@ const BurgerConstructor = () => {
 
 
   return (
-    <section className={`${styles.constructor} mt-25 mb-10`}>
-      <div className={styles.ingredients_container}>
+    <section className={`${styles.constructor} mt-25 mb-10`} >
+      <div className={styles.ingredients_container} ref={dropRef}>
         {bun ? (
           <div className="ml-8">
             <ConstructorElement

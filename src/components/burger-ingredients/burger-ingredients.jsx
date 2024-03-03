@@ -91,27 +91,6 @@ export default function BurgerIngredients() {
     dispatch({
       type: OPEN_INGREDIENT_MODAL
     });
-
-    if(ingredient.type === INGREDIENTS_TYPES.BUN.type) {
-      dispatch({
-        type: SET_BUNS,
-        bun: ingredient
-      })
-      dispatch({
-        type: CHANGE_BUNS,
-        _id: ingredient._id
-      })
-    } else {
-      dispatch({
-        type: ADD_INGREDIENT,
-        ingredient: { ...ingredient, uniqId: uuidv4() },
-      })
-      dispatch({
-        type: INCREASE_INGREDIENT,
-        _id: ingredient._id
-      });
-    }
-    
   }
 
   return (

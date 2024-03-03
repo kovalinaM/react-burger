@@ -13,10 +13,17 @@ import {
   CLOSE_INGREDIENT_MODAL, UNSELECT_INGREDIENT,
 } from "../../services/actions/ingredient-details";
 
+import {useDrag} from "react-dnd";
+
 const BurgerIngredient = ({ ingredient,  onSelect }) => {
   const { modalIsActive } = useSelector((store) => store.ingredientDetails);
 
   const dispatch = useDispatch();
+
+  const [,dragRef] = useDrag({
+    type: 'ingredients',
+    item: ingredient
+  })
 
   const onClose = () => {
     dispatch({
@@ -29,7 +36,7 @@ const BurgerIngredient = ({ ingredient,  onSelect }) => {
 
   return (
     <>
-      <li>
+      <li ref={dragRef}>
         <article className={styles.card} onClick = {() => onSelect(ingredient)}>
           {ingredient.count > 0 && (
             <Counter count={ingredient.count} size="default" extraClass="m-1" />
