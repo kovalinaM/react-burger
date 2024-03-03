@@ -92,7 +92,7 @@ export default function BurgerIngredients() {
       type: OPEN_INGREDIENT_MODAL
     });
 
-    if(ingredient.type === 'bun') {
+    if(ingredient.type === INGREDIENTS_TYPES.BUN.type) {
       dispatch({
         type: SET_BUNS,
         bun: ingredient
@@ -145,8 +145,8 @@ export default function BurgerIngredients() {
         className={`${styles.scrollarea} custom-scroll`}
       >
         <IngredientsCategory title={INGREDIENTS_TYPES.BUN.title} type={INGREDIENTS_TYPES.BUN.type} ingredients={buns} onSelect={handleClickIngredient}/>
-        <IngredientsCategory title={INGREDIENTS_TYPES.SAUCE.title} type={INGREDIENTS_TYPES.SAUCE.type} ingredients={main} onSelect={handleClickIngredient}/>
-        <IngredientsCategory title={INGREDIENTS_TYPES.MAIN.title} type={INGREDIENTS_TYPES.MAIN.type} ingredients={sauces} onSelect={handleClickIngredient}/>
+        <IngredientsCategory title={INGREDIENTS_TYPES.SAUCE.title} type={INGREDIENTS_TYPES.SAUCE.type} ingredients={sauces} onSelect={handleClickIngredient}/>
+        <IngredientsCategory title={INGREDIENTS_TYPES.MAIN.title} type={INGREDIENTS_TYPES.MAIN.type} ingredients={main} onSelect={handleClickIngredient}/>
       </div>
     </section>
   );
