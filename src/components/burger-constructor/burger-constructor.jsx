@@ -16,9 +16,9 @@ import { ingredientType } from "../../utils/types";
 import styles from "./burger-constructor.module.css";
 import { DELETE_INGREDIENT } from "../../services/actions/burger-constructor";
 import { DECREASE_INGREDIENT } from "../../services/actions/ingredients";
-import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL } from "../../services/actions/order";
+import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL, createOrder } from "../../services/actions/order";
 
-const BurgerConstructor = ({onDelete}) => {
+const BurgerConstructor = () => {
   const {modalIsActive} = useSelector((store) => store.order)
   const {bun, ingredients} = useSelector((store) => store.burderConstructor);
   const dispatch = useDispatch();
@@ -26,14 +26,19 @@ const BurgerConstructor = ({onDelete}) => {
   function handleCloseModal() {
     dispatch({
       type: CLOSE_ORDER_MODAL
-     })
+    })
   };
 
-  function handleOpenModal() {
-     dispatch({
-      type: OPEN_ORDER_MODAL
-     })
+  function createOrderHandler() {
+    const order = {
+      ingredients: [bun._id, ...ingredients.map((ingredient) => ingredient._id), bun._id]
+    }
+      dispatch({
+        type: OPEN_ORDER_MODAL
+      })
+      dispatch(createOrder(order))
   };
+
   function onDeleteIngredient(uniqId, _id) {
     dispatch({
       type: DELETE_INGREDIENT,
@@ -109,10 +114,11 @@ const BurgerConstructor = ({onDelete}) => {
           <CurrencyIcon type="primary" />
         </div>
         <Button
-          onClick={handleOpenModal}
+          onClick={createOrderHandler}
           htmlType="button"
           type="primary"
           size="large"
+          disabled={!bun}
         >
           Оформить заказ
         </Button>
