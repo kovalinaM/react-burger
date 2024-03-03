@@ -20,7 +20,7 @@ const IngredientDetails = () => {
           height="240"
           className="mb-4"
         />
-        <h2 className="mb-8">{selectedIngredient.name}</h2>
+        <h2 className={`${styles.product_name} mb-8`}>{selectedIngredient.name}</h2>
         <div className={`${styles.product_details} mb-15`}>
           <div
             className={`${styles.product_detail} text text_type_main-small text_color_inactive`}
