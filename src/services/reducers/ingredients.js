@@ -40,30 +40,31 @@ export const ingridientsReducer = (state = initialState, action) => {
         case CHANGE_BUNS: 
             return {
                 ...state,
-                ingredients: [...state.ingredients].map((ingredient) => {
+                ingredients: state.ingredients.map((ingredient) => {
                     if (ingredient.type === INGREDIENTS_TYPES.BUN.type) {
-                        if (ingredient._id === action._id) {
-                          return { ...ingredient, count: 2 };
-                        } else {
-                          return { ...ingredient, count: 0 };
-                        }
-                      } else {
-                        return ingredient;
-                      }
+                        return { ...ingredient, count: ingredient._id === action._id ? 2 : 0};
+                    }
+                    return ingredient;
                 })
             };
         case INCREASE_INGREDIENT:
             return {
                 ...state,
-                ingredients: [...state.ingredients].map((ingredient) => {
-                    return ingredient._id === action._id ? {...ingredient, count: ++ingredient.count} : ingredient
+                ingredients: state.ingredients.map((ingredient) => {
+                    if(ingredient._id === action._id) {
+                        return ingredient.count > 0 ?  {...ingredient, count: ingredient.count + 1} : {...ingredient, count: 1}
+                    } 
+                    return ingredient;
                 })
             }
         case DECREASE_INGREDIENT:
             return {
                 ...state,
-                ingredients: [...state.ingredients].map((ingredient )=> {
-                    return ingredient._id === action._id && ingredient.count > 0 ? {...ingredient, count: --ingredient.count} : ingredient;
+                ingredients: state.ingredients.map((ingredient ) => {
+                    if (ingredient._id === action._id && ingredient.count > 0) {
+                        return {...ingredient, count: ingredient.count - 1};
+                    }
+                    return ingredient;
                 })
             }
         case TAB_SWITCH: {
