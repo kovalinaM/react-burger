@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './order-details.module.css'
 import imageDone from '../../images/done.svg'
-import { UseSelector, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const OrderDetails = () => {
     const {order, isLoading, error }= useSelector(store => store.order)

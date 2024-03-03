@@ -13,8 +13,9 @@ import {
   CLOSE_INGREDIENT_MODAL, UNSELECT_INGREDIENT,
 } from "../../services/actions/ingredient-details";
 
-const BurgerIngredient = ({ ingredient, onSelect }) => {
+const BurgerIngredient = ({ ingredient,  onSelect }) => {
   const { modalIsActive } = useSelector((store) => store.ingredientDetails);
+
   const dispatch = useDispatch();
 
   const onClose = () => {
