@@ -1,7 +1,8 @@
 import {
     ADD_INGREDIENT,
     DELETE_INGREDIENT,
-    SET_BUNS
+    SET_BUNS,
+    MOVE_INGREDIENT
 } from '../actions/burger-constructor'
 
 const initialState = {
@@ -26,6 +27,13 @@ export const burgerConstructorReducer = (state = initialState, action) => {
             return {
                 ...state,
                 bun: action.bun
+            }
+        case MOVE_INGREDIENT:
+            const sortedIngredients = [...state.ingredients];
+            [ sortedIngredients[action.dragIndex], sortedIngredients[action.hoverIndex] ] = [ sortedIngredients[action.hoverIndex], sortedIngredients[action.dragIndex] ];
+            return {
+                ...state,
+                ingredients: sortedIngredients
             }
         default: 
             return state;
