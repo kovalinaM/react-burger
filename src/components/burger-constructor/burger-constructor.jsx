@@ -23,7 +23,7 @@ import { INCREASE_INGREDIENT, CHANGE_BUNS } from "../../services/actions/ingredi
 
 const BurgerConstructor = () => {
   const modalIsActive = useSelector((store) => store.order.modalIsActive)
-  const {bun, ingredients} = useSelector((store) => store.burderConstructor);
+  const {bun, ingredients} = useSelector((store) => store.burgerConstructor);
   const dispatch = useDispatch();
 
   const [{ canDrop }, dropRef] = useDrop({
