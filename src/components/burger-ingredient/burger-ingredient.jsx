@@ -69,7 +69,7 @@ const BurgerIngredient = ({ ingredient,  onSelect }) => {
 
 BurgerIngredient.propTypes = {
   ingredient: ingredientType.isRequired,
-  count: Number,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default React.memo(BurgerIngredient);

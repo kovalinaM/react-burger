@@ -1,20 +1,14 @@
 import React, { useMemo } from "react";
 import {useSelector, useDispatch} from "react-redux";
-import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import IngredientsCategory from "../ingredients-category/ingredients-category"
 
-import { ingredientType } from "../../utils/types";
-
-import {CHANGE_BUNS, TAB_SWITCH} from '../../services/actions/ingredients'
+import {TAB_SWITCH} from '../../services/actions/ingredients'
 import {INGREDIENTS_TYPES} from '../../utils/constants'
 
 import styles from "./burger-ingredients.module.css";
 import { OPEN_INGREDIENT_MODAL, selectIngredient } from "../../services/actions/ingredient-details";
-import { INCREASE_INGREDIENT } from "../../services/actions/ingredients";
-import { ADD_INGREDIENT, SET_BUNS } from "../../services/actions/burger-constructor";
-import { v4 as uuidv4 } from 'uuid';
 
 export default function BurgerIngredients() {
   const { ingredients, currentTab} = useSelector(store => store.ingredients);
@@ -130,7 +124,3 @@ export default function BurgerIngredients() {
     </section>
   );
 }
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientType),
-};

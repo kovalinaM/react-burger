@@ -10,9 +10,6 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 import {getIngredientsList} from "../../services/actions/ingredients"
 
-
-
-
 const App = () => {
 
   const dispatch = useDispatch();

@@ -1,25 +1,21 @@
-import React, { useMemo, useRef } from "react";
-import PropTypes from "prop-types";
+import React, { useMemo } from "react";
 import {
   ConstructorElement,
   CurrencyIcon,
-  DragIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
-import { useDrop, useDrag } from "react-dnd";
+import { useDrop} from "react-dnd";
 
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import ConstructorIngredient from "../ingredient-constructor/constructor-ingredient"
 
-import { ingredientType } from "../../utils/types";
-
 import styles from "./burger-constructor.module.css";
 import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL, createOrder } from "../../services/actions/order";
 import { INGREDIENTS_TYPES } from "../../utils/constants";
 import { v4 as uuidv4 } from 'uuid';
-import { SET_BUNS, ADD_INGREDIENT, MOVE_INGREDIENT} from "../../services/actions/burger-constructor";
+import { SET_BUNS, ADD_INGREDIENT} from "../../services/actions/burger-constructor";
 import { INCREASE_INGREDIENT, CHANGE_BUNS } from "../../services/actions/ingredients";
 
 
@@ -28,8 +24,6 @@ const BurgerConstructor = () => {
   const {bun, ingredients} = useSelector((store) => store.burderConstructor);
   const dispatch = useDispatch();
 
-
-//перетаскивание в конструктор
   const [, dropRef] = useDrop({
     accept: "ingredients",
     drop(ingredient) {
@@ -156,7 +150,3 @@ const BurgerConstructor = () => {
 };
 
 export default BurgerConstructor;
-
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientType),
-};
