@@ -7,6 +7,7 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
+import Preloader from "../preloader/preloader";
 
 import {getIngredientsList} from "../../services/actions/ingredients"
 
@@ -26,7 +27,7 @@ const App = () => {
 
         <main className={stylesApp.sections}>
           <DndProvider backend={HTML5Backend}>
-              {ingredientsLoading && "Пожалуйста, подождите. Ингредиенты загружаются..."}
+              {ingredientsLoading && <Preloader/>}
             {ingredientsFailed && "Произошла ошибка"}
             {!ingredientsLoading && !ingredientsFailed && ingredients  && (
               <>
