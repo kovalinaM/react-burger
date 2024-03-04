@@ -4,16 +4,18 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./burger-ingredient.module.css";
 import { useSelector, useDispatch } from "react-redux";
+import {useDrag} from "react-dnd";
+
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+
 import { ingredientType } from "../../utils/types";
-import styles from "./burger-ingredient.module.css";
+
 import {
   CLOSE_INGREDIENT_MODAL, UNSELECT_INGREDIENT,
 } from "../../services/actions/ingredient-details";
-
-import {useDrag} from "react-dnd";
 
 const BurgerIngredient = ({ ingredient,  onSelect }) => {
   const { modalIsActive } = useSelector((store) => store.ingredientDetails);

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 import styles from "./ingredients-category.module.css";
+
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 
 const IngredientsCategory = ({ title, type, ingredients, onSelect}) => {
