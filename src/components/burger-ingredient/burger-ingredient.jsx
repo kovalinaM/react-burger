@@ -18,7 +18,7 @@ import {
 } from "../../services/actions/ingredient-details";
 
 const BurgerIngredient = ({ ingredient,  onSelect }) => {
-  const { modalIsActive } = useSelector((store) => store.ingredientDetails);
+  const modalIsActive = useSelector((store) => store.ingredientDetails.modalIsActive);
 
   const dispatch = useDispatch();
 
