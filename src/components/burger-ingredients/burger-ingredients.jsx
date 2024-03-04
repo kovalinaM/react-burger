@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import {useSelector, useDispatch} from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 

@@ -29,9 +29,11 @@ const App = () => {
               {ingredientsLoading && "Пожалуйста, подождите. Ингредиенты загружаются..."}
             {ingredientsFailed && "Произошла ошибка"}
             {!ingredientsLoading && !ingredientsFailed && ingredients  && (
-            <BurgerIngredients/>
+              <>
+                <BurgerIngredients/>
+                <BurgerConstructor /> 
+              </>
             )}
-            <BurgerConstructor />  
           </DndProvider>
         </main>
       </div>
