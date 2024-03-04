@@ -20,10 +20,15 @@ import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL, createOrder } from "../../services
 import { SET_BUNS, ADD_INGREDIENT} from "../../services/actions/burger-constructor";
 import { INCREASE_INGREDIENT, CHANGE_BUNS } from "../../services/actions/ingredients";
 
+const getModalIsActive = (store) => store.order.modalIsActive; 
+const getBun = (store) => store.burgerConstructor.bun;
+const getIngredients = (store) => store.burgerConstructor.ingredients;
 
 const BurgerConstructor = () => {
-  const modalIsActive = useSelector((store) => store.order.modalIsActive)
-  const {bun, ingredients} = useSelector((store) => store.burgerConstructor);
+  const modalIsActive = useSelector(getModalIsActive);
+  const bun = useSelector(getBun);
+  const ingredients = useSelector(getIngredients);
+  
   const dispatch = useDispatch();
 
   const [{ canDrop }, dropRef] = useDrop({

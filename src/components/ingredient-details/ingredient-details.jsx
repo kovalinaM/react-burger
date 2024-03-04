@@ -1,13 +1,15 @@
 import styles from "./ingredient-details.module.css";
 import {useSelector}  from "react-redux";
 
+const getSelectedIngredient = (store) => store.ingredientDetails.selectedIngredient;
+
 const IngredientDetails = () => {
-  const selectedIngredient = useSelector(store => store.ingredientDetails.selectedIngredient)
+  const selectedIngredient = useSelector(getSelectedIngredient);
   
   if (!selectedIngredient) {
     return "Загружаю сведения об ингредиенте...";
   } 
-  
+
   return (
     <div className={styles.product_card}>
       <img

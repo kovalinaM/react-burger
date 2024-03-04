@@ -3,8 +3,15 @@ import imageDone from '../../images/done.svg'
 import { useSelector } from "react-redux";
 import Preloader from "../preloader/preloader";
 
+const getOrder = (store) => store.order.order;
+const getIsLoading = (store) => store.order.isLoading;
+const getError = (store) => store.order.error;
+
 const OrderDetails = () => {
-    const {order, isLoading, error }= useSelector(store => store.order)
+    const order = useSelector(getOrder);
+    const isLoading = useSelector(getIsLoading);
+    const error = useSelector(getError);
+
     return (
         <div className={styles.order_content}>
             {isLoading &&  <Preloader/>}

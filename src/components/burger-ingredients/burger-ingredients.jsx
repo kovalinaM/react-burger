@@ -10,8 +10,12 @@ import {INGREDIENTS_TYPES} from '../../utils/constants'
 import styles from "./burger-ingredients.module.css";
 import { OPEN_INGREDIENT_MODAL, selectIngredient } from "../../services/actions/ingredient-details";
 
-export default function BurgerIngredients() {
-  const { ingredients, currentTab} = useSelector(store => store.ingredients);
+const getIngredients = (store) => store.ingredients.ingredients;
+const getCurrentTab = (store) => store.ingredients.currentTab
+
+const BurgerIngredients = () => {
+  const ingredients = useSelector(getIngredients);
+  const currentTab = useSelector(getCurrentTab);
   const dispatch = useDispatch();
 
   const buns = useMemo(
@@ -124,3 +128,5 @@ export default function BurgerIngredients() {
     </section>
   );
 }
+
+export default BurgerIngredients;
