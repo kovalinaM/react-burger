@@ -4,6 +4,8 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./burger-constructor.module.css";
+import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop} from "react-dnd";
 
@@ -11,10 +13,9 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import ConstructorIngredient from "../ingredient-constructor/constructor-ingredient"
 
-import styles from "./burger-constructor.module.css";
-import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL, createOrder } from "../../services/actions/order";
 import { INGREDIENTS_TYPES } from "../../utils/constants";
-import { v4 as uuidv4 } from 'uuid';
+
+import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL, createOrder } from "../../services/actions/order";
 import { SET_BUNS, ADD_INGREDIENT} from "../../services/actions/burger-constructor";
 import { INCREASE_INGREDIENT, CHANGE_BUNS } from "../../services/actions/ingredients";
 
@@ -89,7 +90,7 @@ const BurgerConstructor = () => {
     <section className={`${styles.constructor} mt-25 mb-10`} >
       <div className={styles.ingredients_container} ref={dropRef}>
         {bun ? (
-          <div className="ml-8">
+          <div className={`${styles.bun} ml-8`}>
             <ConstructorElement
               text={`${bun.name} (Верх)`}
               isLocked={true}
@@ -98,7 +99,11 @@ const BurgerConstructor = () => {
               type="top"
             />
           </div>
-        ) : 'Выберите булку'}
+        ) : (
+              <div className={`${styles.info} ml-8`}>
+                <p className="text text_type_main-default text_color_inactive">Выберите булку</p>
+              </div>
+            )}
 
         <div>
           <ul className={`${styles.list} custom-scroll`}>
@@ -106,11 +111,15 @@ const BurgerConstructor = () => {
               ingredients.map((ingredient, index) => (
                 <ConstructorIngredient ingredient={ingredient} index={index} key={ingredient.uniqId}  />
               )) 
-            ) : 'Выберите ингредиенты для начинки'}
+            ) : (
+                  <div className={`${styles.info} ml-8`}>
+                    <p className="text text_type_main-default text_color_inactive">Выберите ингредиенты для начинки</p>
+                  </div>
+                )}
           </ul>
         </div>
         {bun && (
-          <div className="ml-8">
+          <div className={`${styles.bun} ml-8`}>
             <ConstructorElement
               text={`${bun.name}  (Низ)`}
               isLocked={true}
