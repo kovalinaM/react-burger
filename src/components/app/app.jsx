@@ -21,24 +21,21 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <React.Fragment>
-      <div className={stylesApp.container}>
-        <AppHeader />
-
-        <main className={stylesApp.sections}>
-          <DndProvider backend={HTML5Backend}>
-              {ingredientsLoading && <Preloader/>}
-            {ingredientsFailed && "Произошла ошибка"}
-            {!ingredientsLoading && !ingredientsFailed && ingredients  && (
-              <>
-                <BurgerIngredients/>
-                <BurgerConstructor /> 
-              </>
-            )}
-          </DndProvider>
-        </main>
-      </div>
-    </React.Fragment>
+    <div className={stylesApp.container}>
+      <AppHeader />
+      <main className={stylesApp.sections}>
+        <DndProvider backend={HTML5Backend}>
+            {ingredientsLoading && <Preloader/>}
+          {ingredientsFailed && "Произошла ошибка"}
+          {!ingredientsLoading && !ingredientsFailed && ingredients  && (
+            <>
+              <BurgerIngredients/>
+              <BurgerConstructor /> 
+            </>
+          )}
+        </DndProvider>
+      </main>
+    </div>
   );
 };
 
