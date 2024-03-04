@@ -12,6 +12,7 @@ import { useDrop} from "react-dnd";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import ConstructorIngredient from "../ingredient-constructor/constructor-ingredient"
+import ConstructorInfoElement from "../constructor-info-element/constructor-info-element";
 
 import { INGREDIENTS_TYPES } from "../../utils/constants";
 
@@ -104,10 +105,9 @@ const BurgerConstructor = () => {
             />
           </div>
         ) : (
-              <div className={`${styles.info} ml-8`}>
-                <p className="text text_type_main-default text_color_inactive">Выберите булку</p>
-              </div>
-            )}
+              <ConstructorInfoElement>Выберите булку</ConstructorInfoElement>
+            )
+          }
 
         <div>
           <ul className={`${styles.list} custom-scroll`}>
@@ -116,10 +116,9 @@ const BurgerConstructor = () => {
                 <ConstructorIngredient ingredient={ingredient} index={index} key={ingredient.uniqId}  />
               )) 
             ) : (
-                  <div className={`${styles.info} ml-8`}>
-                    <p className="text text_type_main-default text_color_inactive">Выберите ингредиенты для начинки</p>
-                  </div>
-                )}
+                  <ConstructorInfoElement>Выберите соусы и начинки для бургера</ConstructorInfoElement>
+                )
+              }
           </ul>
         </div>
         {bun && (

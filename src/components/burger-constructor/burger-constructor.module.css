@@ -17,6 +17,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    min-height: 100px;
     max-height: calc(100vh - 522px);
     overflow-y: auto;
 }
@@ -33,17 +34,6 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-}
-
-.info {
-    width: 533px;
-    padding: 16px 24px;
-    display: flex;
-    border-radius: var(--common-border-radius-s);
-    background: var(--background-element);
-    min-height:58px;
-    align-items: center;
-    justify-content: center;
 }
 
 .bun {
