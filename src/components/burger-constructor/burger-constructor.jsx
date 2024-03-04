@@ -25,11 +25,14 @@ const BurgerConstructor = () => {
   const {bun, ingredients} = useSelector((store) => store.burderConstructor);
   const dispatch = useDispatch();
 
-  const [, dropRef] = useDrop({
+  const [{ canDrop }, dropRef] = useDrop({
     accept: "ingredients",
     drop(ingredient) {
       onDropHandler(ingredient)
-    }
+    },
+    collect: (monitor) => ({
+      canDrop: monitor.canDrop()
+    })
   });
 
   function onDropHandler(ingredient) {
@@ -85,10 +88,11 @@ const BurgerConstructor = () => {
     }, 0) + (bun ? 2 * bun.price : 0);
   }, [bun, ingredients])
 
+  const borderColor = canDrop ? '#4c4cff' : 'transparent';
 
   return (
     <section className={`${styles.constructor} mt-25 mb-10`} >
-      <div className={styles.ingredients_container} ref={dropRef}>
+      <div className={styles.ingredients_container} ref={dropRef} style={{borderColor}}>
         {bun ? (
           <div className={`${styles.bun} ml-8`}>
             <ConstructorElement

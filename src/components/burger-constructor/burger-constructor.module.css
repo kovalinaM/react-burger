@@ -8,6 +8,9 @@
     justify-content: center;
     gap: 16px;
     min-height: 300px;
+    border-radius: var(--common-border-radius-s);
+    padding: 5px;
+    border: 2px dashed transparent;
 }
 
 .list {
