@@ -5,6 +5,7 @@ import {
     DragIcon,
     ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ingredientType } from "../../utils/types";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import {
@@ -18,14 +19,11 @@ const { name, price, image_mobile, uniqId, _id } = ingredient;
 const dispatch = useDispatch();
 const ref = useRef(null);
 
-const [{ isDragging }, dragRef] = useDrag({
+const [, dragRef] = useDrag({
     type: "sortedIngredients",
     item: () => {
         return { uniqId, index };
-    },
-    collect: (monitor) => ({
-        isDragging: monitor.isDragging(),
-    }),
+    }
 });
 
 const [, dropRef] = useDrop({
@@ -83,6 +81,11 @@ function onDeleteIngredient(uniqId, _id) {
             />
         </li>
     );
+};
+
+ConstructorIngredient.propTypes = {
+    ingredient: ingredientType.isRequired,
+    index: PropTypes.number.isRequired
 };
 
 export default ConstructorIngredient;
