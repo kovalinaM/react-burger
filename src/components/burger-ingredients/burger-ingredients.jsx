@@ -18,18 +18,33 @@ const BurgerIngredients = () => {
   const currentTab = useSelector(getCurrentTab);
   const dispatch = useDispatch();
 
-  const buns = useMemo(
-    () => ingredients.filter((item) => item.type === "bun"),
-    [ingredients]
-  );
-  const main = useMemo(
-    () => ingredients.filter((item) => item.type === "main"),
-    [ingredients]
-  );
-  const sauces = useMemo(
-    () => ingredients.filter((item) => item.type === "sauce"),
-    [ingredients]
-  );
+  const categorizedIngredients = useMemo(() => {
+    const categorized = {
+      buns: [],
+      main: [],
+      sauces: [],
+    };
+  
+    ingredients.forEach(item => {
+      switch (item.type) {
+        case INGREDIENTS_TYPES.BUN.type:
+          categorized.buns.push(item);
+          break;
+        case INGREDIENTS_TYPES.MAIN.type:
+          categorized.main.push(item);
+          break;
+        case INGREDIENTS_TYPES.SAUCE.type:
+          categorized.sauces.push(item);
+          break;
+        default:
+          break;
+      }
+    });
+  
+    return categorized;
+  }, [ingredients]);
+  
+  const { buns, main, sauces } = categorizedIngredients;
 
   const switchTab = (currentTab) => {
     const SCROLL_PARAMS = {
