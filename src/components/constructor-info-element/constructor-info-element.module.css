@@ -1,0 +1,10 @@
+.info {
+    width: 533px;
+    padding: 16px 24px;
+    display: flex;
+    border-radius: var(--common-border-radius-s);
+    background: var(--background-element);
+    min-height:58px;
+    align-items: center;
+    justify-content: center;
+}
