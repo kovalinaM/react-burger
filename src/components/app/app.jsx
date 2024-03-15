@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import stylesApp from "./app.module.css";
 import { useDispatch } from 'react-redux';
 import { Routes, Route } from "react-router-dom";
 
 import AppHeader from "../app-header/app-header";
-import {HomePage} from "../../pages"
+import {HomePage, RegisterPage, LoginPage} from "../../pages"
 
 import {getIngredientsList} from "../../services/actions/ingredients";
 
@@ -22,6 +22,8 @@ const App = () => {
       <AppHeader />
       <Routes>
         <Route path="/" element={<HomePage/>}/>
+        <Route path="/register" element={<RegisterPage/>}/>
+        <Route path="/login" element={<LoginPage/>}/>
       </Routes>
     </div>
   );
