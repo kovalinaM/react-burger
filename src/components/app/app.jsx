@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Routes, Route } from "react-router-dom";
 
 import AppHeader from "../app-header/app-header";
-import {HomePage, RegisterPage, LoginPage, ForgotPasswordPage, ResetPasswordPage} from "../../pages"
+import {HomePage, RegisterPage, LoginPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, ProfileEdit, ProfileOrders, NotFoundPage} from "../../pages"
 
 import {getIngredientsList} from "../../services/actions/ingredients";
 
@@ -26,6 +26,11 @@ const App = () => {
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/forgot-password" element={<ForgotPasswordPage/>}/>
         <Route path="/reset-password" element={<ResetPasswordPage/>}/>
+        <Route path="/profile" element={<ProfilePage />}>
+          <Route index element={<ProfileEdit />} />
+          <Route path="orders" element={<ProfileOrders />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage/>}/>
       </Routes>
     </div>
   );
