@@ -1,0 +1,23 @@
+.container{
+    display: flex;
+    justify-content: flex-start;
+    gap: 60px;
+    height: 100%;
+
+}
+.sidebar{
+    max-width: 320px;
+    width: 100%;
+}
+
+.menu{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 80px;
+}
+
+.menu > li {
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+}
