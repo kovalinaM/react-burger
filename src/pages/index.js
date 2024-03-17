@@ -1,4 +1,5 @@
 import {HomePage} from "./home/home";
+import { IngredientDetailsPage } from "./ingredient-details/ingredient-details";
 import {RegisterPage} from "./register/register";
 import {LoginPage} from "./login/login";
 import {ForgotPasswordPage} from "./forgot-password/forgot-password"
@@ -10,6 +11,7 @@ import { NotFoundPage } from "./not-found/not-found";
 
 export {
     HomePage, 
+    IngredientDetailsPage,
     RegisterPage, 
     LoginPage,
     ForgotPasswordPage,

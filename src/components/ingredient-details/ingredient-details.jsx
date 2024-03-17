@@ -1,10 +1,28 @@
 import styles from "./ingredient-details.module.css";
-import {useSelector}  from "react-redux";
+import { useEffect } from "react";
+import {useSelector, useDispatch}  from "react-redux";
+import { useParams } from "react-router-dom";
+import { SELECT_INGREDIENT } from "../../services/actions/ingredient-details";
 
 const getSelectedIngredient = (store) => store.ingredientDetails.selectedIngredient;
+const getIngredients = (store) => store.ingredients.ingredients;
 
 const IngredientDetails = () => {
   const selectedIngredient = useSelector(getSelectedIngredient);
+  const dispatch = useDispatch();
+
+  const ingredients = useSelector(getIngredients);
+  const { ingredientId } = useParams();
+
+  useEffect(() => {
+    if (!selectedIngredient && ingredientId  && ingredients) {
+      const ingredient = ingredients.find((ingredient) => ingredient._id === ingredientId );
+      dispatch({
+        type: SELECT_INGREDIENT,
+        selectedIngredient: ingredient,
+      })
+    }
+  }, [selectedIngredient, ingredientId , ingredients, dispatch]);
   
   if (!selectedIngredient) {
     return "Загружаю сведения об ингредиенте...";
