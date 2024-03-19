@@ -1,15 +1,15 @@
-import { BASE_URL } from "./constants";
+import { BASE_URL, ENDPOINT } from "./constants";
 
 export const checkResponse = (res) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
 export function getIngredients() {
-  return fetch(`${BASE_URL}/ingredients`).then(checkResponse);
+  return fetch(BASE_URL + ENDPOINT.INGREDIENTS).then(checkResponse);
 }
 
 export const postOrder = ({ ingredients }) => {
-  return fetch(`${BASE_URL}/orders`, {
+  return fetch(BASE_URL + ENDPOINT.ORDERS, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -19,17 +19,17 @@ export const postOrder = ({ ingredients }) => {
 };
 
 export const registerRequest = ({ name, email, password }) => {
-    return fetch(`${BASE_URL}/auth/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, email, password }),
-    }).then(checkResponse);
-  };
+  return fetch(BASE_URL + ENDPOINT.REGISTER, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, email, password }),
+  }).then(checkResponse);
+};
 
 export const loginRequest = ({ email, password }) => {
-  return fetch(`${BASE_URL}/auth/login`, {
+  return fetch(BASE_URL + ENDPOINT.LOGIN, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -39,18 +39,28 @@ export const loginRequest = ({ email, password }) => {
 };
 
 export const getUser = () => {
-    return fetch(`${BASE_URL}/auth/user`, {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": localStorage.getItem("accessToken"),
-      },
-    })
-      .then(checkResponse)
-  };
+  return fetchWithRefresh(BASE_URL + ENDPOINT.USER, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
+    },
+  }).then(checkResponse);
+};
+
+export const updateUser = ({ name, email, password }) => {
+  return fetchWithRefresh(BASE_URL + ENDPOINT.USER, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
+    },
+    body: JSON.stringify({ name, email, password }),
+  }).then(checkResponse);
+};
 
 export const forgotPassword = ({ email }) => {
-  return fetch(`${BASE_URL}/auth/rpassword-reset`, {
+  return fetch(BASE_URL + ENDPOINT.FORGOT_PASSWORD, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -60,7 +70,7 @@ export const forgotPassword = ({ email }) => {
 };
 
 export const resetPassword = ({ token, password }) => {
-  return fetch(`${BASE_URL}/auth/password-reset/reset`, {
+  return fetch(BASE_URL + ENDPOINT.RESET_PASSWORD, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -69,20 +79,8 @@ export const resetPassword = ({ token, password }) => {
   }).then(checkResponse);
 };
 
-export const logout = () => {
-  return fetch(`${BASE_URL}/auth/password-reset/logout`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
-  }).then(checkResponse);
-};
-
-
-
 export const refreshToken = () => {
-  return fetch(`${BASE_URL}/auth/token`, {
+  return fetch(BASE_URL + ENDPOINT.REFRESH_TOKEN, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -116,4 +114,14 @@ export const fetchWithRefresh = async (url, options) => {
       return Promise.reject(err);
     }
   }
+};
+
+export const logout = () => {
+  return fetch(BASE_URL + ENDPOINT.LOGOUT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
+  }).then(checkResponse);
 };
