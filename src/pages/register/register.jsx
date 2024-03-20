@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { register } from "../../services/actions/register";
 
 import {
   Button,
@@ -9,6 +11,8 @@ import {
 import styles from "./register.module.css";
 
 export function RegisterPage() {
+  const dispatch = useDispatch();
+
   const [formValue, setFormValue] = useState({
     name: "",
     email: "",
@@ -24,6 +28,7 @@ export function RegisterPage() {
 
   function onSubmit(e) {
     e.preventDefault();
+    dispatch(register(formValue));
   }
 
   return (
@@ -34,7 +39,7 @@ export function RegisterPage() {
           <Input
             type={"text"}
             placeholder={"Имя"}
-            name={"Имя"}
+            name={"name"}
             onChange={onFormChange}
             value={formValue.name}
           />
@@ -43,7 +48,7 @@ export function RegisterPage() {
           <Input
             type={"email"}
             placeholder={"E-mail"}
-            name={"E-mail"}
+            name={"email"}
             onChange={onFormChange}
             value={formValue.email}
           />
@@ -51,7 +56,7 @@ export function RegisterPage() {
         <div className="mb-6">
           <PasswordInput
             value={formValue.password}
-            name={"Пароль"}
+            name={"password"}
             onChange={onFormChange}
           />
         </div>

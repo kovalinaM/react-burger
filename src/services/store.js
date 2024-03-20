@@ -7,12 +7,14 @@ import { ingridientsReducer } from "./reducers/ingredients";
 import { burgerConstructorReducer } from "./reducers/burger-constructor";
 import { ingredientDetailsReducer } from "./reducers/ingredient-details";
 import { orderReducer } from "./reducers/order";
+import { AuthReducer } from "./reducers/auth";
 
 export const rootReducer = combineReducers({
     ingredients: ingridientsReducer,
     burgerConstructor: burgerConstructorReducer,
     ingredientDetails: ingredientDetailsReducer,
     order: orderReducer,
+    auth: AuthReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
