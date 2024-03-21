@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import {useDispatch} from "react-redux";
 import {
   Button,
   Input,
@@ -7,11 +8,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../register/register.module.css";
 
+import {login} from "../../services/actions/login";
+
 export function LoginPage() {
+  const dispatch = useDispatch();
+
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
   });
+
   function onFormChange(e) {
     setFormValue({
       ...formValue,
@@ -21,7 +27,9 @@ export function LoginPage() {
 
   function onSubmit(e) {
     e.preventDefault();
+    dispatch(login(formValue));
   }
+
   return (
     <div className={styles.container}>
       <h2 className={`text text_type_main-medium mb-6`}>Вход</h2>
@@ -30,7 +38,7 @@ export function LoginPage() {
           <Input
             type={"email"}
             placeholder={"E-mail"}
-            name={"E-mail"}
+            name={"email"}
             onChange={onFormChange}
             value={formValue.email}
           />
@@ -38,7 +46,7 @@ export function LoginPage() {
         <div className="mb-6">
           <PasswordInput
             value={formValue.password}
-            name={"Пароль"}
+            name={"password"}
             onChange={onFormChange}
           />
         </div>
@@ -48,7 +56,7 @@ export function LoginPage() {
       </form>
 
       <p className="text text_type_main-default text_color_inactive mt-20">
-        Вы — новый пользователь?
+        Вы — новый пользователь?
         <Link to="/register" className={styles.link}>
           {" "}
           Зарегистрироваться

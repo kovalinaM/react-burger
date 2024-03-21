@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {useSelector} from "react-redux";
 import {
   Button,
   Input,
@@ -6,11 +7,15 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile-edit.module.css";
 
+const getUser = state => state.auth.user;
+
 export function ProfileEdit() {
+  const { name, email, password } = useSelector(getUser);
+
   const [formValue, setFormValue] = useState({
-    name: "Марк",
-    email: "mail@stellar.burgers",
-    password: "12345",
+    name: name,
+    email: email,
+    password: password,
   });
 
   function onFormChange(e) {
@@ -30,7 +35,7 @@ export function ProfileEdit() {
         <Input
           type={"text"}
           placeholder={"Имя"}
-          name={"Имя"}
+          name={"name"}
           onChange={onFormChange}
           value={formValue.name}
           icon={"EditIcon"}
@@ -40,7 +45,7 @@ export function ProfileEdit() {
         <Input
           type={"email"}
           placeholder={"Логин"}
-          name={"E-mail"}
+          name={"email"}
           onChange={onFormChange}
           value={formValue.email}
           icon={"EditIcon"}
@@ -49,7 +54,7 @@ export function ProfileEdit() {
       <div className="mb-6">
         <PasswordInput
           value={formValue.password}
-          name={"Пароль"}
+          name={"password"}
           onChange={onFormChange}
           icon={"EditIcon"}
         />
