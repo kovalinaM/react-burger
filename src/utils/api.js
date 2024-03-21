@@ -59,7 +59,7 @@ export const updateUser = ({ name, email, password }) => {
   }).then(checkResponse);
 };
 
-export const forgotPassword = ({ email }) => {
+export const forgotPasswordRequest = ({ email }) => {
   return fetch(BASE_URL + ENDPOINT.FORGOT_PASSWORD, {
     method: "POST",
     headers: {
@@ -69,7 +69,7 @@ export const forgotPassword = ({ email }) => {
   }).then(checkResponse);
 };
 
-export const resetPassword = ({ token, password }) => {
+export const resetPasswordRequest = ({ token, password }) => {
   return fetch(BASE_URL + ENDPOINT.RESET_PASSWORD, {
     method: "POST",
     headers: {

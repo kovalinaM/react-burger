@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { forgotPassword } from "../../services/actions/forgot-password";
+
 
 import {
   Button,
@@ -8,6 +11,9 @@ import {
 import styles from "../register/register.module.css";
 
 export function ForgotPasswordPage() {
+  const dispatch = useDispatch();
+  const { isAuthenticated, forgotPasswordSuccess, forgotPasswordError} = useSelector(state => state.auth);
+
   const [formValue, setFormValue] = useState({
     email: "",
   });
@@ -21,6 +27,21 @@ export function ForgotPasswordPage() {
 
   function onSubmit(e) {
     e.preventDefault();
+    dispatch(forgotPassword(formValue));
+  }
+
+  if (forgotPasswordSuccess) {
+    return (
+      <Navigate 
+        to='/reset-password'
+      />
+    )
+  } else if (isAuthenticated) {
+    return (
+      <Navigate 
+        to='/'
+      />
+    )
   }
 
   return (
@@ -31,9 +52,10 @@ export function ForgotPasswordPage() {
           <Input
             type={"email"}
             placeholder={"E-mail"}
-            name={"E-mail"}
+            name={"email"}
             onChange={onFormChange}
             value={formValue.email}
+            error={forgotPasswordError}
           />
         </div>
         <Button type="primary" size="large">

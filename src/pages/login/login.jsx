@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import {useDispatch} from "react-redux";
+import { Link, Navigate, useLocation } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import {
   Button,
   Input,
@@ -11,7 +11,9 @@ import styles from "../register/register.module.css";
 import {login} from "../../services/actions/login";
 
 export function LoginPage() {
+  const { isAuthenticated, loginError } = useSelector(state => state.auth);
   const dispatch = useDispatch();
+  const {state} = useLocation();
 
   const [formValue, setFormValue] = useState({
     email: "",
@@ -28,6 +30,14 @@ export function LoginPage() {
   function onSubmit(e) {
     e.preventDefault();
     dispatch(login(formValue));
+  }
+
+  if (isAuthenticated) {
+    return (
+      <Navigate 
+        to={ state?.from || '/'}
+      />
+    )
   }
 
   return (
@@ -48,6 +58,7 @@ export function LoginPage() {
             value={formValue.password}
             name={"password"}
             onChange={onFormChange}
+            error={loginError}
           />
         </div>
         <Button type="primary" size="large">
@@ -65,7 +76,7 @@ export function LoginPage() {
 
       <p className="text text_type_main-default text_color_inactive mt-4">
         Забыли пароль?
-        <Link to="/" className={styles.link}>
+        <Link to="/forgot-password" className={styles.link}>
           {" "}
           Восстановить пароль
         </Link>

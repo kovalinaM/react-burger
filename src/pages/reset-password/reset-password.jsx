@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   Button,
@@ -8,7 +9,15 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../register/register.module.css";
 
+import { resetPassword } from "../../services/actions/reset-password";
+
 export function ResetPasswordPage() {
+  const { forgotPasswordSuccess } = useSelector(state => state.auth);
+
+  const { isAuthenticated, resetPasswordSuccess, resetPasswordError } = useSelector(state => state.auth);
+  const [ isPassword, setIsPassword ] = useState(true);
+
+  const dispatch = useDispatch();
   const [formValue, setFormValue] = useState({
     password: "",
     token: ""
@@ -23,6 +32,25 @@ export function ResetPasswordPage() {
 
   function onSubmit(e) {
     e.preventDefault();
+    dispatch(resetPassword(formValue));
+  }
+
+  function onIconClick() {
+    setIsPassword(!isPassword);
+  }
+
+  if (resetPasswordSuccess || !forgotPasswordSuccess) {
+    return (
+      <Navigate
+        to='/login'
+      />
+    )
+  } else if (isAuthenticated) {
+    return (
+      <Navigate
+        to='/'
+      />
+    )
   }
 
   return (
@@ -32,17 +60,20 @@ export function ResetPasswordPage() {
         <div className="mb-6">
           <PasswordInput
             value={formValue.password}
-            name={"Пароль"}
+            name={"password"}
             onChange={onFormChange}
+            onIconClick={onIconClick}
+            error={resetPasswordError}
           />
         </div>
         <div className="mb-6">
           <Input
             type={"text"}
             placeholder={"Ведите код из письма"}
-            name={"Code"}
+            name={"token"}
             onChange={onFormChange}
             value={formValue.email}
+            error={resetPasswordError}
           />
         </div>
         <Button type="primary" size="large">
