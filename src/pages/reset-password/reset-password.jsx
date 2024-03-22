@@ -12,9 +12,10 @@ import styles from "../register/register.module.css";
 import { resetPassword } from "../../services/actions/reset-password";
 
 export function ResetPasswordPage() {
-  const { forgotPasswordSuccess } = useSelector(state => state.auth);
-
-  const { isAuthenticated, resetPasswordSuccess, resetPasswordError } = useSelector(state => state.auth);
+  const forgotPasswordSuccess = useSelector(store => store.auth.forgotPasswordSuccess);
+  const isAuthenticated = useSelector(store => store.auth.isAuthenticated);
+  const resetPasswordSuccess = useSelector(store => store.auth.resetPasswordSuccess);
+  const resetPasswordError = useSelector(store=> store.auth.resetPasswordError);
   const [ isPassword, setIsPassword ] = useState(true);
 
   const dispatch = useDispatch();

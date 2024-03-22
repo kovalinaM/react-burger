@@ -1,5 +1,5 @@
-import { useState } from "react";
-import {useSelector} from "react-redux";
+import { useState, useMemo } from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {
   Button,
   Input,
@@ -7,17 +7,26 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile-edit.module.css";
 
-const getUser = state => state.auth.user;
+import {editProfile} from "../../services/actions/profile";
+
+const getUser = store => store.auth.user;
 
 export function ProfileEdit() {
+  const dispatch = useDispatch();
+
   const { name, email, password } = useSelector(getUser);
 
   const [formValue, setFormValue] = useState({
-    name: name,
-    email: email,
-    password: password,
+    name: name || '',
+    email: email || '',
+    password: password || '',
   });
 
+  const isChanged = useMemo(() => {
+    return name !== formValue.name || email !== formValue.email || password !== formValue.password;
+  }, [formValue, name, email, password]);
+
+console.log(formValue);
   function onFormChange(e) {
     setFormValue({
       ...formValue,
@@ -25,9 +34,18 @@ export function ProfileEdit() {
     });
   }
 
+  function onCancel(e) {
+    e.preventDefault();
+    setFormValue({
+      name, email, password,
+    })
+  }
+
   function onSubmit(e) {
     e.preventDefault();
+    dispatch(editProfile(formValue));
   }
+
 
   return (
     <form onSubmit={onSubmit}>
@@ -38,7 +56,7 @@ export function ProfileEdit() {
           name={"name"}
           onChange={onFormChange}
           value={formValue.name}
-          icon={"EditIcon"}
+          icon="EditIcon"
         />
       </div>
       <div className="mb-6">
@@ -48,7 +66,7 @@ export function ProfileEdit() {
           name={"email"}
           onChange={onFormChange}
           value={formValue.email}
-          icon={"EditIcon"}
+          icon="EditIcon"
         />
       </div>
       <div className="mb-6">
@@ -56,17 +74,19 @@ export function ProfileEdit() {
           value={formValue.password}
           name={"password"}
           onChange={onFormChange}
-          icon={"EditIcon"}
+          icon="EditIcon"
         />
       </div>
+      {isChanged && (
       <div className={styles.buttons}>
-        <Button type="secondary" size="large">
+        <Button type="secondary" size="large" onClick={onCancel}>
           Отмена
         </Button>
         <Button type="primary" size="large">
           Сохранить
         </Button>
       </div>
+      )}
     </form>
   );
 }

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import {useState} from "react";
+import {Link, Navigate, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {
   Button,
@@ -10,10 +10,14 @@ import styles from "../register/register.module.css";
 
 import {login} from "../../services/actions/login";
 
+const getIsAuthenticated = (store)=> store.auth.isAuthenticated;
+const getLoginError = (store) => store.auth.loginError;
+
 export function LoginPage() {
-  const { isAuthenticated, loginError } = useSelector(state => state.auth);
+  const isAuthenticated = useSelector(getIsAuthenticated);
+  const loginError = useSelector(getLoginError);
   const dispatch = useDispatch();
-  const {state} = useLocation();
+  const location = useLocation();
 
   const [formValue, setFormValue] = useState({
     email: "",
@@ -35,10 +39,10 @@ export function LoginPage() {
   if (isAuthenticated) {
     return (
       <Navigate 
-        to={ state?.from || '/'}
+        to={ location?.from || '/'}
       />
     )
-  }
+  } 
 
   return (
     <div className={styles.container}>

@@ -8,6 +8,7 @@ import styles from "./burger-constructor.module.css";
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop} from "react-dnd";
+import { useNavigate } from "react-router-dom";
 
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
@@ -23,13 +24,16 @@ import { INCREASE_INGREDIENT, CHANGE_BUNS } from "../../services/actions/ingredi
 const getModalIsActive = (store) => store.order.modalIsActive; 
 const getBun = (store) => store.burgerConstructor.bun;
 const getIngredients = (store) => store.burgerConstructor.ingredients;
+const getIsAuthenticated = (store) => store.auth.isAuthenticated
 
 const BurgerConstructor = () => {
+  const isAuthenticated =  useSelector(getIsAuthenticated);
   const modalIsActive = useSelector(getModalIsActive);
   const bun = useSelector(getBun);
   const ingredients = useSelector(getIngredients);
   
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [{ canDrop }, dropRef] = useDrop({
     accept: "ingredients",
@@ -76,13 +80,17 @@ const BurgerConstructor = () => {
   };
 
   function createOrderHandler() {
+    if (isAuthenticated) {
     const order = {
       ingredients: [bun._id, ...ingredients.map((ingredient) => ingredient._id), bun._id]
     }
       dispatch({
         type: OPEN_ORDER_MODAL
       })
-      dispatch(createOrder(order))
+      dispatch(createOrder(order));
+    } else {
+      navigate('/login')
+    }
   };
 
   const totalPrice = useMemo(()=> {

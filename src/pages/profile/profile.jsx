@@ -1,8 +1,16 @@
 import { NavLink, useLocation, Outlet } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styles from "./profile.module.css";
+
+import { logout } from "../../services/actions/profile";
 
 export function ProfilePage() {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
+
+  function onLogout() {
+    dispatch(logout());
+  }
 
   return (
     <main className={`${styles.container} pt-30`}>
@@ -13,8 +21,8 @@ export function ProfilePage() {
               <NavLink
                 to={`/profile`}
                 className={` ${
-                    pathname === "/profile" ? "" : "text_color_inactive"
-                  }`}
+                  pathname === "/profile" ? "" : "text_color_inactive"
+                }`}
               >
                 Профиль
               </NavLink>
@@ -23,14 +31,19 @@ export function ProfilePage() {
               <NavLink
                 to={`/profile/orders`}
                 className={`${
-                    pathname === "/profile/orders" ? "" : "text_color_inactive"
-                  }`}
+                  pathname === "/profile/orders" ? "" : "text_color_inactive"
+                }`}
               >
                 История заказов
               </NavLink>
             </li>
             <li className="text text_type_main-medium text_color_inactive">
-              Выход
+              <button
+                className={`${styles.logout_btn} text text_type_main-medium text_color_inactive`}
+                onClick={onLogout}
+              >
+                Выход
+              </button>
             </li>
           </ul>
         </nav>
