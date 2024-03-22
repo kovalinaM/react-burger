@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, Navigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../services/actions/register";
 
 import {
@@ -11,7 +11,9 @@ import {
 import styles from "./register.module.css";
 
 export function RegisterPage() {
+  const isAuthenticated =  useSelector(state => state.auth.isAuthenticated);
   const dispatch = useDispatch();
+  const {state} = useLocation();
 
   const [formValue, setFormValue] = useState({
     name: "",
@@ -29,6 +31,14 @@ export function RegisterPage() {
   function onSubmit(e) {
     e.preventDefault();
     dispatch(register(formValue));
+  }
+
+  if (isAuthenticated) {
+    return (
+      <Navigate
+        to={ state?.from || '/'}
+      />
+    )
   }
 
   return (
@@ -60,7 +70,7 @@ export function RegisterPage() {
             onChange={onFormChange}
           />
         </div>
-        <Button type="primary" size="large">
+        <Button htmlType="button" type="primary" size="large">
           Зарегистрироваться
         </Button>
       </form>

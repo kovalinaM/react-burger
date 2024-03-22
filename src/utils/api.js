@@ -38,17 +38,17 @@ export const loginRequest = ({ email, password }) => {
   }).then(checkResponse);
 };
 
-export const getUser = () => {
+export const getUserRequest = () => {
   return fetchWithRefresh(BASE_URL + ENDPOINT.USER, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
       Authorization: localStorage.getItem("accessToken"),
     },
-  }).then(checkResponse);
+  });
 };
 
-export const updateUser = ({ name, email, password }) => {
+export const updateUserRequest = ({ name, email, password }) => {
   return fetchWithRefresh(BASE_URL + ENDPOINT.USER, {
     method: "PATCH",
     headers: {
@@ -56,7 +56,7 @@ export const updateUser = ({ name, email, password }) => {
       Authorization: localStorage.getItem("accessToken"),
     },
     body: JSON.stringify({ name, email, password }),
-  }).then(checkResponse);
+  });
 };
 
 export const forgotPasswordRequest = ({ email }) => {
@@ -79,7 +79,7 @@ export const resetPasswordRequest = ({ token, password }) => {
   }).then(checkResponse);
 };
 
-export const refreshToken = () => {
+export const refreshTokenRequest = () => {
   return fetch(BASE_URL + ENDPOINT.REFRESH_TOKEN, {
     method: "POST",
     headers: {
@@ -106,7 +106,7 @@ export const fetchWithRefresh = async (url, options) => {
     return await checkResponse(res);
   } catch (err) {
     if (err.message === "jwt expired") {
-      const refreshData = await refreshToken(); //обновляем токен
+      const refreshData = await refreshTokenRequest(); //обновляем токен
       options.headers.authorization = refreshData.accessToken;
       const res = await fetch(url, options); //повторяем запрос
       return await checkResponse(res);
@@ -116,7 +116,7 @@ export const fetchWithRefresh = async (url, options) => {
   }
 };
 
-export const logout = () => {
+export const logoutRequest = () => {
   return fetch(BASE_URL + ENDPOINT.LOGOUT, {
     method: "POST",
     headers: {

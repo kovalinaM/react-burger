@@ -15,7 +15,6 @@ export function register(form) {
           type: REGISTER_FORM_SUCCESS,
           user: data.user,
         });
-
         localStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("refreshToken", data.refreshToken);
       })

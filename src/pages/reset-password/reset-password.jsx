@@ -71,12 +71,12 @@ export function ResetPasswordPage() {
             type={"text"}
             placeholder={"Ведите код из письма"}
             name={"token"}
+            value={formValue.token}
             onChange={onFormChange}
-            value={formValue.email}
             error={resetPasswordError}
           />
         </div>
-        <Button type="primary" size="large">
+        <Button htmlType="button" type="primary" size="large">
           Сохранить
         </Button>
       </form>

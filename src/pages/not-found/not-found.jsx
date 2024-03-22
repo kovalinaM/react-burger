@@ -1,5 +1,9 @@
 import styles from "./not-found.module.css";
 import { Link } from "react-router-dom";
+import notFound from "../../images/404.svg";
+import earth from "../../images/earth.svg";
+import austronaut from "../../images/astronaut.svg";
+import moon from "../../images/moon.png";
 
 export function NotFoundPage() {
   return (
@@ -7,7 +11,7 @@ export function NotFoundPage() {
       <div className={styles.central_body}>
         <img
           className={styles.image_404}
-          src="http://salehriaz.com/404Page/img/404.svg"
+          src={notFound}
           width="300px"
           alt="404"
         />
@@ -19,13 +23,13 @@ export function NotFoundPage() {
         <div className={styles.earth_moon}>
           <img
             className={styles.object_earth}
-            src="http://salehriaz.com/404Page/img/earth.svg"
+            src={earth}
             width="100px"
             alt="Earth"
           />
           <img
             className={styles.object_moon}
-            src="http://salehriaz.com/404Page/img/moon.svg"
+            src={moon}
             width="80px"
             alt="Moon"
           />
@@ -33,7 +37,7 @@ export function NotFoundPage() {
         <div className={styles.box_astronaut}>
           <img
             className={styles.object_astronaut}
-            src="http://salehriaz.com/404Page/img/astronaut.svg"
+            src={austronaut}
             width="140px"
             alt="Astronaut"
           />
