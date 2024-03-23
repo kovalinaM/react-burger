@@ -59,7 +59,7 @@ export function getUser() {
         });
       })
       .catch((err) => {
-        if (err.message === "jwt expired") {
+        if (err.message === "invalid token") {
           dispatch(refreshToken());
         } else {
           dispatch({
