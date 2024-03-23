@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 import { getUser } from "../services/actions/profile";
 import Preloader from "./preloader/preloader";
-import {useIsAuthenticated} from "../utils/selectors";
+import { useIsAuthenticated } from "../utils/selectors";
 
 const ProtectedRouteElement = ({ element }) => {
   const isAuthenticated = useIsAuthenticated();

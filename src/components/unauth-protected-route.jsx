@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getUser } from "../services/actions/profile";
 import { Navigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
-import {useIsAuthenticated} from "../utils/selectors";
+import { useIsAuthenticated } from "../utils/selectors";
 
 const UnAuthProtectedRouteElement = ({ element }) => {
   const isAuthenticated = useIsAuthenticated();
@@ -11,7 +11,7 @@ const UnAuthProtectedRouteElement = ({ element }) => {
   const location = useLocation();
 
   useEffect(() => {
-    dispatch(getUser());
+    dispatch(getUser())
   }, [dispatch]);
 
   return isAuthenticated ? (
