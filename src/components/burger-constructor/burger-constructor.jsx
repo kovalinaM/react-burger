@@ -21,13 +21,14 @@ import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL, createOrder } from "../../services
 import { SET_BUNS, ADD_INGREDIENT} from "../../services/actions/burger-constructor";
 import { INCREASE_INGREDIENT, CHANGE_BUNS } from "../../services/actions/ingredients";
 
+import {useIsAuthenticated} from "../../utils/selectors";
+
 const getModalIsActive = (store) => store.order.modalIsActive; 
 const getBun = (store) => store.burgerConstructor.bun;
 const getIngredients = (store) => store.burgerConstructor.ingredients;
-const getIsAuthenticated = (store) => store.auth.isAuthenticated
 
 const BurgerConstructor = () => {
-  const isAuthenticated =  useSelector(getIsAuthenticated);
+  const isAuthenticated =  useIsAuthenticated();
   const modalIsActive = useSelector(getModalIsActive);
   const bun = useSelector(getBun);
   const ingredients = useSelector(getIngredients);

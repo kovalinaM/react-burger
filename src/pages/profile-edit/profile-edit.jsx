@@ -26,7 +26,6 @@ export function ProfileEdit() {
     return name !== formValue.name || email !== formValue.email || password !== formValue.password;
   }, [formValue, name, email, password]);
 
-console.log(formValue);
   function onFormChange(e) {
     setFormValue({
       ...formValue,
@@ -45,7 +44,6 @@ console.log(formValue);
     e.preventDefault();
     dispatch(editProfile(formValue));
   }
-
 
   return (
     <form onSubmit={onSubmit}>
@@ -71,6 +69,7 @@ console.log(formValue);
       </div>
       <div className="mb-6">
         <PasswordInput
+            type={"password"}
           value={formValue.password}
           name={"password"}
           onChange={onFormChange}
@@ -79,10 +78,10 @@ console.log(formValue);
       </div>
       {isChanged && (
       <div className={styles.buttons}>
-        <Button type="secondary" size="large" onClick={onCancel}>
+        <Button htmlType="button" type="secondary" size="large" onClick={onCancel}>
           Отмена
         </Button>
-        <Button type="primary" size="large">
+        <Button htmlType="submit" type="primary" size="large">
           Сохранить
         </Button>
       </div>

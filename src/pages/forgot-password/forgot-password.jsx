@@ -9,10 +9,13 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../register/register.module.css";
+import { useIsAuthenticated } from "../../utils/selectors";
 
 export function ForgotPasswordPage() {
   const dispatch = useDispatch();
-  const { isAuthenticated, forgotPasswordSuccess, forgotPasswordError} = useSelector(state => state.auth);
+  const forgotPasswordSuccess = useSelector(state => state.auth.forgotPasswordSuccess);
+  const forgotPasswordError = useSelector(state => state.auth.forgotPasswordError);
+  const isAuthenticated = useIsAuthenticated();
 
   const [formValue, setFormValue] = useState({
     email: "",
@@ -40,6 +43,7 @@ export function ForgotPasswordPage() {
     return (
       <Navigate 
         to='/'
+        replace
       />
     )
   }
@@ -58,7 +62,7 @@ export function ForgotPasswordPage() {
             error={forgotPasswordError}
           />
         </div>
-        <Button type="primary" size="large">
+        <Button htmlType="submit" type="primary" size="large">
           Восстановить
         </Button>
       </form>

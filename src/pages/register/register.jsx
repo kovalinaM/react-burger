@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link, Navigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { register } from "../../services/actions/register";
 
 import {
@@ -9,11 +9,11 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./register.module.css";
+import { useIsAuthenticated } from "../../utils/selectors";
 
 export function RegisterPage() {
-  const isAuthenticated =  useSelector(state => state.auth.isAuthenticated);
+  const isAuthenticated =  useIsAuthenticated();
   const dispatch = useDispatch();
-  const {state} = useLocation();
 
   const [formValue, setFormValue] = useState({
     name: "",
@@ -36,7 +36,8 @@ export function RegisterPage() {
   if (isAuthenticated) {
     return (
       <Navigate
-        to={ state?.from || '/'}
+        to='/'
+        replace
       />
     )
   }
@@ -70,7 +71,7 @@ export function RegisterPage() {
             onChange={onFormChange}
           />
         </div>
-        <Button htmlType="button" type="primary" size="large">
+        <Button htmlType="submit" type="primary" size="large">
           Зарегистрироваться
         </Button>
       </form>

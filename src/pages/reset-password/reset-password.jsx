@@ -10,11 +10,11 @@ import {
 import styles from "../register/register.module.css";
 
 import { resetPassword } from "../../services/actions/reset-password";
+import { useIsAuthenticated } from "../../utils/selectors";
 
 export function ResetPasswordPage() {
   const forgotPasswordSuccess = useSelector(store => store.auth.forgotPasswordSuccess);
-  const isAuthenticated = useSelector(store => store.auth.isAuthenticated);
-  const resetPasswordSuccess = useSelector(store => store.auth.resetPasswordSuccess);
+  const isAuthenticated = useIsAuthenticated();
   const resetPasswordError = useSelector(store=> store.auth.resetPasswordError);
   const [ isPassword, setIsPassword ] = useState(true);
 
@@ -40,10 +40,10 @@ export function ResetPasswordPage() {
     setIsPassword(!isPassword);
   }
 
-  if (resetPasswordSuccess || !forgotPasswordSuccess) {
+  if (!forgotPasswordSuccess && !isAuthenticated) {
     return (
       <Navigate
-        to='/login'
+        to='/forgot-password'
       />
     )
   } else if (isAuthenticated) {
@@ -77,7 +77,7 @@ export function ResetPasswordPage() {
             error={resetPasswordError}
           />
         </div>
-        <Button htmlType="button" type="primary" size="large">
+        <Button htmlType="submit" type="primary" size="large">
           Сохранить
         </Button>
       </form>

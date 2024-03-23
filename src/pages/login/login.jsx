@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Link, Navigate, useLocation} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {
   Button,
@@ -9,15 +9,14 @@ import {
 import styles from "../register/register.module.css";
 
 import {login} from "../../services/actions/login";
+import {useIsAuthenticated} from "../../utils/selectors";
 
-const getIsAuthenticated = (store)=> store.auth.isAuthenticated;
 const getLoginError = (store) => store.auth.loginError;
 
 export function LoginPage() {
-  const isAuthenticated = useSelector(getIsAuthenticated);
+  const isAuthenticated = useIsAuthenticated();
   const loginError = useSelector(getLoginError);
   const dispatch = useDispatch();
-  const location = useLocation();
 
   const [formValue, setFormValue] = useState({
     email: "",
@@ -39,7 +38,8 @@ export function LoginPage() {
   if (isAuthenticated) {
     return (
       <Navigate 
-        to={ location?.from || '/'}
+        to='/'
+        replace
       />
     )
   } 
@@ -65,7 +65,7 @@ export function LoginPage() {
             error={loginError}
           />
         </div>
-        <Button type="primary" size="large">
+        <Button htmlType="submit" type="primary" size="large">
           Войти
         </Button>
       </form>

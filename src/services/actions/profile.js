@@ -66,6 +66,7 @@ export function getUser() {
             type: GET_USER_ERROR,
             message: err.message,
           });
+          console.log(err);
         }
       });
   };
@@ -88,6 +89,7 @@ export function refreshToken() {
         localStorage.setItem('refreshToken', data.refreshToken);
       })
       .catch((err) => {
+        console.error('Failed to refresh token:', err);
         dispatch({
           type: REFRESH_TOKEN_ERROR,
         });

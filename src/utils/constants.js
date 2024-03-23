@@ -26,3 +26,5 @@ export const INGREDIENTS_TYPES = {
         title: "Начинки",
     },
 };
+
+
