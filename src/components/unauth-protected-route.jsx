@@ -11,7 +11,7 @@ const UnAuthProtectedRouteElement = ({ element }) => {
   const location = useLocation();
 
   useEffect(() => {
-    dispatch(getUser())
+    dispatch(getUser());
   }, [dispatch]);
 
   return isAuthenticated ? (
