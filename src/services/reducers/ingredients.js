@@ -3,6 +3,7 @@ import {
     INGREDIENTS_GET_SUCCESS,
     INGREDIENTS_GET_FAILED,
     INCREASE_INGREDIENT,
+    RESET_COUNT_INGREDIENT,
     DECREASE_INGREDIENT,
     CHANGE_BUNS,
     TAB_SWITCH,
@@ -65,6 +66,13 @@ export const ingridientsReducer = (state = initialState, action) => {
                         return {...ingredient, count: ingredient.count - 1};
                     }
                     return ingredient;
+                })
+            }
+        case RESET_COUNT_INGREDIENT:
+            return {
+                ...state,
+                ingredients: state.ingredients.map((ingredient ) => {
+                    return {...ingredient, count: 0};
                 })
             }
         case TAB_SWITCH: {

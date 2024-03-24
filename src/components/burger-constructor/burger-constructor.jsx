@@ -18,8 +18,8 @@ import ConstructorInfoElement from "../constructor-info-element/constructor-info
 import { INGREDIENTS_TYPES } from "../../utils/constants";
 
 import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL, createOrder } from "../../services/actions/order";
-import { SET_BUNS, ADD_INGREDIENT} from "../../services/actions/burger-constructor";
-import { INCREASE_INGREDIENT, CHANGE_BUNS } from "../../services/actions/ingredients";
+import { SET_BUNS, ADD_INGREDIENT, RESET_INGREDIENTS} from "../../services/actions/burger-constructor";
+import { INCREASE_INGREDIENT, RESET_COUNT_INGREDIENT, CHANGE_BUNS } from "../../services/actions/ingredients";
 
 import {useIsAuthenticated} from "../../utils/selectors";
 
@@ -78,6 +78,12 @@ const BurgerConstructor = () => {
     dispatch({
       type: CLOSE_ORDER_MODAL
     })
+    dispatch({
+      type: RESET_INGREDIENTS
+    });
+    dispatch({
+      type: RESET_COUNT_INGREDIENT
+    })
   };
 
   function createOrderHandler() {
@@ -89,6 +95,7 @@ const BurgerConstructor = () => {
         type: OPEN_ORDER_MODAL
       })
       dispatch(createOrder(order));
+
     } else {
       navigate('/login')
     }
