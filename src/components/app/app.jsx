@@ -36,7 +36,7 @@ const App = () => {
         <Route path='/ingredients/:ingredientId'
           element={<IngredientDetailsPage/>} />
         <Route path="/register"  element={<UnAuthProtectedRouteElement element={<RegisterPage/>}></UnAuthProtectedRouteElement>}/>
-        <Route path="/login" element={<LoginPage/>}/>
+        <Route path="/login" element={<UnAuthProtectedRouteElement element={<LoginPage/>}></UnAuthProtectedRouteElement>}/>
         <Route path="/forgot-password" element={<UnAuthProtectedRouteElement element={<ForgotPasswordPage/>}></UnAuthProtectedRouteElement>}/>
         <Route path="/reset-password" element={<UnAuthProtectedRouteElement element={<ResetPasswordPage/>}></UnAuthProtectedRouteElement>}/>
         <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />}/>}>
