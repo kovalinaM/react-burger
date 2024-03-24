@@ -19,7 +19,7 @@ const ProtectedRouteElement = ({ element }) => {
   }, [dispatch]);
 
   if (!isUserLoaded) {
-    return null;
+    return <Preloader/>;
   }
 
   return getUserRequest && !isAuthenticated ? (

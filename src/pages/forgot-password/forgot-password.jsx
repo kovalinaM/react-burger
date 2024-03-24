@@ -25,13 +25,7 @@ export function ForgotPasswordPage() {
     dispatch(forgotPassword(values));
   }
 
-  if (forgotPasswordSuccess) {
-    return (
-      <Navigate 
-        to='/reset-password'
-      />
-    )
-  } else if (isAuthenticated) {
+  if (isAuthenticated) {
     return (
       <Navigate 
         to='/'
@@ -39,6 +33,14 @@ export function ForgotPasswordPage() {
       />
     )
   }
+
+  if (forgotPasswordSuccess) {
+    return (
+      <Navigate 
+        to='/reset-password'
+      />
+    )
+  } 
 
   return (
     <main className={styles.container}>
