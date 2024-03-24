@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { register } from "../../services/actions/register";
@@ -10,27 +9,21 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./register.module.css";
 import { useIsAuthenticated } from "../../utils/selectors";
+import { useForm } from "../../hocs/useForm";
 
 export function RegisterPage() {
   const isAuthenticated =  useIsAuthenticated();
   const dispatch = useDispatch();
 
-  const [formValue, setFormValue] = useState({
+  const { values, handleChange } = useForm({
     name: "",
     email: "",
     password: "",
   });
 
-  function onFormChange(e) {
-    setFormValue({
-      ...formValue,
-      [e.target.name]: e.target.value,
-    });
-  }
-
   function onSubmit(e) {
     e.preventDefault();
-    dispatch(register(formValue));
+    dispatch(register(values));
   }
 
   if (isAuthenticated) {
@@ -51,8 +44,8 @@ export function RegisterPage() {
             type={"text"}
             placeholder={"Имя"}
             name={"name"}
-            onChange={onFormChange}
-            value={formValue.name}
+            onChange={handleChange}
+            value={values.name}
           />
         </div>
         <div className="mb-6">
@@ -60,15 +53,15 @@ export function RegisterPage() {
             type={"email"}
             placeholder={"E-mail"}
             name={"email"}
-            onChange={onFormChange}
-            value={formValue.email}
+            onChange={handleChange}
+            value={values.email}
           />
         </div>
         <div className="mb-6">
           <PasswordInput
-            value={formValue.password}
+            value={values.password}
             name={"password"}
-            onChange={onFormChange}
+            onChange={handleChange}
           />
         </div>
         <Button htmlType="submit" type="primary" size="large">

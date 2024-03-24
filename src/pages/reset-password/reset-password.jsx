@@ -11,6 +11,7 @@ import styles from "../register/register.module.css";
 
 import { resetPassword } from "../../services/actions/reset-password";
 import { useIsAuthenticated } from "../../utils/selectors";
+import { useForm } from "../../hocs/useForm";
 
 export function ResetPasswordPage() {
   const forgotPasswordSuccess = useSelector(store => store.auth.forgotPasswordSuccess);
@@ -19,21 +20,15 @@ export function ResetPasswordPage() {
   const [ isPassword, setIsPassword ] = useState(true);
 
   const dispatch = useDispatch();
-  const [formValue, setFormValue] = useState({
+
+  const { values, handleChange } = useForm({
     password: "",
     token: ""
   });
 
-  function onFormChange(e) {
-    setFormValue({
-      ...formValue,
-      [e.target.name]: e.target.value,
-    });
-  }
-
   function onSubmit(e) {
     e.preventDefault();
-    dispatch(resetPassword(formValue));
+    dispatch(resetPassword(values));
   }
 
   function onIconClick() {
@@ -60,9 +55,9 @@ export function ResetPasswordPage() {
       <form onSubmit={onSubmit}>
         <div className="mb-6">
           <PasswordInput
-            value={formValue.password}
+            value={values.password}
             name={"password"}
-            onChange={onFormChange}
+            onChange={handleChange}
             onIconClick={onIconClick}
             error={resetPasswordError}
           />
@@ -72,8 +67,8 @@ export function ResetPasswordPage() {
             type={"text"}
             placeholder={"Ведите код из письма"}
             name={"token"}
-            value={formValue.token}
-            onChange={onFormChange}
+            value={values.token}
+            onChange={handleChange}
             error={resetPasswordError}
           />
         </div>

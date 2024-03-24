@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {Link, Navigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -10,6 +9,7 @@ import styles from "../register/register.module.css";
 
 import {login} from "../../services/actions/login";
 import {useIsAuthenticated} from "../../utils/selectors";
+import { useForm } from "../../hocs/useForm";
 
 const getLoginError = (store) => store.auth.loginError;
 
@@ -18,21 +18,14 @@ export function LoginPage() {
   const loginError = useSelector(getLoginError);
   const dispatch = useDispatch();
 
-  const [formValue, setFormValue] = useState({
+  const { values, handleChange } = useForm({
     email: "",
     password: "",
   });
 
-  function onFormChange(e) {
-    setFormValue({
-      ...formValue,
-      [e.target.name]: e.target.value,
-    });
-  }
-
   function onSubmit(e) {
     e.preventDefault();
-    dispatch(login(formValue));
+    dispatch(login(values));
   }
 
   if (isAuthenticated) {
@@ -53,15 +46,15 @@ export function LoginPage() {
             type={"email"}
             placeholder={"E-mail"}
             name={"email"}
-            onChange={onFormChange}
-            value={formValue.email}
+            onChange={handleChange}
+            value={values.email}
           />
         </div>
         <div className="mb-6">
           <PasswordInput
-            value={formValue.password}
+            value={values.password}
             name={"password"}
-            onChange={onFormChange}
+            onChange={handleChange}
             error={loginError}
           />
         </div>

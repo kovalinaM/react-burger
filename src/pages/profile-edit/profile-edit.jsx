@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import {useDispatch, useSelector} from "react-redux";
+import { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   Input,
@@ -7,42 +7,38 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile-edit.module.css";
 
-import {editProfile} from "../../services/actions/profile";
+import { editProfile } from "../../services/actions/profile";
+import { useForm } from "../../hocs/useForm";
 
-const getUser = store => store.auth.user;
+const getUser = (store) => store.auth.user;
 
 export function ProfileEdit() {
   const dispatch = useDispatch();
 
   const { name, email, password } = useSelector(getUser);
 
-  const [formValue, setFormValue] = useState({
-    name: name || '',
-    email: email || '',
-    password: password || '',
+  const { values, handleChange, setValues } = useForm({
+    name: name || "",
+    email: email || "",
+    password: password || "",
   });
 
   const isChanged = useMemo(() => {
-    return name !== formValue.name || email !== formValue.email || password !== formValue.password;
-  }, [formValue, name, email, password]);
-
-  function onFormChange(e) {
-    setFormValue({
-      ...formValue,
-      [e.target.name]: e.target.value,
-    });
-  }
+    return (
+      name !== values.name ||
+      email !== values.email ||
+      password !== values.password
+    );
+  }, [values, name, email, password]);
 
   function onCancel(e) {
     e.preventDefault();
-    setFormValue({
-      name, email, password,
-    })
+    setValues({ name, email, password });
   }
 
   function onSubmit(e) {
     e.preventDefault();
-    dispatch(editProfile(formValue));
+    dispatch(editProfile(values));
   }
 
   return (
@@ -52,8 +48,8 @@ export function ProfileEdit() {
           type={"text"}
           placeholder={"Имя"}
           name={"name"}
-          onChange={onFormChange}
-          value={formValue.name}
+          onChange={handleChange}
+          value={values.name}
           icon="EditIcon"
         />
       </div>
@@ -62,29 +58,34 @@ export function ProfileEdit() {
           type={"email"}
           placeholder={"Логин"}
           name={"email"}
-          onChange={onFormChange}
-          value={formValue.email}
+          onChange={handleChange}
+          value={values.email}
           icon="EditIcon"
         />
       </div>
       <div className="mb-6">
         <PasswordInput
-            type={"password"}
-          value={formValue.password}
+          type={"password"}
+          value={values.password}
           name={"password"}
-          onChange={onFormChange}
+          onChange={handleChange}
           icon="EditIcon"
         />
       </div>
       {isChanged && (
-      <div className={styles.buttons}>
-        <Button htmlType="button" type="secondary" size="large" onClick={onCancel}>
-          Отмена
-        </Button>
-        <Button htmlType="submit" type="primary" size="large">
-          Сохранить
-        </Button>
-      </div>
+        <div className={styles.buttons}>
+          <Button
+            htmlType="button"
+            type="secondary"
+            size="large"
+            onClick={onCancel}
+          >
+            Отмена
+          </Button>
+          <Button htmlType="submit" type="primary" size="large">
+            Сохранить
+          </Button>
+        </div>
       )}
     </form>
   );
