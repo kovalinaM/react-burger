@@ -8,6 +8,7 @@ import styles from "./burger-constructor.module.css";
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop} from "react-dnd";
+import { useNavigate } from "react-router-dom";
 
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
@@ -17,19 +18,23 @@ import ConstructorInfoElement from "../constructor-info-element/constructor-info
 import { INGREDIENTS_TYPES } from "../../utils/constants";
 
 import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL, createOrder } from "../../services/actions/order";
-import { SET_BUNS, ADD_INGREDIENT} from "../../services/actions/burger-constructor";
-import { INCREASE_INGREDIENT, CHANGE_BUNS } from "../../services/actions/ingredients";
+import { SET_BUNS, ADD_INGREDIENT, RESET_INGREDIENTS} from "../../services/actions/burger-constructor";
+import { INCREASE_INGREDIENT, RESET_COUNT_INGREDIENT, CHANGE_BUNS } from "../../services/actions/ingredients";
+
+import {useIsAuthenticated} from "../../utils/selectors";
 
 const getModalIsActive = (store) => store.order.modalIsActive; 
 const getBun = (store) => store.burgerConstructor.bun;
 const getIngredients = (store) => store.burgerConstructor.ingredients;
 
 const BurgerConstructor = () => {
+  const isAuthenticated =  useIsAuthenticated();
   const modalIsActive = useSelector(getModalIsActive);
   const bun = useSelector(getBun);
   const ingredients = useSelector(getIngredients);
   
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [{ canDrop }, dropRef] = useDrop({
     accept: "ingredients",
@@ -73,16 +78,27 @@ const BurgerConstructor = () => {
     dispatch({
       type: CLOSE_ORDER_MODAL
     })
+    dispatch({
+      type: RESET_INGREDIENTS
+    });
+    dispatch({
+      type: RESET_COUNT_INGREDIENT
+    })
   };
 
   function createOrderHandler() {
+    if (isAuthenticated) {
     const order = {
       ingredients: [bun._id, ...ingredients.map((ingredient) => ingredient._id), bun._id]
     }
       dispatch({
         type: OPEN_ORDER_MODAL
       })
-      dispatch(createOrder(order))
+      dispatch(createOrder(order));
+
+    } else {
+      navigate('/login')
+    }
   };
 
   const totalPrice = useMemo(()=> {

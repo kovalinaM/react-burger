@@ -1,46 +1,63 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import stylesApp from "./app.module.css";
-import {useSelector, useDispatch } from 'react-redux';
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
+import { useDispatch } from 'react-redux';
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import Preloader from "../preloader/preloader";
+import {HomePage, IngredientDetailsPage, RegisterPage, LoginPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, ProfileEdit, ProfileOrders, NotFoundPage} from "../../pages"
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 import {getIngredientsList} from "../../services/actions/ingredients";
+import ProtectedRouteElement from "../protected-route";
+import UnAuthProtectedRouteElement from "../unauth-protected-route";
 
-const getIngredients = (store) => store.ingredients.ingredients;
-const getIngredientsLoading = (store) => store.ingredients.ingredientsLoading;
-const getIngredientsFailed = (store) => store.ingredients.ingredientsFailed
+
 
 const App = () => {
-  const ingredients = useSelector(getIngredients);
-  const ingredientsLoading = useSelector(getIngredientsLoading);
-  const ingredientsFailed = useSelector(getIngredientsFailed);
-
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const background =  location.state && location.state.background;
 
   useEffect(() => {
     dispatch(getIngredientsList());
   }, [dispatch]);
 
+  const handleModalClose = () => {
+    navigate(-1);
+  };
+
   return (
     <div className={stylesApp.container}>
       <AppHeader />
-      <main className={stylesApp.sections}>
-        <DndProvider backend={HTML5Backend}>
-            {ingredientsLoading && <Preloader/>}
-            {ingredientsFailed && "Произошла ошибка"}
-            {!ingredientsLoading && !ingredientsFailed && ingredients  && (
-              <>
-                <BurgerIngredients/>
-                <BurgerConstructor /> 
-              </>
-            )}
-        </DndProvider>
-      </main>
+      <Routes location={background || location}>
+        <Route path="/" element={<HomePage/>}/>
+        <Route path='/ingredients/:ingredientId'
+          element={<IngredientDetailsPage/>} />
+        <Route path="/register"  element={<UnAuthProtectedRouteElement element={<RegisterPage/>}></UnAuthProtectedRouteElement>}/>
+        <Route path="/login" element={<UnAuthProtectedRouteElement element={<LoginPage/>}></UnAuthProtectedRouteElement>}/>
+        <Route path="/forgot-password" element={<UnAuthProtectedRouteElement element={<ForgotPasswordPage/>}></UnAuthProtectedRouteElement>}/>
+        <Route path="/reset-password" element={<UnAuthProtectedRouteElement element={<ResetPasswordPage/>}></UnAuthProtectedRouteElement>}/>
+        <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />}/>}>
+          <Route index element={<ProtectedRouteElement element={<ProfileEdit />}/>} />
+          <Route path="orders" element={<ProtectedRouteElement element={<ProfileOrders  />}/>} />
+        </Route>
+        <Route path="*" element={<NotFoundPage/>}/>
+      </Routes>
+
+      {background && (
+        <Routes>
+            <Route
+              path='/ingredients/:ingredientId'
+              element={
+                <Modal header="Детали ингредиента" onClose={handleModalClose}>
+                  <IngredientDetails />
+                </Modal>
+              }
+            />
+        </Routes>
+      )}
     </div>
   );
 };
