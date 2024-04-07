@@ -1,6 +1,8 @@
-export const BASE_URL = "https://norma.nomoreparties.space/api";
+import {TIngredientType, TString} from "./types";
 
-export const ENDPOINT = {
+export const BASE_URL: string = "https://norma.nomoreparties.space/api";
+
+export const ENDPOINT: TString = {
     INGREDIENTS: '/ingredients',
     ORDERS: '/orders',
     LOGIN: '/auth/login',
@@ -12,7 +14,7 @@ export const ENDPOINT = {
     LOGOUT: '/auth/logout',
 };
 
-export const INGREDIENTS_TYPES = {
+export const INGREDIENTS_TYPES: TIngredientType = {
     BUN: {
         type: "bun",
         title: "Булки",

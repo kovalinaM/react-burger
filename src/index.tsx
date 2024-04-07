@@ -9,15 +9,16 @@ import { Provider } from 'react-redux';
 
 import { store } from './services/store';
 
+
 const root = ReactDOM.createRoot(
-  document.getElementById('root') 
+    document.querySelector("#root") as HTMLElement
 );
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <App />
+        <App/>
       </Router>
     </Provider>
   </React.StrictMode>

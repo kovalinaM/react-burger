@@ -9,9 +9,9 @@ import Preloader from "../../components/preloader/preloader";
 
 import { useSelector } from "react-redux";
 
-const getIngredients = (store) => store.ingredients.ingredients;
-const getIngredientsLoading = (store) => store.ingredients.ingredientsLoading;
-const getIngredientsFailed = (store) => store.ingredients.ingredientsFailed;
+const getIngredients = (store: any) => store.ingredients.ingredients;
+const getIngredientsLoading = (store: any) => store.ingredients.ingredientsLoading;
+const getIngredientsFailed = (store: any) => store.ingredients.ingredientsFailed;
 
 export function HomePage() {
   const ingredients = useSelector(getIngredients);

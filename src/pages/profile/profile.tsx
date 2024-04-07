@@ -9,7 +9,10 @@ export function ProfilePage() {
   const dispatch = useDispatch();
 
   function onLogout() {
-    dispatch(logout());
+    dispatch(
+        //@ts-ignore
+        logout()
+    );
   }
 
   return (

@@ -1,13 +1,14 @@
+import {FC} from "react";
 import styles from './order-details.module.css'
 import imageDone from '../../images/done.svg'
 import { useSelector } from "react-redux";
 import Preloader from "../preloader/preloader";
 
-const getOrder = (store) => store.order.order;
-const getIsLoading = (store) => store.order.isLoading;
-const getError = (store) => store.order.error;
+const getOrder = (store:any) => store.order.order;
+const getIsLoading = (store:any) => store.order.isLoading;
+const getError = (store:any) => store.order.error;
 
-const OrderDetails = () => {
+const OrderDetails: FC = () => {
     const order = useSelector(getOrder);
     const isLoading = useSelector(getIsLoading);
     const error = useSelector(getError);

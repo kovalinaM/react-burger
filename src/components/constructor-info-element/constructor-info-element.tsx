@@ -1,7 +1,11 @@
-import PropTypes from "prop-types";
+import {FC} from "react";
 import styles from "./constructor-info-element.module.css"
 
-const ConstructorInfoElement = ({children}) => {
+interface IConstructorInfo {
+    children: string;
+}
+
+const ConstructorInfoElement:FC<IConstructorInfo> = ({children}) => {
     
     return (
         <div className={`${styles.info} ml-8`}>
@@ -9,9 +13,5 @@ const ConstructorInfoElement = ({children}) => {
         </div>
     )
 }
-
-ConstructorInfoElement.propTypes = {
-    children: PropTypes.string,
-};
 
 export default ConstructorInfoElement;
