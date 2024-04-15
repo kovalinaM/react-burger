@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import {
   Logo,
   BurgerIcon,
@@ -9,7 +9,7 @@ import {NavLink, useLocation } from "react-router-dom";
 
 import stylesHeader from "./app-header.module.css";
 
-export default function AppHeader() {
+const AppHeader: FC = () => {
   const location = useLocation();
 
   return (
@@ -19,13 +19,13 @@ export default function AppHeader() {
           <li className="pt-4 pb-4 pr-5 pl-5">
             <NavLink to={"/"} className={stylesHeader.link}>
               <BurgerIcon type={location.pathname === "/" ? "primary" : "secondary"}/>
-              <span className={`text text_type_main-defaul ${location.pathname === "/" ? "" : "text_color_inactive"}`}>Конструктор</span>
+              <span className={`text text_type_main-default ${location.pathname === "/" ? "" : "text_color_inactive"}`}>Конструктор</span>
             </NavLink>
           </li>
           <li className="pt-4 pb-4 pr-5 pl-5">
             <NavLink to={"/orders"} className={stylesHeader.link}>
               <ListIcon type={location.pathname === "/orders" ? "primary" : "secondary"} />
-              <span className={`text text_type_main-defaul ${location.pathname === "/orders" ? "" : "text_color_inactive"}`}>
+              <span className={`text text_type_main-default ${location.pathname === "/orders" ? "" : "text_color_inactive"}`}>
                 Лист заказов
               </span>
             </NavLink>
@@ -39,7 +39,7 @@ export default function AppHeader() {
         <div className="pt-4 pb-4 pr-5 pl-5">
           <NavLink to={"/profile"} className={stylesHeader.link}>
             <ProfileIcon type={location.pathname === "/profile" || location.pathname === "/profile/orders" ? "primary" : "secondary"}/>
-            <span className={`text text_type_main-defaul ${location.pathname === "/profile" || location.pathname === "/profile/orders" ? "" : "text_color_inactive"}`}>
+            <span className={`text text_type_main-default ${location.pathname === "/profile" || location.pathname === "/profile/orders" ? "" : "text_color_inactive"}`}>
               Личный кабинет
             </span>
           </NavLink>
@@ -48,3 +48,5 @@ export default function AppHeader() {
     </header>
   );
 }
+
+export default AppHeader;

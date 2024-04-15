@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { FC, useMemo } from "react";
 import {
   ConstructorElement,
   CurrencyIcon,
@@ -22,12 +22,13 @@ import { SET_BUNS, ADD_INGREDIENT, RESET_INGREDIENTS} from "../../services/actio
 import { INCREASE_INGREDIENT, RESET_COUNT_INGREDIENT, CHANGE_BUNS } from "../../services/actions/ingredients";
 
 import {useIsAuthenticated} from "../../utils/selectors";
+import {TIngredientConstructor} from "../../utils/types";
 
-const getModalIsActive = (store) => store.order.modalIsActive; 
-const getBun = (store) => store.burgerConstructor.bun;
-const getIngredients = (store) => store.burgerConstructor.ingredients;
+const getModalIsActive = (store: any) => store.order.modalIsActive;
+const getBun = (store: any) => store.burgerConstructor.bun;
+const getIngredients = (store: any) => store.burgerConstructor.ingredients;
 
-const BurgerConstructor = () => {
+const BurgerConstructor: FC = () => {
   const isAuthenticated =  useIsAuthenticated();
   const modalIsActive = useSelector(getModalIsActive);
   const bun = useSelector(getBun);
@@ -38,7 +39,7 @@ const BurgerConstructor = () => {
 
   const [{ canDrop }, dropRef] = useDrop({
     accept: "ingredients",
-    drop(ingredient) {
+    drop(ingredient: TIngredientConstructor) {
       onDropHandler(ingredient)
     },
     collect: (monitor) => ({
@@ -46,7 +47,7 @@ const BurgerConstructor = () => {
     })
   });
 
-  function onDropHandler(ingredient) {
+  function onDropHandler(ingredient: TIngredientConstructor) {
     const {_id, type} = ingredient;
     switch(type) {
       case INGREDIENTS_TYPES.BUN.type: {
@@ -84,25 +85,28 @@ const BurgerConstructor = () => {
     dispatch({
       type: RESET_COUNT_INGREDIENT
     })
-  };
+  }
 
   function createOrderHandler() {
     if (isAuthenticated) {
     const order = {
-      ingredients: [bun._id, ...ingredients.map((ingredient) => ingredient._id), bun._id]
+      ingredients: [bun._id, ...ingredients.map((ingredient: TIngredientConstructor) => ingredient._id), bun._id]
     }
       dispatch({
         type: OPEN_ORDER_MODAL
       })
-      dispatch(createOrder(order));
+      dispatch(
+          //@ts-ignore
+          createOrder(order)
+      );
 
     } else {
       navigate('/login')
     }
-  };
+  }
 
   const totalPrice = useMemo(()=> {
-    return ingredients.reduce((sum, ingredient) => {
+    return ingredients.reduce((sum: number, ingredient: TIngredientConstructor) => {
       if (ingredient.price) {
         return sum + ingredient.price
       }
@@ -133,7 +137,7 @@ const BurgerConstructor = () => {
         <div>
           <ul className={`${styles.list} custom-scroll`}>
             {ingredients.length > 0 ? (
-              ingredients.map((ingredient, index) => (
+              ingredients.map((ingredient: TIngredientConstructor, index: number) => (
                 <ConstructorIngredient ingredient={ingredient} index={index} key={ingredient.uniqId}  />
               )) 
             ) : (

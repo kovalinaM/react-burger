@@ -2,7 +2,7 @@ import styles from "./not-found.module.css";
 import { Link } from "react-router-dom";
 import notFound from "../../images/404.svg";
 import earth from "../../images/earth.svg";
-import austronaut from "../../images/astronaut.svg";
+import astronaut from "../../images/astronaut.svg";
 import moon from "../../images/moon.png";
 
 export function NotFoundPage() {
@@ -37,7 +37,7 @@ export function NotFoundPage() {
         <div className={styles.box_astronaut}>
           <img
             className={styles.object_astronaut}
-            src={austronaut}
+            src={astronaut}
             width="140px"
             alt="Astronaut"
           />

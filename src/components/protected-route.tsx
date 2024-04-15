@@ -1,20 +1,26 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 
 import { getUser } from "../services/actions/profile";
 import Preloader from "./preloader/preloader";
 import { useIsAuthenticated } from "../utils/selectors";
 
-const ProtectedRouteElement = ({ element }) => {
+
+interface IProtected {
+  element: JSX.Element;
+}
+const ProtectedRouteElement: FC<IProtected> = ({ element }) => {
   const isAuthenticated = useIsAuthenticated();
-  const getUserRequest = useSelector((store) => store.auth.getUserRequest);
+  const getUserRequest = useSelector((store: any) => store.auth.getUserRequest);
   const [isUserLoaded, setUserLoaded] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUser());
+    dispatch(
+        //@ts-ignore
+        getUser()
+    );
     setUserLoaded(true);
   }, [dispatch]);
 
@@ -29,10 +35,6 @@ const ProtectedRouteElement = ({ element }) => {
   ) : (
     <Navigate to="/login" replace />
   );
-};
-
-ProtectedRouteElement.propTypes = {
-  element: PropTypes.element,
 };
 
 export default ProtectedRouteElement;

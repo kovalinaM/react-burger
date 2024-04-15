@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import {FC, useEffect} from "react";
 import stylesApp from "./app.module.css";
 import { useDispatch } from 'react-redux';
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
@@ -13,15 +13,17 @@ import ProtectedRouteElement from "../protected-route";
 import UnAuthProtectedRouteElement from "../unauth-protected-route";
 
 
-
-const App = () => {
+const App: FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background =  location.state && location.state.background;
 
   useEffect(() => {
-    dispatch(getIngredientsList());
+    dispatch(
+        //@ts-ignore
+        getIngredientsList()
+    );
   }, [dispatch]);
 
   const handleModalClose = () => {

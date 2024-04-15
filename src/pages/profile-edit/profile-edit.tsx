@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React, { SyntheticEvent, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
@@ -10,7 +10,7 @@ import styles from "./profile-edit.module.css";
 import { editProfile } from "../../services/actions/profile";
 import { useForm } from "../../hocs/useForm";
 
-const getUser = (store) => store.auth.user;
+const getUser = (store: any) => store.auth.user;
 
 export function ProfileEdit() {
   const dispatch = useDispatch();
@@ -23,6 +23,12 @@ export function ProfileEdit() {
     password: password || "",
   });
 
+  const [ focus, setFocus ] = React.useState({
+    name: false,
+    email: false,
+    password: false,
+  });
+
   const isChanged = useMemo(() => {
     return (
       name !== values.name ||
@@ -31,14 +37,29 @@ export function ProfileEdit() {
     );
   }, [values, name, email, password]);
 
-  function onCancel(e) {
+  function onCancel(e: SyntheticEvent) {
     e.preventDefault();
     setValues({ name, email, password });
   }
 
-  function onSubmit(e) {
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    dispatch(editProfile(values));
+    dispatch(
+        //@ts-ignore
+        editProfile(values)
+    );
+  }
+  function onFocus(evt: React.FocusEvent<HTMLInputElement>) {
+    setFocus({
+      ...focus,
+      [evt.target.name]: true,
+    })
+  }
+  function onBlur(evt: React.FocusEvent<HTMLInputElement>) {
+    setFocus({
+      ...focus,
+      [evt.target.name]: false,
+    })
   }
 
   return (
@@ -50,7 +71,9 @@ export function ProfileEdit() {
           name={"name"}
           onChange={handleChange}
           value={values.name}
-          icon="EditIcon"
+          onFocus={onFocus}
+          onBlur={onBlur}
+          icon={focus.name ? "CloseIcon" : "EditIcon"}
         />
       </div>
       <div className="mb-6">
@@ -60,16 +83,21 @@ export function ProfileEdit() {
           name={"email"}
           onChange={handleChange}
           value={values.email}
-          icon="EditIcon"
+          onFocus={onFocus}
+          onBlur={onBlur}
+          icon={focus.email ? "CloseIcon" : "EditIcon"}
         />
       </div>
       <div className="mb-6">
-        <PasswordInput
+        <Input
           type={"password"}
+          placeholder={"Пароль"}
           value={values.password}
           name={"password"}
+          onFocus={onFocus}
+          onBlur={onBlur}
           onChange={handleChange}
-          icon="EditIcon"
+          icon={focus.password ? "CloseIcon" : "EditIcon"}
         />
       </div>
       {isChanged && (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -13,10 +13,12 @@ import { resetPassword } from "../../services/actions/reset-password";
 import { useIsAuthenticated } from "../../utils/selectors";
 import { useForm } from "../../hocs/useForm";
 
+const getForgotPasswordSuccess = ( store: any ) => store.auth.forgotPasswordSuccess;
+const getResetPasswordError = ( store: any ) => store.auth.resetPasswordError
 export function ResetPasswordPage() {
-  const forgotPasswordSuccess = useSelector(store => store.auth.forgotPasswordSuccess);
+  const forgotPasswordSuccess = useSelector(getForgotPasswordSuccess);
   const isAuthenticated = useIsAuthenticated();
-  const resetPasswordError = useSelector(store=> store.auth.resetPasswordError);
+  const resetPasswordError = useSelector(getResetPasswordError);
   const [ isPassword, setIsPassword ] = useState(true);
 
   const dispatch = useDispatch();
@@ -26,9 +28,12 @@ export function ResetPasswordPage() {
     token: ""
   });
 
-  function onSubmit(e) {
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    dispatch(resetPassword(values));
+    dispatch(
+        //@ts-ignore
+        resetPassword(values)
+    );
   }
 
   function onIconClick() {
@@ -58,8 +63,8 @@ export function ResetPasswordPage() {
             value={values.password}
             name={"password"}
             onChange={handleChange}
-            onIconClick={onIconClick}
-            error={resetPasswordError}
+            onClick={onIconClick}
+            onError={resetPasswordError}
           />
         </div>
         <div className="mb-6">

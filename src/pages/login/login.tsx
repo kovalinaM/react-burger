@@ -1,3 +1,4 @@
+import React from "react";
 import {Link, Navigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -11,7 +12,7 @@ import {login} from "../../services/actions/login";
 import {useIsAuthenticated} from "../../utils/selectors";
 import { useForm } from "../../hocs/useForm";
 
-const getLoginError = (store) => store.auth.loginError;
+const getLoginError = (store: any) => store.auth.loginError;
 
 export function LoginPage() {
   const isAuthenticated = useIsAuthenticated();
@@ -23,9 +24,12 @@ export function LoginPage() {
     password: "",
   });
 
-  function onSubmit(e) {
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    dispatch(login(values));
+    dispatch(
+        //@ts-ignore
+        login(values)
+    );
   }
 
   if (isAuthenticated) {
@@ -55,7 +59,7 @@ export function LoginPage() {
             value={values.password}
             name={"password"}
             onChange={handleChange}
-            error={loginError}
+            onError={loginError}
           />
         </div>
         <Button htmlType="submit" type="primary" size="large">

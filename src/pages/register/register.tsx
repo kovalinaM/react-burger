@@ -1,3 +1,4 @@
+import React from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { register } from "../../services/actions/register";
@@ -21,9 +22,12 @@ export function RegisterPage() {
     password: "",
   });
 
-  function onSubmit(e) {
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    dispatch(register(values));
+    dispatch(
+        //@ts-ignore
+        register(values)
+    );
   }
 
   if (isAuthenticated) {
