@@ -2,27 +2,15 @@ import {
   REGISTER_FORM_SUBMIT,
   REGISTER_FORM_SUCCESS,
   REGISTER_FORM_ERROR,
-} from "../actions/register";
-
-import {
   LOGIN_FORM_SUBMIT,
   LOGIN_FORM_SUCCESS,
-  LOGIN_FORM_ERROR
-} from "../actions/login";
-
-import {
+  LOGIN_FORM_ERROR,
   FORGOT_PASSWORD_FORM_SUBMIT,
   FORGOT_PASSWORD_FORM_SUCCESS,
-  FORGOT_PASSWORD_FORM_ERROR
-} from "../actions/forgot-password";
-
-import {
+  FORGOT_PASSWORD_FORM_ERROR,
   RESET_PASSWORD_FORM_SUBMIT,
   RESET_PASSWORD_FORM_SUCCESS,
-  RESET_PASSWORD_FORM_ERROR
-} from "../actions/reset-password";
-
-import {
+  RESET_PASSWORD_FORM_ERROR,
   EDIT_PROFILE_FORM_SUBMIT,
   EDIT_PROFILE_FORM_ERROR,
   EDIT_PROFILE_FORM_SUCCESS,
@@ -30,10 +18,43 @@ import {
   GET_USER_REQUEST,
   GET_USER_SUCCESS, LOGOUT_ERROR, LOGOUT_REQUEST, LOGOUT_SUCCESS, REFRESH_TOKEN_ERROR,
   REFRESH_TOKEN_REQUEST,
-  REFRESH_TOKEN_SUCCESS
-} from "../actions/profile";
+  REFRESH_TOKEN_SUCCESS,
+} from '../constants';
+import { TProfileForm } from '../../types';
 
-const InitialState = {
+
+type TAuthState = {
+  isAuthenticated: boolean;
+  user: TProfileForm;
+  registerRequest: boolean;
+  registerError: boolean;
+
+  loginRequest: boolean;
+  loginError: boolean;
+
+  forgotPasswordRequest: boolean;
+  forgotPasswordSuccess: boolean;
+  forgotPasswordError: boolean;
+
+  resetPasswordRequest: boolean;
+  resetPasswordSuccess: boolean;
+  resetPasswordError: boolean;
+
+  editProfileRequest: boolean;
+  editProfileError: boolean;
+
+  getUserRequest: boolean;
+  getUserError: boolean;
+
+  refreshTokenRequest: boolean;
+  refreshTokenError: boolean;
+
+  logoutRequest: boolean;
+  logoutError:boolean;
+}
+
+
+const InitialState: TAuthState  = {
   isAuthenticated: false,
 
   user: {

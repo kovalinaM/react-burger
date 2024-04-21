@@ -7,7 +7,7 @@ import {
 import styles from "./burger-ingredient.module.css";
 import {useDrag} from "react-dnd";
 
-import { TIngredient } from "../../utils/types";
+import { TIngredient } from "../../types";
 
 type TBurgerIngredient = {
   ingredient: TIngredient;

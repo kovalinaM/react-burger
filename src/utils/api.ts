@@ -1,3 +1,4 @@
+import { TIngredientsRequest } from './../services/types/data';
 import { BASE_URL, ENDPOINT } from "./constants";
 import {
   TServerResponse,
@@ -17,11 +18,11 @@ export const checkResponse = <T>(res: Response): Promise<T> => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-export function getIngredients(): Promise<TServerResponse<TIngredient[]>> {
-  return fetch(BASE_URL + ENDPOINT.INGREDIENTS).then<TServerResponse<TIngredient[]>>(checkResponse);
+export function getIngredients(): Promise<TServerResponse<TIngredientsRequest>> {
+  return fetch(BASE_URL + ENDPOINT.INGREDIENTS).then<TServerResponse<TIngredientsRequest>>(checkResponse);
 }
 
-export const postOrder = ({ ingredients }: { ingredients: TIngredientConstructor[]}): Promise<TServerResponse<TOrderNumber>> => {
+export const postOrder = (ingredients : TIngredientConstructor[]): Promise<TServerResponse<TOrderNumber>> => {
   return fetch(BASE_URL + ENDPOINT.ORDERS, {
     method: "POST",
     headers: {

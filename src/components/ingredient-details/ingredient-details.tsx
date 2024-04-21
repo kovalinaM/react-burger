@@ -1,27 +1,22 @@
 import styles from "./ingredient-details.module.css";
 import {FC, useEffect} from "react";
-import { useSelector, useDispatch }  from "react-redux";
+import { useSelector, useDispatch } from "../../services/types";
 import { useParams } from "react-router-dom";
-import { SELECT_INGREDIENT } from "../../services/actions/ingredient-details";
-import { TIngredient } from "../../utils/types";
+import { selectIngredientAction } from "../../services/actions/ingredient-details";
+import { TIngredient } from "../../types";
 
-const getSelectedIngredient = (store:any) => store.ingredientDetails.selectedIngredient;
-const getIngredients = (store:any) => store.ingredients.ingredients;
 
 const IngredientDetails: FC = () => {
-  const selectedIngredient = useSelector(getSelectedIngredient);
+  const selectedIngredient = useSelector((store) => store.ingredientDetails.selectedIngredient);
   const dispatch = useDispatch();
 
-  const ingredients = useSelector(getIngredients);
+  const ingredients = useSelector((store:any) => store.ingredients.ingredients);
   const { ingredientId } = useParams();
 
   useEffect(() => {
     if (!selectedIngredient && ingredientId  && ingredients) {
       const ingredient = ingredients.find((ingredient: TIngredient) => ingredient._id === ingredientId );
-      dispatch({
-        type: SELECT_INGREDIENT,
-        selectedIngredient: ingredient,
-      })
+      dispatch(selectIngredientAction(ingredient))
     }
   }, [selectedIngredient, ingredientId , ingredients, dispatch]);
   

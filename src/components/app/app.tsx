@@ -1,6 +1,6 @@
 import {FC, useEffect} from "react";
 import stylesApp from "./app.module.css";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "../../services/types";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 import AppHeader from "../app-header/app-header";

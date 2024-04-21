@@ -4,10 +4,17 @@ import {
     ORDER_POST_REQUEST,
     ORDER_POST_SUCCESS,
     ORDER_POST_FAILED
-} from '../actions/order'
+} from '../constants';
+import { TOrderDetailsActions } from '../actions/order';
 
+type TOrderState = {
+    order: string | null;
+    isLoading: boolean;
+    error: boolean;
+    modalIsActive: boolean;
+}
 
-const initialState = {
+const initialState: TOrderState = {
     modalIsActive: false,
     error: false,
     isLoading: false,
@@ -15,7 +22,7 @@ const initialState = {
 }
 
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action: TOrderDetailsActions) => {
     switch(action.type) {
         case ORDER_POST_REQUEST: 
             return {
@@ -25,7 +32,7 @@ export const orderReducer = (state = initialState, action) => {
         case ORDER_POST_SUCCESS: 
             return {
                 ...state,
-                order: action.payload,
+                order: action.order,
                 isLoading: false
             }
         case ORDER_POST_FAILED: 

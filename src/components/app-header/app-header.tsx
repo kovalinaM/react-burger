@@ -1,4 +1,5 @@
 import React, {FC} from "react";
+import { useSelector } from "../../services/types";
 import {
   Logo,
   BurgerIcon,
@@ -9,9 +10,11 @@ import {NavLink, useLocation } from "react-router-dom";
 
 import stylesHeader from "./app-header.module.css";
 
+const getUserName = (store: any) => store.auth.user.name;
+
 const AppHeader: FC = () => {
   const location = useLocation();
-
+  const userName = useSelector(getUserName);
   return (
     <header className={stylesHeader.header}>
       <nav>
@@ -40,7 +43,7 @@ const AppHeader: FC = () => {
           <NavLink to={"/profile"} className={stylesHeader.link}>
             <ProfileIcon type={location.pathname === "/profile" || location.pathname === "/profile/orders" ? "primary" : "secondary"}/>
             <span className={`text text_type_main-default ${location.pathname === "/profile" || location.pathname === "/profile/orders" ? "" : "text_color_inactive"}`}>
-              Личный кабинет
+              {!!userName ? userName : 'Личный кабинет'}
             </span>
           </NavLink>
         </div>

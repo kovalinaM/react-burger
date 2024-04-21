@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Navigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/types";
 import { register } from "../../services/actions/register";
 
 import {

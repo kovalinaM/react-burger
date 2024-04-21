@@ -2,8 +2,7 @@ import React, { SyntheticEvent, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
-  Input,
-  PasswordInput,
+  Input
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile-edit.module.css";
 

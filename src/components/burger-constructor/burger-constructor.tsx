@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import { v4 as uuidv4 } from 'uuid';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/types";
 import { useDrop} from "react-dnd";
 import { useNavigate } from "react-router-dom";
 
@@ -16,23 +16,19 @@ import ConstructorIngredient from "../ingredient-constructor/constructor-ingredi
 import ConstructorInfoElement from "../constructor-info-element/constructor-info-element";
 
 import { INGREDIENTS_TYPES } from "../../utils/constants";
-
-import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL, createOrder } from "../../services/actions/order";
-import { SET_BUNS, ADD_INGREDIENT, RESET_INGREDIENTS} from "../../services/actions/burger-constructor";
-import { INCREASE_INGREDIENT, RESET_COUNT_INGREDIENT, CHANGE_BUNS } from "../../services/actions/ingredients";
+import { addIngredientAction, clearConstructorAction ,setBunsAction } from "../../services/actions/burger-constructor";
+import { increaseIngredientAction, clearQuantityAction, changeBunsAction } from "../../services/actions/ingredients";
+import { openOrderDetailsModal, closeOrderDetailsModal, createOrder } from "../../services/actions/order";
 
 import {useIsAuthenticated} from "../../utils/selectors";
-import {TIngredientConstructor} from "../../utils/types";
+import {TIngredientConstructor} from "../../types";
 
-const getModalIsActive = (store: any) => store.order.modalIsActive;
-const getBun = (store: any) => store.burgerConstructor.bun;
-const getIngredients = (store: any) => store.burgerConstructor.ingredients;
 
 const BurgerConstructor: FC = () => {
   const isAuthenticated =  useIsAuthenticated();
-  const modalIsActive = useSelector(getModalIsActive);
-  const bun = useSelector(getBun);
-  const ingredients = useSelector(getIngredients);
+  const modalIsActive = useSelector((store: any) => store.order.modalIsActive);
+  const bun = useSelector((store: any) => store.burgerConstructor.bun);
+  const ingredients = useSelector((store: any) => store.burgerConstructor.ingredients);
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -51,40 +47,22 @@ const BurgerConstructor: FC = () => {
     const {_id, type} = ingredient;
     switch(type) {
       case INGREDIENTS_TYPES.BUN.type: {
-        dispatch({
-          type: CHANGE_BUNS,
-          _id: _id,
-        });
-        dispatch({
-          type: SET_BUNS,
-          bun: ingredient,
-        });
+        dispatch(changeBunsAction(_id));
+        dispatch(setBunsAction(ingredient));
         break;
       }
       default: {
-        dispatch({
-          type: INCREASE_INGREDIENT,
-          _id: _id,
-        });
-        dispatch({
-          type: ADD_INGREDIENT,
-          ingredient: { ...ingredient, uniqId: uuidv4() },
-        });
+        dispatch(increaseIngredientAction(_id));
+        dispatch(addIngredientAction({ ...ingredient, uniqId: uuidv4() }));
         break;
       }
     }
   }
 
   function handleCloseModal() {
-    dispatch({
-      type: CLOSE_ORDER_MODAL
-    })
-    dispatch({
-      type: RESET_INGREDIENTS
-    });
-    dispatch({
-      type: RESET_COUNT_INGREDIENT
-    })
+    dispatch(closeOrderDetailsModal())
+    dispatch(clearConstructorAction());
+    dispatch(clearQuantityAction())
   }
 
   function createOrderHandler() {
@@ -92,12 +70,9 @@ const BurgerConstructor: FC = () => {
     const order = {
       ingredients: [bun._id, ...ingredients.map((ingredient: TIngredientConstructor) => ingredient._id), bun._id]
     }
-      dispatch({
-        type: OPEN_ORDER_MODAL
-      })
+      dispatch(openOrderDetailsModal())
       dispatch(
-          //@ts-ignore
-          createOrder(order)
+          createOrder(order.ingredients)
       );
 
     } else {

@@ -4,17 +4,14 @@ import {
     DragIcon,
     ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TIngredientConstructor} from "../../utils/types";
+import { TIngredientConstructor} from "../../types";
 
 import { useDrag, useDrop } from "react-dnd";
 import type { XYCoord } from 'dnd-core'
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/types";
 
-import {
-    MOVE_INGREDIENT,
-    DELETE_INGREDIENT,
-} from "../../services/actions/burger-constructor";
-import { DECREASE_INGREDIENT } from "../../services/actions/ingredients";
+import { moveIngredientAction, deleteIngredientAction } from "../../services/actions/burger-constructor";
+import { decreaseIngredientAction } from "../../services/actions/ingredients";
 
 
 interface  IConstructorIngredientProps {
@@ -61,11 +58,7 @@ const [, dropRef] = useDrop({
         if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
             return;
         }
-        dispatch({
-            type: MOVE_INGREDIENT,
-            dragIndex: dragIndex,
-            hoverIndex: hoverIndex,
-        });
+        dispatch(moveIngredientAction(dragIndex, hoverIndex));
         item.index = hoverIndex;
     },
 });
@@ -73,14 +66,8 @@ const [, dropRef] = useDrop({
 dragRef(dropRef(ref));
 
 function onDeleteIngredient(uniqId: string, _id: string) {
-    dispatch({
-        type: DELETE_INGREDIENT,
-        uniqId: uniqId,
-    });
-    dispatch({
-        type: DECREASE_INGREDIENT,
-        _id: _id,
-    });
+    dispatch(deleteIngredientAction(uniqId));
+    dispatch(decreaseIngredientAction(_id));
 }
 
     return (

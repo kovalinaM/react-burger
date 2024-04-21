@@ -1,22 +1,22 @@
 import React, { FC, useMemo} from "react";
-import {useSelector, useDispatch} from "react-redux";
+
+import { useDispatch, useSelector } from "../../services/types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import IngredientsCategory from "../ingredients-category/ingredients-category"
 
-import {TAB_SWITCH} from '../../services/actions/ingredients'
-import {INGREDIENTS_TYPES} from '../../utils/constants'
+import { changeTabAction } from "../../services/actions/ingredients";
+import { INGREDIENTS_TYPES}  from '../../utils/constants'
 
 import styles from "./burger-ingredients.module.css";
-import { OPEN_INGREDIENT_MODAL, selectIngredient } from "../../services/actions/ingredient-details";
-import {TIngredient} from "../../utils/types";
+import { openIngredientDetailsModalAction } from "../../services/actions/ingredient-details";
+import {  selectIngredient } from "../../services/actions/ingredient-details";
+import { TIngredient } from "../../types";
 
-const getIngredients = (store:any) => store.ingredients.ingredients;
-const getCurrentTab = (store:any) => store.ingredients.currentTab
 
 const BurgerIngredients: FC = () => {
-  const ingredients = useSelector(getIngredients);
-  const currentTab = useSelector(getCurrentTab);
+  const ingredients = useSelector((store) => store.ingredients.ingredients);
+  const currentTab = useSelector((store) => store.ingredients.currentTab);
   const dispatch = useDispatch();
 
   interface ICategorizedIngredients {
@@ -61,7 +61,7 @@ const BurgerIngredients: FC = () => {
 
     const tabElement = document.getElementById(currentTab);
 
-    dispatch({ type: TAB_SWITCH, currentTab });
+    dispatch(changeTabAction(currentTab));
     switch (currentTab) {
       case INGREDIENTS_TYPES.BUN.type:
         tabElement?.scrollIntoView(SCROLL_PARAMS);
@@ -87,28 +87,17 @@ const BurgerIngredients: FC = () => {
     const mainPosition = mainElement?.getBoundingClientRect().top || 0;
 
     if (scrollTop >= mainPosition) {
-      dispatch({
-        type: TAB_SWITCH,
-        currentTab: INGREDIENTS_TYPES.MAIN.type,
-      });
+      dispatch(changeTabAction(INGREDIENTS_TYPES.MAIN.type));
     } else if (scrollTop < saucePosition) {
-      dispatch({
-        type: TAB_SWITCH,
-        currentTab: INGREDIENTS_TYPES.BUN.type,
-      });
+      dispatch(changeTabAction(INGREDIENTS_TYPES.BUN.type));
     } else {
-      dispatch({
-        type:TAB_SWITCH,
-        currentTab: INGREDIENTS_TYPES.SAUCE.type,
-      });
+      dispatch(changeTabAction(INGREDIENTS_TYPES.SAUCE.type));
     }
   };
 
   function handleClickIngredient(ingredient: TIngredient) {
     dispatch(selectIngredient(ingredient));
-    dispatch({
-      type: OPEN_INGREDIENT_MODAL
-    });
+    dispatch(openIngredientDetailsModalAction());
   }
 
   return (

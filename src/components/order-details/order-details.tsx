@@ -1,7 +1,7 @@
 import {FC} from "react";
 import styles from './order-details.module.css'
 import imageDone from '../../images/done.svg'
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/types";
 import Preloader from "../preloader/preloader";
 
 const getOrder = (store:any) => store.order.order;
