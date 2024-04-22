@@ -1,5 +1,5 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from '../services/types';
 
 export const useIsAuthenticated = () => {
-    return useSelector((store: any) => store.auth.isAuthenticated);
+    return useSelector((store) => store.auth.isAuthenticated);
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import {Link, Navigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "../../services/types";
 import {
   Button,
   Input,
@@ -12,11 +12,9 @@ import {login} from "../../services/actions/login";
 import {useIsAuthenticated} from "../../utils/selectors";
 import { useForm } from "../../hocs/useForm";
 
-const getLoginError = (store: any) => store.auth.loginError;
-
 export function LoginPage() {
   const isAuthenticated = useIsAuthenticated();
-  const loginError = useSelector(getLoginError);
+  const loginError = useSelector((store) => store.auth.loginError);
   const dispatch = useDispatch();
 
   const { values, handleChange } = useForm({
@@ -27,7 +25,6 @@ export function LoginPage() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(
-        //@ts-ignore
         login(values)
     );
   }
@@ -52,6 +49,7 @@ export function LoginPage() {
             name={"email"}
             onChange={handleChange}
             value={values.email}
+            error={loginError}
           />
         </div>
         <div className="mb-6">
@@ -59,7 +57,6 @@ export function LoginPage() {
             value={values.password}
             name={"password"}
             onChange={handleChange}
-            onError={loginError}
           />
         </div>
         <Button htmlType="submit" type="primary" size="large">

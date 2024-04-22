@@ -21,6 +21,11 @@ import {
   REFRESH_TOKEN_SUCCESS,
 } from '../constants';
 import { TProfileForm } from '../../types';
+import { TRegisterActions } from '../actions/register';
+import { TForgotPasswordActions } from '../actions/forgot-password';
+import { TResetPasswordActions } from '../actions/reset-password';
+import { TLoginActions } from '../actions/login';
+import { TProfileActions } from '../actions/profile';
 
 
 type TAuthState = {
@@ -52,6 +57,13 @@ type TAuthState = {
   logoutRequest: boolean;
   logoutError:boolean;
 }
+
+type TAuthActions = 
+  | TRegisterActions
+  | TForgotPasswordActions
+  | TResetPasswordActions
+  | TLoginActions
+  | TProfileActions
 
 
 const InitialState: TAuthState  = {
@@ -90,7 +102,7 @@ const InitialState: TAuthState  = {
   logoutError: false
 };
 
-export const AuthReducer = (state = InitialState, action) => {
+export const AuthReducer = (state = InitialState, action: TAuthActions): TAuthState => {
   switch (action.type) {
     case REGISTER_FORM_SUBMIT: {
       return {
@@ -148,7 +160,7 @@ export const AuthReducer = (state = InitialState, action) => {
       return {
         ...state,
         forgotPasswordRequest: true,
-        forgotPasswordFailed: false,
+        forgotPasswordError: false,
         forgotPasswordSuccess: false,
       }
     }
@@ -163,7 +175,7 @@ export const AuthReducer = (state = InitialState, action) => {
       return {
         ...state,
         forgotPasswordRequest: false,
-        forgotPasswordFailed: true,
+        forgotPasswordError: true,
       }
     }
     case RESET_PASSWORD_FORM_SUBMIT: {
@@ -282,7 +294,7 @@ export const AuthReducer = (state = InitialState, action) => {
       return {
         ...state,
         logoutRequest: false,
-        logoutFailed: true,
+        logoutError: true,
       }
     }
     default: {

@@ -25,7 +25,6 @@ export function RegisterPage() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(
-        //@ts-ignore
         register(values)
     );
   }

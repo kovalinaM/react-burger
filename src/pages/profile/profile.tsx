@@ -1,5 +1,5 @@
 import { NavLink, useLocation, Outlet } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/types";
 import styles from "./profile.module.css";
 
 import { logout } from "../../services/actions/profile";
@@ -10,7 +10,6 @@ export function ProfilePage() {
 
   function onLogout() {
     dispatch(
-        //@ts-ignore
         logout()
     );
   }

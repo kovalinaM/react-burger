@@ -60,6 +60,8 @@ export type TProfileForm = {
   password: string;
 };
 
+export type TUserData = Pick<TProfileForm, 'name' | 'email'>
+
 export type TRegisterForm = Pick<TProfileForm, "name" | "email" | "password">;
 export type TLoginForm = Pick<TProfileForm, "email" | "password">;
 export type TForgotPasswordForm = Pick<TProfileForm, "email">;

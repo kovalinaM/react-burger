@@ -8,7 +8,7 @@ import {
   CHANGE_BUNS,
   TAB_SWITCH,
 } from "../constants";
-import { TIngredient } from "../types/data";
+import { TIngredient } from "../../types";
 import { TBurgerIngredientsActions } from "../actions/ingredients";
 import { INGREDIENTS_TYPES } from "../../utils/constants";
 

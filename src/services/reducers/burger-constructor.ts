@@ -7,7 +7,7 @@ import {
 } from '../constants'
 
 import { TBurgerConstructorActions } from '../actions/burger-constructor';
-import { TBun, TIngredientConstructor } from '../types/data';
+import { TBun, TIngredientConstructor } from '../../types';
 
 type TBurgerConstructorState = {
     ingredients: TIngredientConstructor[];

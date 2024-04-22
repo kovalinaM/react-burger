@@ -7,16 +7,12 @@ import BurgerConstructor from "../../components/burger-constructor/burger-constr
 import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
 import Preloader from "../../components/preloader/preloader";
 
-import { useSelector } from "react-redux";
-
-const getIngredients = (store: any) => store.ingredients.ingredients;
-const getIngredientsLoading = (store: any) => store.ingredients.ingredientsLoading;
-const getIngredientsFailed = (store: any) => store.ingredients.ingredientsFailed;
+import { useSelector } from "../../services/types";
 
 export function HomePage() {
-  const ingredients = useSelector(getIngredients);
-  const ingredientsLoading = useSelector(getIngredientsLoading);
-  const ingredientsFailed = useSelector(getIngredientsFailed);
+  const ingredients = useSelector((store) => store.ingredients.ingredients);
+  const ingredientsLoading = useSelector((store) => store.ingredients.ingredientsLoading);
+  const ingredientsFailed = useSelector((store) => store.ingredients.ingredientsFailed);
 
   return (
     <main className={styles.sections}>

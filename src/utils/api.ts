@@ -1,12 +1,13 @@
-import { TIngredientsRequest } from './../services/types/data';
+import { IFormEntryData } from '../hocs/useForm';
+import { TIngredientsRequest } from './../types';
 import { BASE_URL, ENDPOINT } from "./constants";
 import {
   TServerResponse,
   TRefreshTokenResponse,
   TUserResponse,
-  TIngredient,
   TOrderNumber,
-  TForgotPasswordForm, TIngredientConstructor,
+  TForgotPasswordForm, 
+  TIngredientConstructor,
   TLoginForm,
   TProfileForm,
   TRegisterForm,
@@ -32,7 +33,7 @@ export const postOrder = (ingredients : TIngredientConstructor[]): Promise<TServ
   }).then<TServerResponse<TOrderNumber>>(checkResponse);
 };
 
-export const registerRequest = ({ name, email, password }: TRegisterForm) => {
+export const registerRequest = ({ name, email, password }: IFormEntryData) => {
   return fetch(BASE_URL + ENDPOINT.REGISTER, {
     method: "POST",
     headers: {
@@ -42,7 +43,7 @@ export const registerRequest = ({ name, email, password }: TRegisterForm) => {
   }).then(checkResponse);
 };
 
-export const loginRequest = ({ email, password }: TLoginForm): Promise<TServerResponse<TUserResponse>> => {
+export const loginRequest = ({ email, password }: IFormEntryData): Promise<TServerResponse<TUserResponse>> => {
   return fetch(BASE_URL + ENDPOINT.LOGIN, {
     method: "POST",
     headers: {
@@ -68,7 +69,7 @@ export const getUserRequest = (): Promise<TUserResponse> => {
   });
 };
 
-export const updateUserRequest = ({ name, email, password }: TProfileForm): Promise<TUserResponse> => {
+export const updateUserRequest = ({ name, email, password }: IFormEntryData): Promise<TUserResponse> => {
   const accessToken = localStorage.getItem("accessToken");
   const headers: HeadersInit = {
     "Content-Type": "application/json",
@@ -85,7 +86,7 @@ export const updateUserRequest = ({ name, email, password }: TProfileForm): Prom
   });
 };
 
-export const forgotPasswordRequest = ({ email }: TForgotPasswordForm) => {
+export const forgotPasswordRequest = ({ email }: IFormEntryData) => {
   return fetch(BASE_URL + ENDPOINT.FORGOT_PASSWORD, {
     method: "POST",
     headers: {

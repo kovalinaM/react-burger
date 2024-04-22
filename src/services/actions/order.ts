@@ -8,7 +8,7 @@ import {
 } from "../constants";
 
 import { AppDispatch, AppThunk } from "../types";
-import { TIngredientConstructor, TOrderNumber } from "../types/data";
+import { TIngredientConstructor, TOrderNumber } from "../../types";
 
 export interface IOpenOrderDetailsModal {
   readonly type: typeof OPEN_ORDER_MODAL;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/types";
 import { forgotPassword } from "../../services/actions/forgot-password";
 
 import {
@@ -11,12 +11,10 @@ import styles from "../register/register.module.css";
 import { useIsAuthenticated } from "../../utils/selectors";
 import { useForm } from "../../hocs/useForm";
 
-const getForgotPasswordSuccess = (store: any) => store.auth.forgotPasswordSuccess;
-const getForgotPasswordError = (store: any) => store.auth.forgotPasswordError;
 export function ForgotPasswordPage() {
   const dispatch = useDispatch();
-  const forgotPasswordSuccess = useSelector(getForgotPasswordSuccess);
-  const forgotPasswordError = useSelector(getForgotPasswordError);
+  const forgotPasswordSuccess = useSelector((store) => store.auth.forgotPasswordSuccess);
+  const forgotPasswordError = useSelector((store) => store.auth.forgotPasswordError);
   const isAuthenticated = useIsAuthenticated();
 
   const { values, handleChange } = useForm({
@@ -26,8 +24,7 @@ export function ForgotPasswordPage() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(
-        //@ts-ignore
-        forgotPassword(values)
+      forgotPassword(values)
     );
   }
 
