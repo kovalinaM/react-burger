@@ -14,7 +14,6 @@ import {
   TResetPasswordForm
 } from "./types";
 
-
 export const checkResponse = <T>(res: Response): Promise<T> => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
@@ -86,7 +85,7 @@ export const updateUserRequest = ({ name, email, password }: IFormEntryData): Pr
   });
 };
 
-export const forgotPasswordRequest = ({ email }: IFormEntryData) => {
+export const forgotPasswordRequest = ({ email }: TForgotPasswordForm) => {
   return fetch(BASE_URL + ENDPOINT.FORGOT_PASSWORD, {
     method: "POST",
     headers: {

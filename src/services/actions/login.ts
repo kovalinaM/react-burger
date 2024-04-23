@@ -3,7 +3,7 @@ import {
   LOGIN_FORM_SUCCESS,
   LOGIN_FORM_ERROR
 } from './../constants';
-import {AppDispatch} from "../types";
+import {AppThunk} from "../types";
 import { TUserData, TProfileForm } from '../../types';
 import { loginRequest } from "../../utils/api";
 import { IFormEntryData } from '../../hocs/useForm';
@@ -40,8 +40,8 @@ export const loginFailedAction = (): ILoginFailedAction => ({
 });
 
 
-export function login(form: IFormEntryData) {
-  return function (dispatch: AppDispatch) {
+export const login = (form: IFormEntryData): AppThunk => {
+  return (dispatch) => {
     dispatch(loginAction());
     loginRequest(form)
       .then((data) => {

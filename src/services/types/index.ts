@@ -10,7 +10,7 @@ import { TResetPasswordActions } from '../actions/reset-password';
 import type { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import {TypedUseSelectorHook, useSelector as selectorHook, useDispatch as dispatchHook } from "react-redux";
 import type {} from "redux-thunk";
-import { rootReducer, store } from '../store';
+import { rootReducer } from '../store';
 
 
 type TAppActions =
@@ -34,6 +34,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   TAppActions
 >;
-
+export const useDispatch: () => AppDispatch = dispatchHook;
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
-export const useDispatch = () => dispatchHook<AppDispatch>();

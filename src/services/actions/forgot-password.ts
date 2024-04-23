@@ -5,7 +5,7 @@ import {
   FORGOT_PASSWORD_FORM_SUCCESS,
   FORGOT_PASSWORD_FORM_ERROR,
 } from "../constants";
-import {AppDispatch} from "../types";
+import {AppThunk} from "../types";
 import { TForgotPasswordForm } from "../../types";
 
 export interface IForgotPasswordAction {
@@ -37,8 +37,8 @@ export const forgotPasswordFailedAction = (): IForgotPasswordFailedAction => ({
   type: FORGOT_PASSWORD_FORM_ERROR,
 });
 
-export function forgotPassword(form:  IFormEntryData) {
-  return function (dispatch: AppDispatch) {
+export const forgotPassword = (form:  TForgotPasswordForm): AppThunk => {
+  return (dispatch) => {
     dispatch(forgotPasswordAction());
     forgotPasswordRequest(form)
       .then(() => {

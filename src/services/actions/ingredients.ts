@@ -102,7 +102,7 @@ export const changeTabAction = (currentTab: string): IChangeTabAction => ({
   currentTab,
 });
 
-export const getIngredientsList: AppThunk<void> = () => async (dispatch: AppDispatch) => {
+export const getIngredientsList = (): AppThunk => async (dispatch) => {
     dispatch(getIngredientsAction());
     try {
         const res = await getIngredients();

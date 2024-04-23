@@ -19,7 +19,7 @@ import {
   LOGOUT_SUCCESS,
   LOGOUT_ERROR
 } from '../constants';
-import { AppDispatch, AppThunk } from "../types";
+import { AppThunk } from "../types";
 import { TProfileForm, TUserData } from "../../types";
 
 export interface IEditProfileAction {
@@ -102,7 +102,8 @@ export const editProfileFailedAction = (message: string): IEditProfileFailedActi
   message,
 });
 
-export const editProfile: AppThunk= (form) => (dispatch: AppDispatch) => {
+export const editProfile = (form: TProfileForm): AppThunk => {
+    return (dispatch) => {
     dispatch(editProfileAction());
     updateUserRequest(form)
       .then((data) => {
@@ -115,6 +116,7 @@ export const editProfile: AppThunk= (form) => (dispatch: AppDispatch) => {
           dispatch(editProfileFailedAction(err.message));
         }
       });
+    }
 }
 
 export const getUserAction = (): IGetUserAction => ({
@@ -131,7 +133,8 @@ export const getUserFailedAction = (message: string): IGetUserFailedAction => ({
   message,
 });
 
-export const getUser: AppThunk = () =>  (dispatch: AppDispatch) => {
+export const getUser = (): AppThunk =>  {
+    return (dispatch) => {
     dispatch(getUserAction());
     getUserRequest()
       .then((data) => {
@@ -145,25 +148,9 @@ export const getUser: AppThunk = () =>  (dispatch: AppDispatch) => {
           console.log(err);
         }
       });
+    }
 }
 
-// export function getUser() {
-//   return function (dispatch: AppDispatch) {
-//     dispatch(getUserAction());
-//     getUserRequest()
-//       .then((data) => {
-//         dispatch(getUserSuccessAction(data.user));
-//       })
-//       .catch((err) => {
-//         if (err.message === "invalid token") {
-//           dispatch(refreshToken());
-//         } else {
-//           dispatch(getUserFailedAction(err.message));
-//           console.log(err);
-//         }
-//       });
-//   };
-// }
 
 export const refreshTokenAction = (): IRefreshTokenAction => ({
   type: REFRESH_TOKEN_REQUEST,
@@ -177,8 +164,8 @@ export const refreshTokenFailedAction = (): IRefreshTokenFailedAction => ({
   type: REFRESH_TOKEN_ERROR,
 });
 
-export function refreshToken() {
-  return function (dispatch: AppDispatch) {
+export const refreshToken = ():AppThunk => {
+  return (dispatch) => {
     dispatch(refreshTokenAction());
     refreshTokenRequest()
       .then((data) => {
@@ -194,7 +181,7 @@ export function refreshToken() {
         dispatch(refreshTokenFailedAction());
         console.log(err);
       });
-  };
+  }
 }
 
 export const logoutAction = (): ILogoutAction => ({
@@ -209,8 +196,8 @@ export const logoutFailedAction = (): ILogoutFailedAction => ({
   type: LOGOUT_ERROR,
 });
 
-export function logout() {
-  return function (dispatch: AppDispatch) {
+export const logout = (): AppThunk => {
+  return (dispatch) => {
     dispatch(logoutAction());
     logoutRequest()
       .then(() => {

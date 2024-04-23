@@ -64,7 +64,7 @@ export const postOrderFailedAction = (): IOrderPostFailedAction => ({
 export const createOrder = (
   ingredients: TIngredientConstructor[]
 ): AppThunk => {
-  return (dispatch: AppDispatch) => {
+  return (dispatch) => {
     dispatch(postOrderAction());
     return postOrder(ingredients)
       .then((res) => {

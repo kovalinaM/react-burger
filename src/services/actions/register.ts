@@ -5,7 +5,7 @@ import {
   REGISTER_FORM_ERROR
 } from './../constants';
 import { registerRequest } from "../../utils/api";
-import { AppDispatch } from '../types';
+import { AppThunk } from '../types';
 
 export interface IRegisterAction {
   readonly type: typeof REGISTER_FORM_SUBMIT;
@@ -38,9 +38,8 @@ export const registerFailedAction = (): IRegisterFailedAction => ({
   type: REGISTER_FORM_ERROR,
 });
 
-
-export function register(form: TRegisterForm) {
-  return function (dispatch: AppDispatch) {
+export const register = (form: TRegisterForm): AppThunk => {
+  return (dispatch) => {
     dispatch(registerAction());
     registerRequest(form)
       .then((data) => {
