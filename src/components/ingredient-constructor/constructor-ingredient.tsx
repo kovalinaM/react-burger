@@ -24,6 +24,7 @@ interface DragItem {
     id: string
     type: string
 }
+
 const ConstructorIngredient: FC<IConstructorIngredientProps> = ({ ingredient, index }) => {
 const { name, price, image_mobile, uniqId, _id } = ingredient;
 const dispatch = useDispatch();

@@ -10,6 +10,7 @@ import {
 import styles from "../register/register.module.css";
 import { useIsAuthenticated } from "../../utils/selectors";
 import { useForm } from "../../hocs/useForm";
+import { TForgotPasswordForm } from "../../types";
 
 export function ForgotPasswordPage() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ export function ForgotPasswordPage() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(
-      forgotPassword(values)
+      forgotPassword(values as TForgotPasswordForm)
     );
   }
 

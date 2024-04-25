@@ -11,6 +11,7 @@ import {
 import styles from "./register.module.css";
 import { useIsAuthenticated } from "../../utils/selectors";
 import { useForm } from "../../hocs/useForm";
+import { TRegisterForm } from "../../types";
 
 export function RegisterPage() {
   const isAuthenticated =  useIsAuthenticated();
@@ -25,7 +26,7 @@ export function RegisterPage() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(
-        register(values)
+        register(values as TRegisterForm)
     );
   }
 

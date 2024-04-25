@@ -26,9 +26,9 @@ import {TIngredientConstructor} from "../../types";
 
 const BurgerConstructor: FC = () => {
   const isAuthenticated =  useIsAuthenticated();
-  const modalIsActive = useSelector((store: any) => store.order.modalIsActive);
-  const bun = useSelector((store: any) => store.burgerConstructor.bun);
-  const ingredients = useSelector((store: any) => store.burgerConstructor.ingredients);
+  const modalIsActive = useSelector((store) => store.order.modalIsActive);
+  const bun = useSelector((store) => store.burgerConstructor.bun);
+  const ingredients = useSelector((store) => store.burgerConstructor.ingredients);
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -66,13 +66,12 @@ const BurgerConstructor: FC = () => {
   }
 
   function createOrderHandler() {
-    if (isAuthenticated) {
-    const order = {
-      ingredients: [bun._id, ...ingredients.map((ingredient: TIngredientConstructor) => ingredient._id), bun._id]
-    }
+    if (isAuthenticated && bun){
+    const order = [bun._id, ...ingredients.map((ingredient: TIngredientConstructor) => ingredient._id), bun._id]
+    
       dispatch(openOrderDetailsModal())
       dispatch(
-          createOrder(order.ingredients)
+          createOrder(order)
       );
 
     } else {

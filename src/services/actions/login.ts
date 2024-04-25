@@ -4,7 +4,7 @@ import {
   LOGIN_FORM_ERROR
 } from './../constants';
 import {AppThunk} from "../types";
-import { TUserData, TProfileForm } from '../../types';
+import { TUserData} from '../../types';
 import { loginRequest } from "../../utils/api";
 import { IFormEntryData } from '../../hocs/useForm';
 

@@ -8,6 +8,7 @@ import styles from "./profile-edit.module.css";
 
 import { editProfile } from "../../services/actions/profile";
 import { useForm } from "../../hocs/useForm";
+import { TProfileForm } from "../../types";
 
 
 export function ProfileEdit() {
@@ -43,7 +44,7 @@ export function ProfileEdit() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(
-        editProfile(values)
+        editProfile(values as TProfileForm)
     );
   }
   function onFocus(evt: React.FocusEvent<HTMLInputElement>) {

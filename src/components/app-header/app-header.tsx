@@ -10,11 +10,10 @@ import {NavLink, useLocation } from "react-router-dom";
 
 import stylesHeader from "./app-header.module.css";
 
-const getUserName = (store: any) => store.auth.user.name;
 
 const AppHeader: FC = () => {
   const location = useLocation();
-  const userName = useSelector(getUserName);
+  const userName = useSelector((store) => store.auth.user.name);
   return (
     <header className={stylesHeader.header}>
       <nav>

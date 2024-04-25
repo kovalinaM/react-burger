@@ -1,18 +1,19 @@
+import { refreshToken } from './../services/actions/profile';
 import { IFormEntryData } from '../hocs/useForm';
 import { TIngredientsRequest } from './../types';
 import { BASE_URL, ENDPOINT } from "./constants";
 import {
   TServerResponse,
-  TRefreshTokenResponse,
   TUserResponse,
+  TRefreshTokenResponse,
   TOrderNumber,
   TForgotPasswordForm, 
   TIngredientConstructor,
   TLoginForm,
   TProfileForm,
   TRegisterForm,
-  TResetPasswordForm
-} from "./types";
+} from "../types";
+
 
 export const checkResponse = <T>(res: Response): Promise<T> => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
@@ -22,7 +23,7 @@ export function getIngredients(): Promise<TServerResponse<TIngredientsRequest>> 
   return fetch(BASE_URL + ENDPOINT.INGREDIENTS).then<TServerResponse<TIngredientsRequest>>(checkResponse);
 }
 
-export const postOrder = (ingredients : TIngredientConstructor[]): Promise<TServerResponse<TOrderNumber>> => {
+export const postOrder = (ingredients : string[]): Promise<TServerResponse<TOrderNumber>> => {
   return fetch(BASE_URL + ENDPOINT.ORDERS, {
     method: "POST",
     headers: {
@@ -32,17 +33,17 @@ export const postOrder = (ingredients : TIngredientConstructor[]): Promise<TServ
   }).then<TServerResponse<TOrderNumber>>(checkResponse);
 };
 
-export const registerRequest = ({ name, email, password }: IFormEntryData) => {
+export const registerRequest = ({ name, email, password }: IFormEntryData): Promise<TServerResponse<TUserResponse>> => {
   return fetch(BASE_URL + ENDPOINT.REGISTER, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ name, email, password }),
-  }).then(checkResponse);
+  }).then<TServerResponse<TUserResponse>>(checkResponse);
 };
 
-export const loginRequest = ({ email, password }: IFormEntryData): Promise<TServerResponse<TUserResponse>> => {
+export const loginRequest = ({ email, password }: IFormEntryData): Promise<TServerResponse<TUserResponse >>  => {
   return fetch(BASE_URL + ENDPOINT.LOGIN, {
     method: "POST",
     headers: {
@@ -96,7 +97,7 @@ export const forgotPasswordRequest = ({ email }: TForgotPasswordForm) => {
 };
 
 
-export const resetPasswordRequest = ({ token, password }: TResetPasswordForm) => {
+export const resetPasswordRequest = ({ token, password }: IFormEntryData) => {
   return fetch(BASE_URL + ENDPOINT.RESET_PASSWORD, {
     method: "POST",
     headers: {

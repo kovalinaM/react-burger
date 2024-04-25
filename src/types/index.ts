@@ -40,18 +40,25 @@ export type TServerResponse<T> = {
   success: boolean;
 } & T;
 
+export type TUserResponse  = {
+  user: {
+    name: string;
+    email: string;
+    password: string;
+  }
+  refreshToken: string;
+  accessToken: string
+}
+
 export type TRefreshTokenResponse = TServerResponse<{
   refreshToken: string;
   accessToken: string;
 }>;
 
-export type TUserResponse = TServerResponse<{
-  name: string;
-  email: string;
-}>;
-
 export type TOrderNumber = {
-  order: { number: number };
+  order: { 
+    number: number 
+  };
 };
 
 export type TProfileForm = {

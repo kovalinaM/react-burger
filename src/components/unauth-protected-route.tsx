@@ -17,7 +17,6 @@ const UnAuthProtectedRouteElement: FC<IUnAuthProtected> = ({ element }) => {
 
   useEffect(() => {
     dispatch(
-        //@ts-ignore
         getUser()
     );
   }, [dispatch]);

@@ -7,7 +7,7 @@ import {
   ORDER_POST_FAILED,
 } from "../constants";
 
-import { AppDispatch, AppThunk } from "../types";
+import { AppThunk } from "../types";
 import { TIngredientConstructor, TOrderNumber } from "../../types";
 
 export interface IOpenOrderDetailsModal {
@@ -24,7 +24,7 @@ export interface IOrderPostAction {
 
 export interface IOrderPostSuccessAction {
   readonly type: typeof ORDER_POST_SUCCESS;
-  readonly order: TOrderNumber;
+  readonly orderId: string;
 }
 
 export interface IOrderPostFailedAction {
@@ -51,10 +51,10 @@ export const postOrderAction = (): IOrderPostAction => ({
 });
 
 export const postOrderSuccessAction = (
-  order: TOrderNumber
+  orderId: string
 ): IOrderPostSuccessAction => ({
   type: ORDER_POST_SUCCESS,
-  order,
+  orderId,
 });
 
 export const postOrderFailedAction = (): IOrderPostFailedAction => ({
@@ -62,13 +62,14 @@ export const postOrderFailedAction = (): IOrderPostFailedAction => ({
 });
 
 export const createOrder = (
-  ingredients: TIngredientConstructor[]
+  ingredients: string[]
 ): AppThunk => {
   return (dispatch) => {
     dispatch(postOrderAction());
     return postOrder(ingredients)
       .then((res) => {
-        return dispatch(postOrderSuccessAction(res));
+        const orderId = res.order.number.toString();
+        return dispatch(postOrderSuccessAction(orderId));
       })
       .catch((err) => {
         return dispatch(postOrderFailedAction());

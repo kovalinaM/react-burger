@@ -18,7 +18,6 @@ const ProtectedRouteElement: FC<IProtected> = ({ element }) => {
 
   useEffect(() => {
     dispatch(
-        //@ts-ignore
         getUser()
     );
     setUserLoaded(true);

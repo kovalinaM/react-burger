@@ -1,7 +1,5 @@
 import { combineReducers } from "redux";
-import { applyMiddleware, compose } from "redux";
-import { thunk } from "redux-thunk";
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore} from "@reduxjs/toolkit";
 
 import { ingridientsReducer } from "./reducers/ingredients";
 import { burgerConstructorReducer } from "./reducers/burger-constructor";
@@ -17,14 +15,7 @@ export const rootReducer = combineReducers({
     auth: AuthReducer
 });
 
-declare global {
-    interface Window {
-        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-    }
-}
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const enhancer = composeEnhancers(applyMiddleware(thunk));
-
-export const store = configureStore({ reducer: rootReducer, enhancer});
+export const store = configureStore({
+    reducer: rootReducer,
+    devTools: process.env.NODE_ENV !== 'production',
+});

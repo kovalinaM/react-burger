@@ -8,7 +8,7 @@ import {
 import { TOrderDetailsActions } from '../actions/order';
 
 type TOrderState = {
-    order: string | null;
+    orderId: string;
     isLoading: boolean;
     error: boolean;
     modalIsActive: boolean;
@@ -18,7 +18,7 @@ const initialState: TOrderState = {
     modalIsActive: false,
     error: false,
     isLoading: false,
-    order: null
+    orderId: ""
 }
 
 
@@ -32,7 +32,7 @@ export const orderReducer = (state = initialState, action: TOrderDetailsActions)
         case ORDER_POST_SUCCESS: 
             return {
                 ...state,
-                order: action.order,
+                orderId: action.orderId,
                 isLoading: false
             }
         case ORDER_POST_FAILED: 
