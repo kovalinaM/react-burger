@@ -11,6 +11,7 @@ import type { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import {TypedUseSelectorHook, useSelector as selectorHook, useDispatch as dispatchHook } from "react-redux";
 import type {} from "redux-thunk";
 import { rootReducer } from '../store';
+import { TWSActions } from '../actions/wsActions';
 
 
 type TAppActions =
@@ -22,7 +23,8 @@ type TAppActions =
     | TRegisterActions
     | TLoginActions
     | TForgotPasswordActions
-    | TResetPasswordActions;
+    | TResetPasswordActions
+    | TWSActions;
 
 export type RootState = ReturnType<typeof rootReducer>;
 

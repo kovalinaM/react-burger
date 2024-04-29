@@ -1,3 +1,12 @@
+import {
+  WS_CONNECTION_START,
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_SUCCESS,
+  WS_CONNECTION_ERROR,
+  WS_GET_ORDERS, WS_CONNECTION_CLOSED_SUCCESS,
+} from './../services/constants/index';
+
+
 export type TIngredientsRequest = {
   success: boolean;
   data: TIngredient[]
@@ -75,3 +84,37 @@ export type TForgotPasswordForm = Pick<TProfileForm, "email">;
 export type TResetPasswordForm = Pick<TProfileForm, "password"> & {
   token: string;
 };
+
+export type TOrder = {
+  _id: string;
+  ingredients: string[];
+  status: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  number?: number;
+};
+
+export type TOrders = TOrder[];
+
+export type TGetOrdersResponse = {
+  success: boolean;
+  orders: TOrders;
+  total: number;
+  totalToday: number;
+}
+
+export type TCorrectOrder = Omit<TOrder, 'ingredients'> & { ingredients: TIngredient[]};
+export type TDoneInProgressOrders = {
+  done: number[];
+  inProgress: number[];
+};
+
+export type TWSOrderActions = {
+  wsInit: typeof WS_CONNECTION_START,
+  wsClose: typeof WS_CONNECTION_CLOSED,
+  onClose: typeof WS_CONNECTION_CLOSED_SUCCESS,
+  onOpen: typeof WS_CONNECTION_SUCCESS,
+  onError: typeof WS_CONNECTION_ERROR,
+  onMessage: typeof WS_GET_ORDERS,
+}

@@ -4,7 +4,7 @@ import { useDispatch } from "../../services/types";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 import AppHeader from "../app-header/app-header";
-import {HomePage, IngredientDetailsPage, RegisterPage, LoginPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, ProfileEdit, ProfileOrders, NotFoundPage} from "../../pages"
+import {HomePage, FeedPage, IngredientDetailsPage, RegisterPage, LoginPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, ProfileEdit, ProfileOrders, NotFoundPage} from "../../pages"
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
@@ -34,6 +34,7 @@ const App: FC = () => {
       <AppHeader />
       <Routes location={background || location}>
         <Route path="/" element={<HomePage/>}/>
+        <Route path="/feed" element={<FeedPage/>}/>
         <Route path='/ingredients/:ingredientId'
           element={<IngredientDetailsPage/>} />
         <Route path="/register"  element={<UnAuthProtectedRouteElement element={<RegisterPage/>}></UnAuthProtectedRouteElement>}/>

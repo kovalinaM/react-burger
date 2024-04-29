@@ -25,10 +25,10 @@ const AppHeader: FC = () => {
             </NavLink>
           </li>
           <li className="pt-4 pb-4 pr-5 pl-5">
-            <NavLink to={"/orders"} className={stylesHeader.link}>
-              <ListIcon type={location.pathname === "/orders" ? "primary" : "secondary"} />
-              <span className={`text text_type_main-default ${location.pathname === "/orders" ? "" : "text_color_inactive"}`}>
-                Лист заказов
+            <NavLink to={"/feed"} className={stylesHeader.link}>
+              <ListIcon type={location.pathname === "/feed" ? "primary" : "secondary"} />
+              <span className={`text text_type_main-default ${location.pathname === "/feed" ? "" : "text_color_inactive"}`}>
+                Лента заказов
               </span>
             </NavLink>
           </li>
