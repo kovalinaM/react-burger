@@ -7,6 +7,7 @@ import { TRegisterActions } from './../actions/register';
 import { TLoginActions } from '../actions/login';
 import { TForgotPasswordActions } from '../actions/forgot-password';
 import { TResetPasswordActions } from '../actions/reset-password';
+import {TFeedActions} from '../actions/feed';
 import type { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import {TypedUseSelectorHook, useSelector as selectorHook, useDispatch as dispatchHook } from "react-redux";
 import type {} from "redux-thunk";
@@ -24,7 +25,8 @@ type TAppActions =
     | TLoginActions
     | TForgotPasswordActions
     | TResetPasswordActions
-    | TWSActions;
+    | TWSActions
+    | TFeedActions;
 
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -36,5 +38,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   TAppActions
 >;
-export const useDispatch: () => AppDispatch = dispatchHook;
+
+export const useDispatch = () => dispatchHook<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;

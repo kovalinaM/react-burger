@@ -54,6 +54,11 @@ export function ProfilePage() {
             В этом разделе вы можете изменить свои персональные данные
           </p>
         ) : null}
+        {pathname === "/profile/orders" ? (
+            <p className="text text_type_main-small text_color_inactive">
+              В этом разделе вы можете просмотреть свою историю заказов
+            </p>
+        ) : null}
       </aside>
       <Outlet />
     </main>

@@ -32,3 +32,9 @@ export const INGREDIENTS_TYPES: TIngredientType = {
 };
 
 
+export const STATUS = {
+    CREATED: 'Создан',
+    PENDING: 'Готовится',
+    DONE: 'Выполнен',
+};
+
