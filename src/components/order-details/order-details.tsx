@@ -12,7 +12,7 @@ const OrderDetails: FC = () => {
     
     return (
         <div className={styles.order_content}>
-            {isLoading &&  <Preloader/>}
+            {isLoading &&  <Preloader header={"Заказ отправляется..."}/>}
             {error && <p className={styles.order_text + " pt-7 pb-30 text text_type_main-small"}>При отправке заказа произошла ошибка. Попробуйте еще раз</p>}
             {!isLoading && !error && orderId &&
                 <>

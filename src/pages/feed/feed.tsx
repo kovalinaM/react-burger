@@ -34,13 +34,15 @@ export function FeedPage() {
     const { total, totalToday } = useSelector((state) => state.ws);
 
     if (loading) {
-      return (<Preloader />);
+      return (<Preloader header={"Загружается лента заказов..."}/>);
     }
     return (
         <main className={styles.main}>
             <h1 className={"text text_type_main-large mb-5 mt-10"}>Лента заказов</h1>
             <div className={styles.sections}>
-                <OrderList orders={correctOrders}/>
+                <div className={styles.section}>
+                    <OrderList orders={correctOrders}/>
+                </div>
                 <div className={styles.board}>
                     <div className={styles.stats}>
                         <div className={styles.status}>

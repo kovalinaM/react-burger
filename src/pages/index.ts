@@ -1,5 +1,6 @@
 import {HomePage} from "./home/home";
 import { FeedPage } from "./feed/feed";
+import {OrderDetailsPage} from "./order-details/order-details";
 import { IngredientDetailsPage } from "./ingredient-details/ingredient-details";
 import {RegisterPage} from "./register/register";
 import {LoginPage} from "./login/login";
@@ -13,6 +14,7 @@ import { NotFoundPage } from "./not-found/not-found";
 export {
     HomePage, 
     FeedPage,
+    OrderDetailsPage,
     IngredientDetailsPage,
     RegisterPage, 
     LoginPage,

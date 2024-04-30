@@ -28,7 +28,7 @@ export function ProfileOrders() {
     const correctOrders = orders && getCorrectOrders(orders, ingredientsData).reverse();
 
     if (loading) {
-        return (<Preloader />);
+        return (<Preloader header="Loading..." />);
     }
 
     if (!correctOrders) {

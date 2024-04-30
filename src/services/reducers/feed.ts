@@ -1,6 +1,11 @@
-import {SELECT_ORDER, SET_CORRECT_ORDERS, SET_DONE_ORDERS, UNSELECT_ORDER} from "../constants";
-import { TCorrectOrder } from "../../types";
-import { TFeedActions } from "../actions/feed";
+import {
+  SELECT_ORDER,
+  SET_CORRECT_ORDERS,
+  SET_DONE_ORDERS,
+  UNSELECT_ORDER
+} from "../constants";
+import {TCorrectOrder} from "../../types";
+import {TFeedActions} from "../actions/feed";
 
 type TFeedState = {
     orders: TCorrectOrder[],

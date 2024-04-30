@@ -7,11 +7,7 @@ import {
   TUserResponse,
   TRefreshTokenResponse,
   TOrderNumber,
-  TForgotPasswordForm, 
-  TIngredientConstructor,
-  TLoginForm,
-  TProfileForm,
-  TRegisterForm,
+  TForgotPasswordForm,
 } from "../types";
 
 
@@ -166,3 +162,4 @@ export const logoutRequest = () => {
     body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
   }).then(checkResponse);
 };
+

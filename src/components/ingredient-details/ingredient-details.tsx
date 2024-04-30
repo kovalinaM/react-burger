@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "../../services/types";
 import { useParams } from "react-router-dom";
 import { selectIngredientAction } from "../../services/actions/ingredient-details";
 import { TIngredient } from "../../types";
+import Preloader from "../preloader/preloader";
 
 
 const IngredientDetails: FC = () => {
@@ -22,7 +23,7 @@ const IngredientDetails: FC = () => {
   
   if (!selectedIngredient) {
     return (
-        <div>"Загружаю сведения об ингредиенте...";</div>
+        <Preloader header={"Загружаю сведения об ингредиенте..."}/>
     )
   } 
 
