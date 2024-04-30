@@ -1,13 +1,12 @@
 import {
-    WS_CONNECTION_CLOSED,
-    WS_CONNECTION_ERROR,
-    WS_CONNECTION_START,
-    WS_CONNECTION_SUCCESS,
-    WS_GET_ORDERS,
+    WS_CONNECTION_USER_ORDERS_CLOSED,
+    WS_CONNECTION_USER_ORDERS_ERROR,
+    WS_CONNECTION_USER_ORDERS_START,
+    WS_CONNECTION_USER_ORDERS_SUCCESS,
     WS_GET_USER_ORDERS,
 } from "../constants";
 import {TOrders} from "../../types";
-import {TWSActions} from "../actions/wsActions";
+import {TWSUserOrdersActions } from "../actions/wsUserOrderActions";
 
 type TWSState = {
     wsConnected: boolean;
@@ -22,28 +21,28 @@ type TWSState = {
 const initialState: TWSState = {
     wsConnected: false,
     orders: [],
-    
+
     total: 0,
     totalToday: 0,
     loading: false,
 };
 
-export const wsReducer = (state = initialState, action: TWSActions) => {
+export const wsUserOrdersReducer = (state = initialState, action: TWSUserOrdersActions ) => {
     switch (action.type) {
-        case WS_CONNECTION_START: {
+        case WS_CONNECTION_USER_ORDERS_START: {
             return {
                 ...state,
                 loading: true
             }
         }
-        case WS_CONNECTION_SUCCESS: {
+        case WS_CONNECTION_USER_ORDERS_SUCCESS: {
             return {
                 ...state,
                 error: undefined,
                 wsConnected: true,
             };
         }
-        case WS_CONNECTION_ERROR: {
+        case WS_CONNECTION_USER_ORDERS_ERROR: {
             return {
                 ...state,
                 error: action.payload,
@@ -51,7 +50,7 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
                 loading: false,
             };
         }
-        case WS_CONNECTION_CLOSED: {
+        case WS_CONNECTION_USER_ORDERS_CLOSED: {
             return {
                 ...state,
                 error: undefined,
@@ -59,7 +58,8 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
                 loading: false,
             };
         }
-        case WS_GET_ORDERS: {
+
+        case WS_GET_USER_ORDERS: {
             return {
                 ...state,
                 error: undefined,
@@ -69,7 +69,6 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
                 loading: false,
             };
         }
-
         default: {
             return state;
         }

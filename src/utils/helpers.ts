@@ -75,3 +75,17 @@ export const getCorrectOrders = (orders: TOrders, data: TIngredient[]) => {
     return correctOrders;
 };
 
+export const getDoneInProgressOrders = (orders: TCorrectOrder[]) => {
+    const done: number[] = [];
+    const inProgress: number[] = [];
+    orders.forEach((order) => {
+        if (order.status === 'done') {
+            done.push(<number>order.number);
+        } else {
+            if (order.number !== undefined) {
+                inProgress.push(order.number);
+            }
+        }
+    });
+    return { done, inProgress };
+};

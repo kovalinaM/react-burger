@@ -34,7 +34,6 @@ export const socketMiddleware = (
                 };
             
                 socket.onmessage = (event) => {
-                    console.log(event);
                     const { data } = event;
                     const parsedData = JSON.parse(data);
 

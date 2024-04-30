@@ -3,7 +3,7 @@ import { TBurgerIngredientsActions } from '../actions/ingredients';
 import { TIngredientDetailsActions } from "../actions/ingredient-details"
 import { TOrderDetailsActions } from '../actions/order';
 import { TProfileActions } from '../actions/profile';
-import { TRegisterActions } from './../actions/register';
+import { TRegisterActions } from '../actions/register';
 import { TLoginActions } from '../actions/login';
 import { TForgotPasswordActions } from '../actions/forgot-password';
 import { TResetPasswordActions } from '../actions/reset-password';
@@ -13,6 +13,7 @@ import {TypedUseSelectorHook, useSelector as selectorHook, useDispatch as dispat
 import type {} from "redux-thunk";
 import { rootReducer } from '../store';
 import { TWSActions } from '../actions/wsActions';
+import { TWSUserOrdersActions } from "../actions/wsUserOrderActions";
 
 
 type TAppActions =
@@ -26,6 +27,7 @@ type TAppActions =
     | TForgotPasswordActions
     | TResetPasswordActions
     | TWSActions
+    | TWSUserOrdersActions
     | TFeedActions;
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -39,5 +41,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   TAppActions
 >;
 
-export const useDispatch = () => dispatchHook<AppDispatch>();
+export const useDispatch: () => AppDispatch = dispatchHook;
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;

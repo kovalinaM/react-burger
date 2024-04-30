@@ -24,11 +24,18 @@ export function getIngredients(): Promise<TServerResponse<TIngredientsRequest>> 
 }
 
 export const postOrder = (ingredients : string[]): Promise<TServerResponse<TOrderNumber>> => {
+  const accessToken = localStorage.getItem('accessToken');
+  const headers: HeadersInit = {
+    "Content-Type": "application/json",
+  };
+
+  if (accessToken) {
+    headers["Authorization"] = accessToken;
+  }
+
   return fetch(BASE_URL + ENDPOINT.ORDERS, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: headers,
     body: JSON.stringify({ ingredients }),
   }).then<TServerResponse<TOrderNumber>>(checkResponse);
 };

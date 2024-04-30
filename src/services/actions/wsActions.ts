@@ -1,12 +1,12 @@
-import { 
-    WS_CONNECTION_START,
-    WS_CONNECTION_SUCCESS,
+import {
     WS_CONNECTION_CLOSED,
     WS_CONNECTION_CLOSED_SUCCESS,
     WS_CONNECTION_ERROR,
+    WS_CONNECTION_START,
+    WS_CONNECTION_SUCCESS,
     WS_GET_ORDERS,
-} from './../constants/index';
-import { TGetOrdersResponse } from '../../types';
+} from "../constants";
+import {TGetOrdersResponse} from '../../types';
 
 export interface IWSConnectionStartAction {
     readonly type: typeof WS_CONNECTION_START;
@@ -34,6 +34,7 @@ export interface IWSConnectionGetOrdersAction {
     readonly type: typeof WS_GET_ORDERS;
     readonly payload: TGetOrdersResponse;
 }
+
 
 export type TWSActions =
     | IWSConnectionStartAction
@@ -77,4 +78,6 @@ export const wsConnectionGetOrdersAction = (response: TGetOrdersResponse): IWSCo
         payload: response,
     };
 };
+
+
 

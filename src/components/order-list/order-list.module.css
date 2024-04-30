@@ -1,7 +1,5 @@
 .list {
     max-height: 852px;
-    overflow-y: scroll;
     padding-right: 8px;
-    max-width: 656px;
 }
 
