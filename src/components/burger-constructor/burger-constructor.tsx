@@ -29,7 +29,8 @@ const BurgerConstructor: FC = () => {
   const modalIsActive = useSelector((store) => store.order.modalIsActive);
   const bun = useSelector((store) => store.burgerConstructor.bun);
   const ingredients = useSelector((store) => store.burgerConstructor.ingredients);
-  
+  const orderError = useSelector((store) => store.order.error);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -61,8 +62,10 @@ const BurgerConstructor: FC = () => {
 
   function handleCloseModal() {
     dispatch(closeOrderDetailsModal())
-    dispatch(clearConstructorAction());
-    dispatch(clearQuantityAction())
+    if(!orderError) {
+      dispatch(clearConstructorAction());
+      dispatch(clearQuantityAction());
+    }
   }
 
   function createOrderHandler() {
