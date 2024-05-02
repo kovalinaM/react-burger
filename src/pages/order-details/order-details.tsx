@@ -39,8 +39,9 @@ export function OrderDetailsPage() {
     }, [location.pathname, url, dispatch]);
 
     const orders = useSelector((store) => store.ws.orders);
+    const userOrders = useSelector((store) => store.userOrders.orders);
     const ingredientsData = useSelector((state) => state.ingredients.ingredients);
-    const correctOrders = orders && getCorrectOrders(orders, ingredientsData);
+    const correctOrders = !userOrders && orders ? getCorrectOrders(orders, ingredientsData) : getCorrectOrders(userOrders, ingredientsData);
     const selectedOrder = useSelector(state => state.feed.selectedOrder);
     
     useEffect(() => {
