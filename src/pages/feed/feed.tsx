@@ -8,6 +8,7 @@ import Preloader from '../../components/preloader/preloader';
 import OrderList from "../../components/order-list/order-list";
 import {getCorrectOrders} from "../../utils/helpers";
 import {TOrder} from "../../types";
+import { setCorrectOrdersAction } from "../../services/actions/feed";
 
 export function FeedPage() {
     const dispatch = useDispatch();
@@ -23,6 +24,10 @@ export function FeedPage() {
     const orders = useSelector((store) => store.ws.orders);
     const ingredientsData = useSelector((state) => state.ingredients.ingredients);
     const correctOrders = orders && getCorrectOrders(orders, ingredientsData);
+
+    useEffect(() => {
+        dispatch(setCorrectOrdersAction(correctOrders))
+    }, [dispatch, correctOrders]);
 
     const ordersReady: TOrder[] = orders
         .filter((order: TOrder) => order.status === 'done')

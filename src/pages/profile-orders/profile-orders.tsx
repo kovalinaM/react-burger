@@ -6,6 +6,7 @@ import OrderList from "../../components/order-list/order-list";
 import {getCorrectOrders} from "../../utils/helpers";
 import {WS_USER_ORDERS_URL} from "../../utils/constants";
 import {wsConnectionUserOrdersStartAction, wsConnectionUserOrdersClosedAction} from "../../services/actions/wsUserOrderActions";
+import { setCorrectOrdersAction } from "../../services/actions/feed";
 
 
 export function ProfileOrders() {
@@ -26,6 +27,10 @@ export function ProfileOrders() {
     const ingredientsData = useSelector((state) => state.ingredients.ingredients);
 
     const correctOrders = orders && getCorrectOrders(orders, ingredientsData).reverse();
+
+    useEffect(() => {
+        dispatch(setCorrectOrdersAction(correctOrders))
+    }, [dispatch, correctOrders]);
 
     if (loading) {
         return (<Preloader header="Loading..." />);
