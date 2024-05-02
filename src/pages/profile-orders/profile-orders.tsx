@@ -20,7 +20,7 @@ export function ProfileOrders() {
         return () => {
             dispatch(wsConnectionUserOrdersClosedAction());
         }
-    }, [dispatch]);
+    }, [dispatch, url]);
 
     const orders  = useSelector((state) => state.userOrders.orders);
     const ingredientsData = useSelector((state) => state.ingredients.ingredients);

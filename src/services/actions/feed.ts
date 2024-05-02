@@ -40,13 +40,6 @@ export const setCorrectOrdersAction = (orders: TCorrectOrder[]): ISetCorrectOrde
   };
 };
 
-export const setDoneOrdersAction = (orders: TDoneInProgressOrders): ISetDoneOrdersAction => {
-  return {
-    type: SET_DONE_ORDERS,
-    payload: orders,
-  };
-};
-
 export const selectOrderAction = (order: TCorrectOrder): ISelectOrderAction => {
   return {
     type: SELECT_ORDER,

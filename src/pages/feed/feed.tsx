@@ -16,9 +16,9 @@ export function FeedPage() {
     useEffect(() => {
         dispatch(wsConnectionStartAction(WS_ALL_ORDERS_URL));
         return () => {
-          dispatch(wsConnectionClosedAction());
+            dispatch(wsConnectionClosedAction());
         }
-      }, [dispatch]);
+    }, [dispatch]);
 
     const orders = useSelector((store) => store.ws.orders);
     const ingredientsData = useSelector((state) => state.ingredients.ingredients);
@@ -34,7 +34,7 @@ export function FeedPage() {
     const { total, totalToday } = useSelector((state) => state.ws);
 
     if (loading) {
-      return (<Preloader header={"Загружается лента заказов..."}/>);
+        return (<Preloader header={"Загружается лента заказов..."}/>);
     }
     return (
         <main className={styles.main}>

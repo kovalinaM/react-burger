@@ -4,7 +4,6 @@ import {
     WS_CONNECTION_START,
     WS_CONNECTION_SUCCESS,
     WS_GET_ORDERS,
-    WS_GET_USER_ORDERS,
 } from "../constants";
 import {TOrders} from "../../types";
 import {TWSActions} from "../actions/wsActions";

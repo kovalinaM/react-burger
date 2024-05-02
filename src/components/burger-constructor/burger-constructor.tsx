@@ -149,7 +149,7 @@ const BurgerConstructor: FC = () => {
           htmlType="button"
           type="primary"
           size="large"
-          disabled={!bun}
+          disabled={!bun && !isAuthenticated}
         >
           Оформить заказ
         </Button>

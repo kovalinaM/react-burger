@@ -18,18 +18,19 @@ export const OrderDetailCard: FC<TOrderInfo> = ({ modal = false }) => {
     const { loading } = useSelector(state => state.ws);
     const { orders } = useSelector((state => state.feed));
     const { selectedOrder } = useSelector((state) => state.feed);
-    const { id } = useParams<{ id?: string }>();
+    const { orderId } = useParams<{ orderId?: string }>();
 
-   useEffect(() => {
-        if (!selectedOrder && id && orders) {
-            const order = orders.find((order: TCorrectOrder) => order._id === id);
+    useEffect(() => {
+        if (!selectedOrder && orderId && orders) {
+            const order = orders.find((order: TCorrectOrder) => order._id === orderId);
             order && dispatch(selectOrderAction(order));
         }
-    }, [selectedOrder, id, orders, dispatch]);
+    }, [selectedOrder, orderId, orders, dispatch]);
 
     if (loading) {
         return (<Preloader header={"Загружается описание ..."}/>);
     }
+
     if (!selectedOrder) {
         return (<p>Описание заказа не найдено</p>);
     }
