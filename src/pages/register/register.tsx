@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Navigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/types";
 import { register } from "../../services/actions/register";
 
 import {
@@ -11,6 +11,7 @@ import {
 import styles from "./register.module.css";
 import { useIsAuthenticated } from "../../utils/selectors";
 import { useForm } from "../../hocs/useForm";
+import { TRegisterForm } from "../../types";
 
 export function RegisterPage() {
   const isAuthenticated =  useIsAuthenticated();
@@ -25,8 +26,7 @@ export function RegisterPage() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(
-        //@ts-ignore
-        register(values)
+        register(values as TRegisterForm)
     );
   }
 

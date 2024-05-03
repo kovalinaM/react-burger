@@ -11,7 +11,7 @@ export type TIngredient = {
   image_mobile: string;
   image_large: string;
   __v: number;
-  count?:number;
+  count:number;
 }
 
 export type TIngredientConstructor = TIngredient & {

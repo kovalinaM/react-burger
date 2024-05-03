@@ -1,47 +1,51 @@
+import { IFormEntryData } from '../hocs/useForm';
+import { TIngredientsRequest } from './../types';
 import { BASE_URL, ENDPOINT } from "./constants";
 import {
   TServerResponse,
-  TRefreshTokenResponse,
   TUserResponse,
-  TIngredient,
+  TRefreshTokenResponse,
   TOrderNumber,
-  TForgotPasswordForm, TIngredientConstructor,
-  TLoginForm,
-  TProfileForm,
-  TRegisterForm,
-  TResetPasswordForm
-} from "./types";
+  TForgotPasswordForm,
+} from "../types";
 
 
 export const checkResponse = <T>(res: Response): Promise<T> => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-export function getIngredients(): Promise<TServerResponse<TIngredient[]>> {
-  return fetch(BASE_URL + ENDPOINT.INGREDIENTS).then<TServerResponse<TIngredient[]>>(checkResponse);
+export function getIngredients(): Promise<TServerResponse<TIngredientsRequest>> {
+  return fetch(BASE_URL + ENDPOINT.INGREDIENTS).then<TServerResponse<TIngredientsRequest>>(checkResponse);
 }
 
-export const postOrder = ({ ingredients }: { ingredients: TIngredientConstructor[]}): Promise<TServerResponse<TOrderNumber>> => {
+export const postOrder = (ingredients : string[]): Promise<TServerResponse<TOrderNumber>> => {
+  const accessToken = localStorage.getItem('accessToken');
+  const headers: HeadersInit = {
+    "Content-Type": "application/json",
+  };
+
+  if (accessToken) {
+    headers["Authorization"] = accessToken;
+  }
+
   return fetch(BASE_URL + ENDPOINT.ORDERS, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: headers,
     body: JSON.stringify({ ingredients }),
   }).then<TServerResponse<TOrderNumber>>(checkResponse);
 };
 
-export const registerRequest = ({ name, email, password }: TRegisterForm) => {
+export const registerRequest = ({ name, email, password }: IFormEntryData): Promise<TServerResponse<TUserResponse>> => {
   return fetch(BASE_URL + ENDPOINT.REGISTER, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ name, email, password }),
-  }).then(checkResponse);
+  }).then<TServerResponse<TUserResponse>>(checkResponse);
 };
 
-export const loginRequest = ({ email, password }: TLoginForm): Promise<TServerResponse<TUserResponse>> => {
+export const loginRequest = ({ email, password }: IFormEntryData): Promise<TServerResponse<TUserResponse >>  => {
   return fetch(BASE_URL + ENDPOINT.LOGIN, {
     method: "POST",
     headers: {
@@ -67,7 +71,7 @@ export const getUserRequest = (): Promise<TUserResponse> => {
   });
 };
 
-export const updateUserRequest = ({ name, email, password }: TProfileForm): Promise<TUserResponse> => {
+export const updateUserRequest = ({ name, email, password }: IFormEntryData): Promise<TUserResponse> => {
   const accessToken = localStorage.getItem("accessToken");
   const headers: HeadersInit = {
     "Content-Type": "application/json",
@@ -95,7 +99,7 @@ export const forgotPasswordRequest = ({ email }: TForgotPasswordForm) => {
 };
 
 
-export const resetPasswordRequest = ({ token, password }: TResetPasswordForm) => {
+export const resetPasswordRequest = ({ token, password }: IFormEntryData) => {
   return fetch(BASE_URL + ENDPOINT.RESET_PASSWORD, {
     method: "POST",
     headers: {
@@ -157,3 +161,4 @@ export const logoutRequest = () => {
     body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
   }).then(checkResponse);
 };
+

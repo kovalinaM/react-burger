@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/types";
 
 import {
   Button,
@@ -12,6 +12,7 @@ import styles from "../register/register.module.css";
 import { resetPassword } from "../../services/actions/reset-password";
 import { useIsAuthenticated } from "../../utils/selectors";
 import { useForm } from "../../hocs/useForm";
+import { TResetPasswordForm } from "../../types";
 
 const getForgotPasswordSuccess = ( store: any ) => store.auth.forgotPasswordSuccess;
 const getResetPasswordError = ( store: any ) => store.auth.resetPasswordError
@@ -31,8 +32,7 @@ export function ResetPasswordPage() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(
-        //@ts-ignore
-        resetPassword(values)
+        resetPassword(values as TResetPasswordForm) 
     );
   }
 

@@ -1,21 +1,20 @@
 import React, { SyntheticEvent, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/types";
 import {
   Button,
-  Input,
-  PasswordInput,
+  Input
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile-edit.module.css";
 
 import { editProfile } from "../../services/actions/profile";
 import { useForm } from "../../hocs/useForm";
+import { TProfileForm } from "../../types";
 
-const getUser = (store: any) => store.auth.user;
 
 export function ProfileEdit() {
   const dispatch = useDispatch();
 
-  const { name, email, password } = useSelector(getUser);
+  const { name, email, password } = useSelector((store) => store.auth.user);
 
   const { values, handleChange, setValues } = useForm({
     name: name || "",
@@ -45,8 +44,7 @@ export function ProfileEdit() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(
-        //@ts-ignore
-        editProfile(values)
+        editProfile(values as TProfileForm)
     );
   }
   function onFocus(evt: React.FocusEvent<HTMLInputElement>) {

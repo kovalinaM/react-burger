@@ -1,5 +1,5 @@
 import { NavLink, useLocation, Outlet } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/types";
 import styles from "./profile.module.css";
 
 import { logout } from "../../services/actions/profile";
@@ -10,7 +10,6 @@ export function ProfilePage() {
 
   function onLogout() {
     dispatch(
-        //@ts-ignore
         logout()
     );
   }
@@ -54,6 +53,11 @@ export function ProfilePage() {
           <p className="text text_type_main-small text_color_inactive">
             В этом разделе вы можете изменить свои персональные данные
           </p>
+        ) : null}
+        {pathname === "/profile/orders" ? (
+            <p className="text text_type_main-small text_color_inactive">
+              В этом разделе вы можете просмотреть свою историю заказов
+            </p>
         ) : null}
       </aside>
       <Outlet />
