@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import {
   ConstructorElement,
   CurrencyIcon,
@@ -69,16 +69,13 @@ const BurgerConstructor: FC = () => {
   }
 
   function createOrderHandler() {
-    if (isAuthenticated && bun){
-    const order = [bun._id, ...ingredients.map((ingredient: TIngredientConstructor) => ingredient._id), bun._id]
-    
-      dispatch(openOrderDetailsModal())
-      dispatch(
-          createOrder(order)
-      );
-
-    } else {
+    if (!isAuthenticated) {
       navigate('/login')
+    }
+    if (bun){
+      dispatch(openOrderDetailsModal());
+      const order = [bun._id, ...ingredients.map((ingredient: TIngredientConstructor) => ingredient._id), bun._id]
+      dispatch(createOrder(order));
     }
   }
 
@@ -95,7 +92,7 @@ const BurgerConstructor: FC = () => {
 
   return (
     <section className={`${styles.constructor} mt-25 mb-10`} >
-      <div className={styles.ingredients_container} ref={dropRef} style={{borderColor}}>
+      <div className={styles.ingredients_container} ref={dropRef} style={{borderColor}}  data-test="constructor">
         {bun ? (
           <div className={`${styles.bun} ml-8`}>
             <ConstructorElement
@@ -139,12 +136,13 @@ const BurgerConstructor: FC = () => {
       </div>
       <div className={`${styles.total} mt-10`}>
         <div className={styles.value}>
-          <span className="text text_type_main-large">
+          <span className="text text_type_main-large" data-test="total-price">
             {totalPrice}
           </span>
           <CurrencyIcon type="primary" />
         </div>
         <Button
+          data-test="order-btn"
           onClick={createOrderHandler}
           htmlType="button"
           type="primary"
@@ -153,6 +151,7 @@ const BurgerConstructor: FC = () => {
         >
           Оформить заказ
         </Button>
+        
         {modalIsActive && (
           <Modal onClose={handleCloseModal}>
             <OrderDetails />

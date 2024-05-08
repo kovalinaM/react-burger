@@ -28,7 +28,7 @@ const IngredientDetails: FC = () => {
   } 
 
   return (
-    <div className={styles.product_card}>
+    <div className={styles.product_card} data-test="ingredient-details">
       <img
         src={selectedIngredient.image_large}
         alt={selectedIngredient.name}

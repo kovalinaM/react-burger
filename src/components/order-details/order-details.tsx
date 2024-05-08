@@ -9,14 +9,24 @@ const OrderDetails: FC = () => {
     const orderId = useSelector((store) => store.order.orderId);
     const isLoading = useSelector((store) => store.order.isLoading);
     const error = useSelector((store) => store.order.error);
+
+    if (isLoading) {
+        return (
+            <Preloader header={"Заказ отправляется..."}/>
+        )
+    } 
+
+    if(error) {
+        return (
+            <p className={styles.order_text + " pt-7 pb-30 text text_type_main-small"}>При отправке заказа произошла ошибка. Попробуйте еще раз</p>
+        )
+    }
     
     return (
         <div className={styles.order_content}>
-            {isLoading &&  <Preloader header={"Заказ отправляется..."}/>}
-            {error && <p className={styles.order_text + " pt-7 pb-30 text text_type_main-small"}>При отправке заказа произошла ошибка. Попробуйте еще раз</p>}
             {!isLoading && !error && orderId &&
                 <>
-                    <p className="text text_type_digits-large mb-8">{orderId}</p>
+                    <p className="text text_type_digits-large mb-8"  data-test="order-number">{orderId}</p>
                     <p className={styles.identificator_size + " text text_type_main-medium mb-15"}>идентификатор заказа</p>
                     <img src={imageDone} alt="Done" width="120" height="120" className="mb-15"/>
                     <div className={styles.order_text + " pt-7 pb-30 text text_type_main-small"}>
