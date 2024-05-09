@@ -16,7 +16,6 @@
   <li>WebSocket</li>
   <li>React Router</li>
   <li>React DnD</li>
-  <li>CSS Modules</li>
 </ul>
 
 ## Как запустить проект
@@ -37,7 +36,7 @@ npm run start
 <li>
   <p>Тестирование бизнес-логики приложения:</p>
 <pre>
-npm test
+npm run test
 </pre>
 </li>
 <li>
