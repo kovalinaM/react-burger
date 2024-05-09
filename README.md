@@ -43,7 +43,7 @@ npm test
 <li>
   <p>Функциональное тестирование с использованием Cypress:</p>
 <pre>
-npm run cypress
+npm run cy:open
 </pre>
 </li>
 </ul>
