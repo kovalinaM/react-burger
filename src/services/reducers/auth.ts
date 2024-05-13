@@ -66,7 +66,7 @@ type TAuthActions =
   | TProfileActions
 
 
-const InitialState: TAuthState  = {
+export const InitialState: TAuthState  = {
   isAuthenticated: false,
 
   user: {

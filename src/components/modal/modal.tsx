@@ -27,7 +27,7 @@ const Modal: FC<TModal> = ({ children, header, onClose } ) => {
       <div className={styles.modal_content}>
         <div className={`${styles.modal_header}  pt-10 pl-10 pr-10`}>
           <h1 className="text text_type_main-large">{header}</h1>
-          <div className={styles.btn_close}>
+          <div className={styles.btn_close} data-test="close-button">
             <CloseIcon type="primary" onClick={onClose} />
           </div>
         </div>

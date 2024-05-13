@@ -14,7 +14,7 @@ type TOrderState = {
     modalIsActive: boolean;
 }
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
     modalIsActive: false,
     error: false,
     isLoading: false,

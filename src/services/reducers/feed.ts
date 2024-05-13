@@ -11,11 +11,10 @@ type TFeedState = {
     selectedOrder: TCorrectOrder | null;
   }
   
-  const initialState: TFeedState = {
+export const initialState: TFeedState = {
     orders: [],
     selectedOrder: null,
-
-  };
+};
   
   export const feedReducer = (state = initialState, action: TFeedActions) => {
     switch (action.type) {

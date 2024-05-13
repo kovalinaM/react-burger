@@ -14,9 +14,9 @@ interface TCategory {
 const IngredientsCategory: FC<TCategory> = ({ title, type, ingredients, onSelect }) => {
 
   return (
-    <div id={`${type}`} className="mt-10">
+    <div id={`${type}`} className="mt-10"  data-test={type}>
       <h2 className="text text_type_main-medium mb-6">{title}</h2>
-      <ul className={`${styles.list} mt-6`}>
+      <ul className={`${styles.list} mt-6`} data-test="content">
         {ingredients.map((ingredient: TIngredient) => (
             <BurgerIngredient key={ingredient._id} ingredient={ingredient} onSelect={onSelect} />
         ))}
