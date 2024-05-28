@@ -1,7 +1,5 @@
 <h1 align="center">Космическая бургерная Stellar Burger</h1>
 <h3 align="center">
-  <a href="https://kovalina.nomoredomainswork.ru/" title="Link">Demo (деплой на сервере)</a> 
-  •
   <a href="https://kovalinam.github.io/react-burger/">GitHubPages</a>
 </h3>
 <h2>О проекте</h2>
